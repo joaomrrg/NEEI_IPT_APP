@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NEEI_IPT</string>
+    <string name="open_menu">Abrir Menu de Navegação</string>
+    <string name="close_menu">Fechar Menu de Navegação</string>
 </resources>

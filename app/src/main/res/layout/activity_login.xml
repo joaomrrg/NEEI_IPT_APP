@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    tools:context=".Splash">
+
+    <ImageView
+        android:id="@+id/cores"
+        android:layout_width="422dp"
+        android:layout_height="157dp"
+        android:src="@drawable/cores"></ImageView>
+
+    <ImageView
+        android:id="@+id/logo_final"
+        android:layout_width="422dp"
+        android:layout_height="300dp"
+        android:src="@drawable/logo_final"></ImageView>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input"
+        android:hint="Utilizador"
+        android:paddingLeft="20dp"></EditText>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input"
+        android:hint="Password"
+        android:paddingLeft="20dp"></EditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recuperar Password"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="-20dp"
+        ></TextView>
+
+    <Button
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#11568C"
+        android:text="Login"></Button>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registar"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        ></TextView>
+
+
+
+
+</LinearLayout>
