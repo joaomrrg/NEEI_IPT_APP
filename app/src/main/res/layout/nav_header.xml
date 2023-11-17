@@ -5,6 +5,7 @@
     android:layout_height="176dp"
     android:gravity="bottom"
     android:padding="16dp"
-    android:background="@drawable/cores">
+    android:background="@drawable/nav_header"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

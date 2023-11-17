@@ -14,11 +14,14 @@
         android:layout_height="157dp"
         android:src="@drawable/cores"></ImageView>
 
-    <ImageView
-        android:id="@+id/logo_final"
-        android:layout_width="422dp"
-        android:layout_height="300dp"
-        android:src="@drawable/logo_final"></ImageView>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input"
+        android:hint="Nome"
+        android:paddingLeft="20dp"></EditText>
 
     <EditText
         android:layout_width="wrap_content"
@@ -26,7 +29,16 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/input"
-        android:hint="Utilizador"
+        android:hint="Apelido"
+        android:paddingLeft="20dp"></EditText>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input"
+        android:hint="Email"
         android:paddingLeft="20dp"></EditText>
 
     <EditText
@@ -38,32 +50,24 @@
         android:hint="Password"
         android:paddingLeft="20dp"></EditText>
 
-    <TextView
-        android:id="@+id/recuperar_label"
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Recuperar Password"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="-20dp"
-        ></TextView>
+        android:background="@drawable/input"
+        android:hint="Repetir Password"
+        android:paddingLeft="20dp"></EditText>
+
 
     <Button
         android:layout_width="360dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="125dp"
         android:backgroundTint="#11568C"
-        android:text="Login"></Button>
+        android:text="Registar"></Button>
 
-    <TextView
-        android:id="@+id/registar_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Registar"
-        android:layout_gravity="center"
-        android:textStyle="bold"
-        ></TextView>
 
 
 
