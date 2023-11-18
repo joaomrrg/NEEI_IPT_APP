@@ -12,9 +12,24 @@
             android:title="Início"/>
 
         <item
-            android:id="@+id/nav_money"
-            android:icon="@drawable/icon_money"
-            android:title="Conta"/>
+            android:id="@+id/nav_eventos"
+            android:icon="@drawable/icon_eventos"
+            android:title="Eventos NEEI"/>
+
+        <item
+            android:id="@+id/nav_calendario"
+            android:icon="@drawable/icon_calendario"
+            android:title="Calendário"/>
+
+        <item
+            android:id="@+id/nav_equipa"
+            android:icon="@drawable/icon_equipa"
+            android:title="Equipa"/>
+
+        <item
+            android:id="@+id/nav_membro"
+            android:icon="@drawable/icon_membro"
+            android:title="Torna-te membro"/>
 
         <item
             android:id="@+id/nav_settings"
@@ -24,9 +39,27 @@
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/icon_about"
-            android:title="Sobre"/>
+            android:title="Sobre nós"/>
+
 
     </group>
+
+    <item
+        android:title="Admin">
+
+        <menu>
+            <item
+                android:id="@+id/nav_money"
+                android:icon="@drawable/icon_money"
+                android:title="Conta"/>
+
+            <item
+                android:icon="@drawable/icon_user"
+                android:title="Utilizadores"/>
+
+        </menu>
+    </item>
+
 
     <item
         android:title="">
