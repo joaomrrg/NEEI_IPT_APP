@@ -1,9 +1,9 @@
 package pt.ipt.dam2023.neei_ipt
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 
 
 class Splash : AppCompatActivity() {
