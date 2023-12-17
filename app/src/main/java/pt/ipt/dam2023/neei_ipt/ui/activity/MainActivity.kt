@@ -2,7 +2,10 @@ package pt.ipt.dam2023.neei_ipt.ui.activity
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import pt.ipt.dam2023.neei_ipt.R
@@ -14,7 +17,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /*drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
 
         var toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbars)
         setSupportActionBar(toolbar)
@@ -32,7 +35,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.addDrawerListener(toggle)
 
         toggle.syncState()
-
+/*
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, HomeFragment()).commit()
@@ -54,14 +57,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             drawerLayout.closeDrawer(GravityCompat.START)
             return true
         }
-
+*/
         fun onBackPressed() {
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.closeDrawer(GravityCompat.START)
             } else {
                 onBackPressedDispatcher.onBackPressed()
             }
-        }*/
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

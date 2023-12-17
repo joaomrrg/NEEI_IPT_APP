@@ -106,7 +106,7 @@ class LoginActivity : AppCompatActivity() {
                     var result = response.body()
                     // Verificar os resultados
                     if (result == null){
-                        result = AuthResponse(null,null,null,response.code(),null)
+                        result = AuthResponse(null,null,null,null,response.code(),null)
                     }else{
                         result.code = response.code()
                     }
