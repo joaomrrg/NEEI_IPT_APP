@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/activity_add_event_neei"
+    android:background="@color/backgroundnight">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/calendar_nav"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Eventos"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:gravity="center"
+            android:padding="10dp"
+            />
+
+        <TextView
+            android:id="@+id/neei_gradient"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="NEEI"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:gravity="center"
+            />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/calendar_nav"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+
+            <TextView
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="25dp"
+                android:gravity="center"
+                android:padding="10dp"
+                />
+
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="25dp"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/calenderView"
+        android:layout_width="match_parent"
+        android:layout_margin="30dp"
+        android:layout_height="250dp"
+        app:compactCalendarTargetHeight="250dp"
+        app:compactCalendarTextSize="15sp"
+        app:compactCalendarBackgroundColor="@color/backgroundnight"
+        app:compactCalendarTextColor="#fff"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/blue"
+        app:compactCalendarCurrentDayBackgroundColor="#B71C1C"
+        app:compactCalendarMultiEventIndicatorColor="#fff"
+        />
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Other layout elements -->
+
+        <FrameLayout
+            android:id="@+id/anchor_bottom_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:src="@android:drawable/ic_input_add"
+                app:fabSize="normal"
+                app:maxImageSize="40dp"
+                style="@style/mainfloating"
+                android:backgroundTint="@color/blue"
+                app:layout_anchor="@id/anchor_bottom_right"
+                app:layout_anchorGravity="bottom|end"/>
+
+        </FrameLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

@@ -11,4 +11,6 @@
 
     <color name="blue">#4E75EE</color>
     <color name="backgroundnight">#2b2b2b</color>
+
+    <color name="calendar_nav">#383838</color>
 </resources>
