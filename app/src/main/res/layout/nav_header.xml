@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="120dp"
+    android:layout_marginTop="22dp"
     android:gravity="bottom"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
@@ -17,14 +18,15 @@
         android:id="@+id/username_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User"
         android:textColor="@color/black"
+        android:text="User"
         android:textSize="20dp"
         android:layout_toRightOf="@id/imageView"
         android:layout_marginTop="5dp"
         android:layout_marginStart="16dp"/>
 
     <TextView
+        android:id="@+id/cargo_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="NEEI"

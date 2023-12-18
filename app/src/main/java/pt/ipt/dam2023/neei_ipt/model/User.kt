@@ -33,6 +33,8 @@ data class AuthResponse(
     @SerializedName("name") val name: String?,
     @SerializedName("surname") val surname: String?,
     @SerializedName("role") val role: Int?,
+    @SerializedName("roleDescription") val roleDescription: String?,
+    @SerializedName("image") val image: String?,
     @SerializedName("code") var code: Int?,
     @SerializedName("errorMessage") var errorMessage: String?)
 

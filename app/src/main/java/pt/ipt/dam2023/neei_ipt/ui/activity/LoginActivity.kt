@@ -61,6 +61,8 @@ class LoginActivity : AppCompatActivity() {
                         ps.println(result.name)
                         ps.println(result.surname)
                         ps.println(result.role)
+                        ps.println(result.roleDescription)
+                        ps.println("https://neei.eu.pythonanywhere.com/images/"+result.image)
                         ps.close()
                         fo.close()
                         Log.i("Internal Storage","Dados inseridos com sucesso")
@@ -122,7 +124,7 @@ class LoginActivity : AppCompatActivity() {
                     var result = response.body()
                     // Verificar os resultados
                     if (result == null){
-                        result = AuthResponse(null,null,null,null,response.code(),null)
+                        result = AuthResponse(null,null,null,null,null,null,response.code(),null)
                     }else{
                         result.code = response.code()
                     }

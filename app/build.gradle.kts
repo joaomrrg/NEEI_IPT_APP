@@ -42,6 +42,8 @@ dependencies {
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("com.squareup.retrofit2:retrofit:2.3.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.3.0")
+    implementation ("com.github.bumptech.glide:glide:5.0.0-rc01")
+    annotationProcessor ("com.github.bumptech.glide:compiler:5.0.0-rc01")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
