@@ -16,6 +16,10 @@ import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
+import java.io.FileOutputStream
+import java.io.PrintStream
+
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +52,18 @@ class LoginActivity : AppCompatActivity() {
                 if (result != null) {
                     // Utilizador autenticado com sucesso
                     if (result.code == 200) {
+                        // Guarda informações no Internal Storage
+                        val directory: File = getFilesDir()
+                        val file: File = File(directory, "dados.txt")
+                        val fo: FileOutputStream = FileOutputStream(file)
+                        val ps: PrintStream = PrintStream(fo)
+                        ps.println(user.username)
+                        ps.println(result.name)
+                        ps.println(result.surname)
+                        ps.println(result.role)
+                        ps.close()
+                        fo.close()
+                        Log.i("Internal Storage","Dados inseridos com sucesso")
                         Toast.makeText(this, "Bem-vindo, ${result.name} ${result.surname}", Toast.LENGTH_LONG).show()
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
@@ -71,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
      * Função para listar todos os utilizadores do sistema
      */
     private fun getUsers(){
-        val call = RetrofitInitializer().APIService().list()
+        val call = RetrofitInitializer().APIService().listUsers()
         call.enqueue(object : Callback<List<User>?> {
             override fun onResponse(call: Call<List<User>?>?,
                                     response: Response<List<User>?>?) {

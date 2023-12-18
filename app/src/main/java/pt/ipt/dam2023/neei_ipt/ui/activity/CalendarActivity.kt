@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,13 @@ import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import com.github.sundeepk.compactcalendarview.domain.Event
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import pt.ipt.dam2023.neei_ipt.R
+import pt.ipt.dam2023.neei_ipt.model.AuthResponse
+import pt.ipt.dam2023.neei_ipt.model.CalendarWithColor
+import pt.ipt.dam2023.neei_ipt.model.User
+import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -26,6 +34,8 @@ class CalendarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar_neei)
+
+
 
         val buttonzinho = findViewById<FloatingActionButton>(R.id.floatingActionButton)
 
@@ -60,9 +70,28 @@ class CalendarActivity : AppCompatActivity() {
         // Localização do CompactCalendarView no layout
         compactCalendar = findViewById(R.id.calenderView)
 
-        // Adição de um evento ao calendário (Dia do Profissional de Educação)
-        val ev1 = Event(Color.RED, 1702952303000L, "Dia do Profissional de Educação")
-        compactCalendar.addEvent(ev1)
+        // Adiciona os eventos listados da bd no calendario
+        getEvents{ result ->
+            if (result != null) {
+                if (result.isNotEmpty()){
+                    //Lista todos os eventos
+                    for (evento in result){
+                        // Obtem o int da cor
+                        val colorInt = Color.parseColor(evento.color)
+                        // Cria um objeto evento
+                        val ev1 = Event(colorInt, evento.initialDate.time, evento.description)
+                        //Adiciona ao calendario o evento
+                        compactCalendar.addEvent(ev1)
+                    }
+                }else{
+                    Log.i("Calendar","Lista vazia")
+                }
+            }else{
+                // Erro não identificado / Falha no servidor
+                Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
+            }
+
+        }
 
         // Definição de um ouvinte para os eventos do CompactCalendarView (onDayClick e onMonthScroll)
         compactCalendar.setListener(object : CompactCalendarView.CompactCalendarViewListener {
@@ -82,17 +111,15 @@ class CalendarActivity : AppCompatActivity() {
             }
         })
 
-        // Localização do CompactCalendarView novamente (não é necessário, já encontrado acima)
-        val compactCalendarView: CompactCalendarView = findViewById(R.id.calenderView)
-
         // Localização dos TextViews para exibir o ano e o mês
         val yearTextView: TextView = findViewById(R.id.year)
         val monthTextView: TextView = findViewById(R.id.month)
 
         // Definição de um ouvinte para os eventos do CompactCalendarView (onMonthScroll)
-        compactCalendarView.setListener(object : CompactCalendarView.CompactCalendarViewListener {
+        compactCalendar.setListener(object : CompactCalendarView.CompactCalendarViewListener {
             override fun onDayClick(dateClicked: Date?) {
                 // Lidar com o clique no dia, se necessário
+
             }
 
             override fun onMonthScroll(firstDayOfNewMonth: Date?) {
@@ -107,6 +134,23 @@ class CalendarActivity : AppCompatActivity() {
                     yearTextView.text = year.toString()
                     monthTextView.text = SimpleDateFormat("MMMM", Locale.getDefault()).format(it)
                 }
+            }
+        })
+    }
+
+    private fun getEvents(onResult: (List<CalendarWithColor>?) -> Unit){
+        val call = RetrofitInitializer().APIService().listEvents()
+        call.enqueue(object : Callback<List<CalendarWithColor>?> {
+            override fun onResponse(call: Call<List<CalendarWithColor>?>?,
+                                    response: Response<List<CalendarWithColor>?>?) {
+                response?.body()?.let {
+                    val events: List<CalendarWithColor> = it
+                    onResult(events)
+                }
+            }
+
+            override fun onFailure(call: Call<List<CalendarWithColor>?>, t: Throwable) {
+                t?.message?.let { Log.e("onFailure error", it) }
             }
         })
     }

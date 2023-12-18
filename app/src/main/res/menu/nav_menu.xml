@@ -46,6 +46,7 @@
     </group>
 
     <item
+        android:id="@+id/adminMenu"
         android:title="Admin">
 
         <menu>
