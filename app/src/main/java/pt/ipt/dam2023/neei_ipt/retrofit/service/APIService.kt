@@ -6,6 +6,7 @@ import pt.ipt.dam2023.neei_ipt.model.Calendar
 import pt.ipt.dam2023.neei_ipt.model.CalendarRequest
 import pt.ipt.dam2023.neei_ipt.model.CalendarResponse
 import pt.ipt.dam2023.neei_ipt.model.CalendarWithColor
+import pt.ipt.dam2023.neei_ipt.model.Document
 import pt.ipt.dam2023.neei_ipt.model.Group
 import pt.ipt.dam2023.neei_ipt.model.RegisterRequest
 import pt.ipt.dam2023.neei_ipt.model.User
@@ -20,6 +21,12 @@ interface APIService {
          */
         @GET("users")
         fun listUsers(): Call<List<User>>
+
+        /**
+         * Recebe a lista de todos a documentação públic do NEEI
+         */
+        @GET("documents")
+        fun listDocs(): Call<List<Document>>
 
         /**
          * Recebe a lista de todos os eventos do calendário do sistema

@@ -15,7 +15,7 @@ class SplashActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         Handler().postDelayed({
-            val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+            val intent = Intent(this@SplashActivity, DocumentActivity::class.java)
             startActivity(intent)
             finish() // Optional, depending on whether you want to finish the splash screen activity or not
         }, 2000)

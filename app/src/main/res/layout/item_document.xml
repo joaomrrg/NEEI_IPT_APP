@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Título do Documento -->
+    <TextView
+        android:id="@+id/documentTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Título do Documento"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
+
+    <!-- Descrição do Documento -->
+    <TextView
+        android:id="@+id/documentDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descrição do Documento"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"/>
+
+    <!-- Data do Documento -->
+    <TextView
+        android:id="@+id/documentDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="01/01/2023"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"/>
+
+    <!-- ImageView com ícone de Download -->
+    <ImageView
+        android:id="@+id/downloadButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_download"
+        android:contentDescription="Download"
+        android:layout_gravity="end"
+        android:layout_marginTop="4dp"/>
+
+</LinearLayout>
