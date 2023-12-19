@@ -24,4 +24,12 @@
         <item name="cornerFamilyBottomLeft">rounded</item>
         <item name="cornerFamilyBottomRight">rounded</item>
     </style>
+
+    <style name="DatePickerTextColor" parent="Theme.AppCompat.Light">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:backgroundTint">@color/blue</item>
+        <item name="android:dayOfWeekTextAppearance">@color/white</item>
+        <item name="android:dayOfWeekBackground">@color/white</item>
+        <!-- You can define other attributes as needed -->
+    </style>
 </resources>

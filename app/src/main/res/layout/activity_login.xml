@@ -56,7 +56,7 @@
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:backgroundTint="#11568C"
+        android:backgroundTint="#19568C"
         android:text="Login"></Button>
 
     <TextView
