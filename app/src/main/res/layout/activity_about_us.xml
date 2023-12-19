@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Núcleo de Engenharia Informática do Instituto Politécnico de Tomar -->
+
+        <!-- Título "Sobre Nós" -->
+        <ImageView
+            android:id="@+id/imgNucleo"
+            android:layout_width="425dp"
+            android:layout_height="380dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo_final" />
+
+        <TextView
+            android:id="@+id/tvSobreNosTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Sobre Nós"
+            android:textStyle="bold"
+            android:layout_below="@id/imgNucleo"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Descrição do Núcleo -->
+        <TextView
+            android:id="@+id/tvNucleoDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textoNEII"
+            android:layout_below="@id/tvSobreNosTitle"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Título "Onde Estamos?" -->
+        <TextView
+            android:id="@+id/tvOndeEstamosTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Onde Estamos?"
+            android:textStyle="bold"
+            android:layout_below="@id/tvNucleoDescription"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Texto com a morada -->
+        <TextView
+            android:id="@+id/tvMorada"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Instituto Politécnico de Tomar\nBloco I - Sala ?"
+            android:layout_below="@id/tvOndeEstamosTitle"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Título "Desenvolvedores" -->
+        <TextView
+            android:id="@+id/tvDevelopersTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Desenvolvedores"
+            android:layout_below="@id/tvMorada"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Imagem e Nome do Desenvolvedor 1 - Gonçalo Costa -->
+        <LinearLayout
+            android:id="@+id/llGoncalo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/tvDevelopersTitle">
+
+            <!-- A imagem será carregada programaticamente no código Kotlin -->
+            <ImageView
+                android:id="@+id/imageGoncalo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/icon_equipa" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gonçalo Costa"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+        <!-- Imagem e Nome do Desenvolvedor 2 - João Gonçalves -->
+        <LinearLayout
+            android:id="@+id/llJoao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llGoncalo"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageJoao"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/icon_equipa" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:text="João Gonçalves" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</ScrollView>

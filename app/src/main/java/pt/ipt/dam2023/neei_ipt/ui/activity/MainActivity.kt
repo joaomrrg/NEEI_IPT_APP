@@ -104,6 +104,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_logout -> {
                 terminarSessao()
             }
+            R.id.nav_about -> {
+                // Crie um Intent para a nova Activity
+                val intent = Intent(this, AboutUsActivity::class.java)
+                // Inicie a nova Activity
+                startActivity(intent)
+            }
         }
 
         drawerLayout.closeDrawer(GravityCompat.START)

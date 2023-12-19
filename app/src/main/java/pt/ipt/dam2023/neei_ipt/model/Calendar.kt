@@ -3,6 +3,9 @@ package pt.ipt.dam2023.neei_ipt.model
 import com.google.gson.annotations.SerializedName
 import java.util.Date
 
+/**
+ * Descreve um evento no calendário da aplicação
+ */
 data class Calendar (
     @SerializedName("id") val id: Int,
     @SerializedName("description") val description: String,
@@ -11,6 +14,9 @@ data class Calendar (
     @SerializedName("groupId") val groupId: Int
 )
 
+/**
+ * API - Atributos recebidos sobre um evento no calendario
+ */
 data class CalendarWithColor(
     @SerializedName("id") val id: Int,
     @SerializedName("description") val description: String,
@@ -20,6 +26,9 @@ data class CalendarWithColor(
     @SerializedName("color") val color: String?
 )
 
+/**
+ * API - Atributos que são requeridos num POST para adicionar um evento no calendario
+ */
 data class CalendarRequest (
     @SerializedName("description") val description: String?,
     @SerializedName("initialDate") val initialDate: String?,

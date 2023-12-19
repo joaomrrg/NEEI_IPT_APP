@@ -118,7 +118,9 @@ class CalendarEvent : AppCompatActivity() {
         }
     }
 
-    // Obtem lista de grupos
+    /**
+     * Obtem lista de grupos
+     */
     private fun getGroups(onResult: (List<Group?>) -> Unit) {
         val call = RetrofitInitializer().APIService().listGroups()
         call.enqueue(object : Callback<List<Group>?> {
@@ -136,7 +138,7 @@ class CalendarEvent : AppCompatActivity() {
     }
 
     /**
-     * Função para autenticar um utilizador
+     * Função para adicionar um evento ao calenddário
      */
     private fun addEventToCalendar(event: CalendarRequest, onResult: (CalendarResponse?) -> Unit) {
         // Faz a chamada a API
