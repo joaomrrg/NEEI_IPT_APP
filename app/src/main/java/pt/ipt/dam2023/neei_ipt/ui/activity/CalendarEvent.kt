@@ -1,5 +1,7 @@
 package pt.ipt.dam2023.neei_ipt.ui.activity
 
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
@@ -8,13 +10,23 @@ import android.widget.DatePicker
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.github.sundeepk.compactcalendarview.domain.Event
 import pt.ipt.dam2023.neei_ipt.R
+import pt.ipt.dam2023.neei_ipt.model.AuthRequest
+import pt.ipt.dam2023.neei_ipt.model.AuthResponse
+import pt.ipt.dam2023.neei_ipt.model.CalendarRequest
+import pt.ipt.dam2023.neei_ipt.model.CalendarResponse
+import pt.ipt.dam2023.neei_ipt.model.Group
 import pt.ipt.dam2023.neei_ipt.model.User
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
+import java.io.FileOutputStream
+import java.io.PrintStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -30,12 +42,28 @@ class CalendarEvent : AppCompatActivity() {
         val datePicker = findViewById<DatePicker>(R.id.datepicker)
         val eventName = findViewById<TextView>(R.id.nomeevento)
         val spinner = findViewById<Spinner>(R.id.spinner)
+        getGroups { result ->
+            if (result != null) {
+                if (result.isNotEmpty()) {
+                    //Lista todos os eventos
+                    for (it in result) {
+                        // Lista todos os eventos
+                        val groupDescriptions = result.map { it?.description }.toTypedArray()
 
-        // Configuração do adaptador do Spinner com as opções
-        val options = arrayOf("Opção 1", "Opção 2", "Opção 3") //-------!!listGroups()!!--------elementos da dropdown
-        val adapter = ArrayAdapter(this, R.layout.custom_spinner, options)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
+                        // Configuração do adaptador do Spinner com as opções da API
+                        val adapter = ArrayAdapter(this, R.layout.custom_spinner, groupDescriptions)
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        spinner.adapter = adapter
+
+                    }
+                } else {
+                    Log.i("Calendar", "Lista vazia")
+                }
+            } else {
+                // Erro não identificado / Falha no servidor
+                Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         // Ações ao carregar em 'Adicionar'
         addButton.setOnClickListener {
@@ -46,40 +74,98 @@ class CalendarEvent : AppCompatActivity() {
             val calendar = Calendar.getInstance()
             calendar.set(year, month, day)
 
-            // Data selecionada em milissegundos
-            val selectedDateInMillis = calendar.timeInMillis
-
             val timePicker = findViewById<TimePicker>(R.id.timepicker)
 
-            timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
-                val calendar = Calendar.getInstance()
-                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                calendar.set(Calendar.MINUTE, minute)
+            calendar.set(Calendar.HOUR_OF_DAY, timePicker.hour)
+            calendar.set(Calendar.MINUTE, timePicker.minute)
+            // horário escolhido como um objeto Date
+            val chosenTime: Date = calendar.time
 
-                // horário escolhido como um objeto Date
-                val chosenTime: Date = calendar.time
+            // Formatar a data como uma string no formato ISO 8601
+            val isoFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+            val formattedTime: String = isoFormat.format(calendar.time)
 
-                //horário em string conforme necessário "hh:mm a"
-                val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-                val formattedTime: String = timeFormat.format(chosenTime)
-            }
-        }
-    }
+            // Adicionar evento ao calendário
+            val evento = CalendarRequest(
+                eventName.text.toString(),
+                formattedTime,
+                null,
+                spinner.selectedItemPosition + 1
+            )
+            addEventToCalendar(evento) { result ->
+                if (result != null) {
+                    // Evento adicionado com sucesso
+                    if (result.code == 201) {
+                        Toast.makeText(this, "Evento adicionado com sucesso", Toast.LENGTH_LONG)
+                            .show()
+                        val intent = Intent(this, CalendarActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(
+                            this,
+                            "Não foi possível adicionar evento",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
-    // listGroups pááááááá
-    private fun getGroups() {
-        val call = RetrofitInitializer().APIService().listUsers()
-        call.enqueue(object : Callback<List<User>?> {
-            override fun onResponse(call: Call<List<User>?>?, response: Response<List<User>?>?) {
-                response?.body()?.let {
-                    val users: List<User> = it
-                    println(users)
+                    }
+                } else {
+                    // Erro não identificado / Falha no servidor
+                    Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
 
-            override fun onFailure(call: Call<List<User>?>, t: Throwable) {
+        }
+    }
+
+    // Obtem lista de grupos
+    private fun getGroups(onResult: (List<Group?>) -> Unit) {
+        val call = RetrofitInitializer().APIService().listGroups()
+        call.enqueue(object : Callback<List<Group>?> {
+            override fun onResponse(call: Call<List<Group>?>?, response: Response<List<Group>?>?) {
+                response?.body()?.let {
+                    val groups: List<Group?> = it
+                    onResult(groups)
+                }
+            }
+
+            override fun onFailure(call: Call<List<Group>?>, t: Throwable) {
                 t?.message?.let { Log.e("Erro onFailure", it) }
             }
         })
     }
+
+    /**
+     * Função para autenticar um utilizador
+     */
+    private fun addEventToCalendar(event: CalendarRequest, onResult: (CalendarResponse?) -> Unit) {
+        // Faz a chamada a API
+        val call = RetrofitInitializer().APIService().addEvent(event)
+        call.enqueue(
+            object : Callback<CalendarResponse> {
+                // Escreve uma log sobre o erro
+                override fun onFailure(call: Call<CalendarResponse>?, t: Throwable) {
+                    t?.message?.let { Log.e("onFailure error", it) }
+                    onResult(null)
+                }
+
+                // Recebe a response
+                override fun onResponse(
+                    call: Call<CalendarResponse>,
+                    response: Response<CalendarResponse>
+                ) {
+                    // Guarda o resultado json
+                    var result = response.body()
+                    // Verificar os resultados
+                    if (result == null) {
+                        result = CalendarResponse("", response.code())
+                    } else {
+                        result = CalendarResponse(response.message(), response.code())
+                    }
+                    onResult(result)
+                }
+            }
+        )
+    }
 }
+

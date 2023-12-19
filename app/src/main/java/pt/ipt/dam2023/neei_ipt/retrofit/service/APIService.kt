@@ -3,7 +3,10 @@ package pt.ipt.dam2023.neei_ipt.retrofit.service
 import pt.ipt.dam2023.neei_ipt.model.AuthRequest
 import pt.ipt.dam2023.neei_ipt.model.AuthResponse
 import pt.ipt.dam2023.neei_ipt.model.Calendar
+import pt.ipt.dam2023.neei_ipt.model.CalendarRequest
+import pt.ipt.dam2023.neei_ipt.model.CalendarResponse
 import pt.ipt.dam2023.neei_ipt.model.CalendarWithColor
+import pt.ipt.dam2023.neei_ipt.model.Group
 import pt.ipt.dam2023.neei_ipt.model.RegisterRequest
 import pt.ipt.dam2023.neei_ipt.model.User
 import retrofit2.Call
@@ -25,6 +28,12 @@ interface APIService {
         fun listEvents(): Call<List<CalendarWithColor>>
 
         /**
+         * Permite adicionar um novo evento ao calendário
+         */
+        @POST("calendar/")
+        fun addEvent(@Body request: CalendarRequest): Call<CalendarResponse>
+
+        /**
          * Permite a autenticação de um utilizador no sistema
          */
         @POST("auth/")
@@ -35,5 +44,13 @@ interface APIService {
          */
         @POST("users/")
         fun register(@Body request: RegisterRequest): Call<Void>
+
+        /**
+         * Recebe a lista de todos os grupos do sistema
+         */
+        @GET("groups")
+        fun listGroups(): Call<List<Group>>
+
+
 
 }

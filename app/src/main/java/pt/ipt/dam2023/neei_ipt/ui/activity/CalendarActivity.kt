@@ -10,21 +10,24 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import com.github.sundeepk.compactcalendarview.domain.Event
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import pt.ipt.dam2023.neei_ipt.R
-import pt.ipt.dam2023.neei_ipt.model.AuthResponse
 import pt.ipt.dam2023.neei_ipt.model.CalendarWithColor
-import pt.ipt.dam2023.neei_ipt.model.User
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import java.util.Scanner
 
 class CalendarActivity : AppCompatActivity() {
 
@@ -35,14 +38,33 @@ class CalendarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar_neei)
 
-
-
-        val buttonzinho = findViewById<FloatingActionButton>(R.id.floatingActionButton)
-
-        buttonzinho.setOnClickListener {
+        //Ponteiro para o botao de adicionar evento ao  calendário
+        val btnAddEvent = findViewById<FloatingActionButton>(R.id.floatingActionButton)
+        btnAddEvent.setOnClickListener {
             val intent = Intent(this, CalendarEvent::class.java)
             startActivity(intent)
         }
+        // Leitura da Internal Storage
+        val directory: File = filesDir
+        val file: File = File(directory, "dados.txt")
+        try {
+            val fi: FileInputStream = FileInputStream(file)
+            val sc: Scanner = Scanner(fi)
+            sc.nextLine()
+            sc.nextLine()
+            sc.nextLine()
+            // Guarda a role do user
+            val role =  sc.nextLine().toInt()
+            //Mostra o botao se for admin
+            btnAddEvent.isVisible = role==1 || role==2
+            sc.close()
+            fi.close()
+        } catch (e: FileNotFoundException) {
+            Toast.makeText(this, "File not found", Toast.LENGTH_LONG).show()
+        }
+
+
+
 
         // Declaração de uma variável local CompactCalendarView (não utilizada)
         lateinit var compactCalendar: CompactCalendarView
