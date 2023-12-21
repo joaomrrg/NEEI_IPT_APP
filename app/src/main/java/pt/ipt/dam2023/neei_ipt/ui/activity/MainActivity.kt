@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -42,6 +43,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Ponteiro para o TextView username no cabeçalho pelo ID
         val usernameText = headerView.findViewById<TextView>(R.id.username_text)
 
+        // Ponteiro para o Relative Layout onde aparece o username, image e cargo
+        val profileLayout = headerView.findViewById<RelativeLayout>(R.id.rlUser)
+        profileLayout.setOnClickListener {
+            // Crie um Intent para a nova Activity
+            val intent = Intent(this, ProfileActivity::class.java)
+            // Inicie a nova Activity
+            startActivity(intent)
+        }
         // Ponteiro para o TextView cargo no cabeçalho pelo ID
         val cargoText = headerView.findViewById<TextView>(R.id.cargo_text)
         val imageView = headerView.findViewById<ImageView>(R.id.imageView)

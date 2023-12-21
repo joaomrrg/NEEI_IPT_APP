@@ -14,6 +14,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface APIService {
         /**
@@ -58,6 +59,7 @@ interface APIService {
         @GET("groups")
         fun listGroups(): Call<List<Group>>
 
-
+        @GET("users/{id}")
+        fun getUserById(@Path("id") id: Int): Call<User>
 
 }

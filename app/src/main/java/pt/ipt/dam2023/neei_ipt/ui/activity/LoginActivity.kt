@@ -63,6 +63,7 @@ class LoginActivity : AppCompatActivity() {
                         ps.println(result.role)
                         ps.println(result.roleDescription)
                         ps.println("https://neei.eu.pythonanywhere.com/images/"+result.image)
+                        ps.println(result.id)
                         ps.close()
                         fo.close()
                         Log.i("Internal Storage","Dados inseridos com sucesso")
