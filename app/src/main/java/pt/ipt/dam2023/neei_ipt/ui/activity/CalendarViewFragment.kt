@@ -66,7 +66,7 @@ class CalendarViewFragment : Fragment() {
         // Formato de data para exibição do mês e ano
         val dateFormatMonth = SimpleDateFormat("MMMM- yyyy", Locale.getDefault())
 
-        // Exemplo de manipulação de um TextView com um gradiente
+        //manipulação de um TextView com um gradiente
         val gradient = view.findViewById<TextView>(R.id.neei_gradient)
         val paint = gradient.paint
         val width = paint.measureText(gradient.text.toString())

@@ -13,4 +13,11 @@
     <color name="backgroundnight">#2b2b2b</color>
 
     <color name="calendar_nav">#383838</color>
+
+    <color name="gradient1">#658abd</color>
+    <color name="gradient2">#416390</color>
+    <color name="gradient3">#1e3d5f</color>
+
+    <color name="stripeStart">#4D207DC3</color>
+    <color name="stripeEnd">#4B005EAD</color>
 </resources>

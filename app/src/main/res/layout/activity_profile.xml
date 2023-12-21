@@ -114,7 +114,8 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:text="Editar"/>
+                android:text="Editar"
+                android:backgroundTint="@color/blue"/>
 
             <Button
                 android:id="@+id/btnConfirm"
@@ -123,7 +124,9 @@
                 android:layout_weight="1"
                 android:enabled="false"
                 android:text="Confirmar Alterações"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:backgroundTint="@color/blue"
+                />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

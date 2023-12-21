@@ -3,6 +3,7 @@ package pt.ipt.dam2023.neei_ipt.ui.activity
 import AboutUsFragment
 import CalendarViewFragment
 import DocumentFragment
+import HomeFragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -31,6 +32,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val homeFrag = HomeFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, homeFrag)
+            .commit()
 
         drawerLayout = findViewById(R.id.drawer_layout)
 
@@ -104,8 +110,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> {
-                // Adicione o código para lidar com a seleção do item Home aqui
-
+                val homeFrag = HomeFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, homeFrag)
+                    .commit()
             }
             // Adicione outros casos conforme necessário
             R.id.nav_calendario -> {
