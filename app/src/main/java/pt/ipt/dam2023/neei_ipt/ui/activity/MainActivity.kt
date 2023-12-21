@@ -1,5 +1,6 @@
 package pt.ipt.dam2023.neei_ipt.ui.activity
 
+import AboutUsFragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,9 +12,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.core.view.isVisible
-import com.bumptech.glide.Glide
 import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import pt.ipt.dam2023.neei_ipt.R
 import java.io.File
@@ -114,10 +114,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 terminarSessao()
             }
             R.id.nav_about -> {
-                // Crie um Intent para a nova Activity
-                val intent = Intent(this, AboutUsActivity::class.java)
-                // Inicie a nova Activity
-                startActivity(intent)
+                val aboutUsFragment = AboutUsFragment() // Create an instance of your AboutUsFragment
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, aboutUsFragment)
+                    .commit()
             }
             R.id.nav_documentacao -> {
                 // Crie um Intent para a nova Activity
