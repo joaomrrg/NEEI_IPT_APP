@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@color/backgroundnight">
 
         <!-- User Fields -->
         <ImageView
@@ -26,7 +27,8 @@
             android:layout_height="50dp"
             android:hint="Username"
             android:enabled="false"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/white"/>
 
         <EditText
             android:id="@+id/editTextEmail"
@@ -34,7 +36,8 @@
             android:layout_height="50dp"
             android:hint="Email"
             android:enabled="false"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/white"/>
 
         <!-- Person Fields -->
         <EditText
@@ -43,7 +46,8 @@
             android:layout_height="50dp"
             android:hint="Nome"
             android:enabled="false"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/white"/>
 
         <EditText
             android:id="@+id/editTextSurname"
@@ -51,7 +55,8 @@
             android:layout_height="50dp"
             android:hint="Apelido"
             android:enabled="false"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/white"/>
 
         <EditText
             android:id="@+id/editTextBirthDate"
@@ -59,15 +64,8 @@
             android:layout_height="50dp"
             android:hint="Data de Nascimento"
             android:enabled="false"
-            android:layout_marginBottom="10dp"/>
-
-        <Spinner
-            android:id="@+id/spinnerGender"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Género"
-            android:enabled="false"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/white"/>
 
         <EditText
             android:id="@+id/editTextLinkedIn"
@@ -75,7 +73,8 @@
             android:layout_height="50dp"
             android:hint="LinkedIn"
             android:enabled="false"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/white"/>
 
         <EditText
             android:id="@+id/editTextGithub"
@@ -83,7 +82,8 @@
             android:layout_height="50dp"
             android:hint="GitHub"
             android:enabled="false"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/white"/>
 
         <EditText
             android:id="@+id/editTextNumAluno"
@@ -91,7 +91,17 @@
             android:layout_height="50dp"
             android:hint="Número de aluno"
             android:enabled="false"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/white"/>
+
+        <Spinner
+            android:id="@+id/spinnerGender"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Género"
+            android:enabled="false"
+            android:layout_marginBottom="10dp"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -112,7 +122,8 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:enabled="false"
-                android:text="Confirmar Alterações"/>
+                android:text="Confirmar Alterações"
+                android:textColor="@color/white"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

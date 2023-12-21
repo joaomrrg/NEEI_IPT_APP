@@ -1,9 +1,11 @@
 package pt.ipt.dam2023.neei_ipt.ui.activity
 
 import android.app.DatePickerDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
@@ -46,6 +48,42 @@ class ProfileActivity : AppCompatActivity() {
         val numAlunoText = findViewById<EditText>(R.id.editTextNumAluno)
         val image = findViewById<ImageView>(R.id.imageViewProfile)
 
+        //new block
+        val elementos = listOf(
+            R.id.editTextUsername,
+            R.id.editTextEmail,
+            R.id.editTextName,
+            R.id.editTextSurname,
+            R.id.editTextBirthDate,
+            R.id.editTextLinkedIn,
+            R.id.editTextGithub,
+            R.id.editTextNumAluno
+        )
+
+        val buttEditar = findViewById<Button>(R.id.btnEdit)
+        val buttConfirmar = findViewById<Button>(R.id.btnConfirm)
+
+        buttEditar.setOnClickListener{
+            elementos.forEach { viewId ->
+                val textView = findViewById<EditText>(viewId)
+                textView.setHintTextColor(Color.WHITE)
+                textView.setTextColor(Color.WHITE)
+                textView.isEnabled = true
+                buttConfirmar.isEnabled = true
+                buttEditar.isEnabled = false
+            }
+        }
+
+        buttConfirmar.setOnClickListener{
+            elementos.forEach { viewId ->
+                val textView = findViewById<EditText>(viewId)
+                textView.setHintTextColor(Color.BLACK)
+                textView.setTextColor(Color.BLACK)
+                textView.isEnabled = false
+                buttConfirmar.isEnabled = false
+                buttEditar.isEnabled = true
+            }
+        }
 
 
         // Variavel com id do utilizador logado
@@ -99,6 +137,7 @@ class ProfileActivity : AppCompatActivity() {
                     .into(image)
             }
         }
+
     }
 
     /**

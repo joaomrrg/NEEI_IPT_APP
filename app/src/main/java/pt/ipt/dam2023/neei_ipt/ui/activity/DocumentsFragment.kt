@@ -1,41 +1,42 @@
-package pt.ipt.dam2023.neei_ipt.ui.activity
-
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ListView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import pt.ipt.dam2023.neei_ipt.R
 import pt.ipt.dam2023.neei_ipt.model.Document
-import pt.ipt.dam2023.neei_ipt.model.Group
-import pt.ipt.dam2023.neei_ipt.model.User
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
 import pt.ipt.dam2023.neei_ipt.ui.adapter.DocumentAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.Date
 
-class DocumentActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_documents)
-        // Criar uma lista de documentos para exibição
+class DocumentFragment : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.activity_documents, container, false)
 
         getDocumentation { result ->
             if (result != null) {
-                var documentList = result as List<Document>
+                val documentList = result.filterNotNull() // Filtrar documentos nulos
                 // Inicializar a ListView e configurar o adaptador
-                val listView: ListView = findViewById(R.id.documentListView)
-                val adapter = DocumentAdapter(this, R.layout.item_document, documentList)
+                val listView: ListView = view.findViewById(R.id.documentListView)
+                val adapter = DocumentAdapter(requireContext(), R.layout.item_document, documentList)
                 listView.adapter = adapter
             }
         }
 
-
+        return view
     }
 
     /**
-     * Função para listar toda a documentação publica do NEEI
+     * Função para listar toda a documentação pública do NEEI
      */
     private fun getDocumentation(onResult: (List<Document?>) -> Unit) {
         val call = RetrofitInitializer().APIService().listDocs()
@@ -48,7 +49,7 @@ class DocumentActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<Document>?>, t: Throwable) {
-                t?.message?.let { Log.e("Erro onFailure", it) }
+                t.message?.let { Log.e("Erro onFailure", it) }
             }
         })
     }

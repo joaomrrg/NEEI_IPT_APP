@@ -1,4 +1,3 @@
-
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
@@ -41,10 +40,6 @@ class CalendarViewFragment : Fragment() {
         val view = inflater.inflate(R.layout.activity_calendar_neei, container, false)
 
         val btnAddEvent = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
-        btnAddEvent.setOnClickListener {
-            //val intent = Intent(requireContext(), CalendarEvent::class.java)
-            //startActivity(intent)
-        }
 
         // Leitura da Internal Storage
         val directory: File = requireContext().filesDir
@@ -71,7 +66,7 @@ class CalendarViewFragment : Fragment() {
         // Formato de data para exibição do mês e ano
         val dateFormatMonth = SimpleDateFormat("MMMM- yyyy", Locale.getDefault())
 
-        // Example for manipulating TextView with a gradient
+        // Exemplo de manipulação de um TextView com um gradiente
         val gradient = view.findViewById<TextView>(R.id.neei_gradient)
         val paint = gradient.paint
         val width = paint.measureText(gradient.text.toString())
@@ -121,8 +116,6 @@ class CalendarViewFragment : Fragment() {
         return view
     }
 
-    // Move any other helper methods or logic here
-
     private fun getEvents(onResult: (List<CalendarWithColor>?) -> Unit) {
         val call = RetrofitInitializer().APIService().listEvents()
         call.enqueue(object : Callback<List<CalendarWithColor>?> {
@@ -141,6 +134,4 @@ class CalendarViewFragment : Fragment() {
             }
         })
     }
-
-
 }

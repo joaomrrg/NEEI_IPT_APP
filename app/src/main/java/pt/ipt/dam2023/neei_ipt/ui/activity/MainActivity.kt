@@ -2,6 +2,7 @@ package pt.ipt.dam2023.neei_ipt.ui.activity
 
 import AboutUsFragment
 import CalendarViewFragment
+import DocumentFragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import pt.ipt.dam2023.neei_ipt.R
 import java.io.File
@@ -98,6 +100,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
     }
 
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> {
@@ -121,10 +124,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .commit()
             }
             R.id.nav_documentacao -> {
-                // Crie um Intent para a nova Activity
-                val intent = Intent(this, DocumentActivity::class.java)
-                // Inicie a nova Activity
-                startActivity(intent)
+                val documentsFragment = DocumentFragment() // Create an instance of your AboutUsFragment
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, documentsFragment)
+                    .commit()
             }
         }
 

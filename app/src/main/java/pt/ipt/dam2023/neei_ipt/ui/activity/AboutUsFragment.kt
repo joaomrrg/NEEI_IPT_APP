@@ -1,4 +1,3 @@
-
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -21,9 +20,10 @@ class AboutUsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Infla o layout para este fragmento
         val view = inflater.inflate(R.layout.activity_about_us, container, false)
 
-        // Find views from the inflated layout
+        // Encontra as views no layout inflado
         val imgNucleo = view.findViewById<ImageView>(R.id.imgNucleo)
         val tvSobreNosTitle = view.findViewById<TextView>(R.id.tvSobreNosTitle)
         val tvNucleoDescription = view.findViewById<TextView>(R.id.tvNucleoDescription)
@@ -35,7 +35,7 @@ class AboutUsFragment : Fragment() {
         val imageGoncalo = view.findViewById<ImageView>(R.id.imageGoncalo)
         val imageJoao = view.findViewById<ImageView>(R.id.imageJoao)
 
-        // Load images into ImageViews using Glide
+        // Carrega as imagens nos ImageViews usando Glide
         Glide.with(this)
             .load("https://avatars.githubusercontent.com/u/55167343")
             .apply(RequestOptions.bitmapTransform(CircleCrop()))
@@ -46,7 +46,7 @@ class AboutUsFragment : Fragment() {
             .apply(RequestOptions.bitmapTransform(CircleCrop()))
             .into(imageJoao)
 
-        // Set click listeners for the LinearLayouts
+        // Define os listeners de clique para os LinearLayouts
         llJoao.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubJoao)))
             startActivity(intent)

@@ -98,7 +98,7 @@ class CalendarEvent : AppCompatActivity() {
                     if (result.code == 201) {
                         Toast.makeText(this, "Evento adicionado com sucesso", Toast.LENGTH_LONG)
                             .show()
-                        val intent = Intent(this, CalendarActivity::class.java)
+                        //val intent = Intent(this, CalendarActivity::class.java)
                         startActivity(intent)
                     } else {
                         Toast.makeText(

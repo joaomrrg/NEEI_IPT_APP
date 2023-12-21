@@ -15,8 +15,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pt.ipt.dam2023.neei_ipt.R
 import pt.ipt.dam2023.neei_ipt.model.Document
-import pt.ipt.dam2023.neei_ipt.ui.activity.DocumentActivity
-import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL

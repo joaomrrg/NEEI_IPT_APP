@@ -32,4 +32,10 @@
         <item name="android:dayOfWeekBackground">@color/white</item>
         <!-- You can define other attributes as needed -->
     </style>
+
+    <style name="TextColorWhite">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+
+    </style>
 </resources>
