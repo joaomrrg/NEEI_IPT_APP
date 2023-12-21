@@ -1,6 +1,7 @@
 package pt.ipt.dam2023.neei_ipt.ui.activity
 
 import AboutUsFragment
+import CalendarViewFragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -105,10 +106,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             // Adicione outros casos conforme necessário
             R.id.nav_calendario -> {
-                // Crie um Intent para a nova Activity
-                val intent = Intent(this, CalendarActivity::class.java)
-                // Inicie a nova Activity
-                startActivity(intent)
+                val calendarViewFragment = CalendarViewFragment() // Create an instance of your AboutUsFragment
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, calendarViewFragment)
+                    .commit()
             }
             R.id.nav_logout -> {
                 terminarSessao()
