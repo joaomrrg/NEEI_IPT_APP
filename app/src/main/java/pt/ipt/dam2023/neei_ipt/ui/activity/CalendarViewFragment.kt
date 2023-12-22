@@ -1,3 +1,4 @@
+
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
@@ -27,6 +28,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.Scanner
+import java.util.TimeZone
 
 class CalendarViewFragment : Fragment() {
 
@@ -64,7 +66,7 @@ class CalendarViewFragment : Fragment() {
         lateinit var compactCalendar: CompactCalendarView
 
         // Formato de data para exibição do mês e ano
-        val dateFormatMonth = SimpleDateFormat("MMMM- yyyy", Locale.getDefault())
+        val dateFormatMonth = SimpleDateFormat("MMMM- yyyy", Locale("pt", "PT"))
 
         //manipulação de um TextView com um gradiente
         val gradient = view.findViewById<TextView>(R.id.neei_gradient)
@@ -85,6 +87,8 @@ class CalendarViewFragment : Fragment() {
 
         // Localização do CompactCalendarView no layout
         compactCalendar = view.findViewById(R.id.calenderView)
+        val ptTimeZone = TimeZone.getTimeZone("Europe/Lisbon")
+        compactCalendar.setLocale(TimeZone.getTimeZone("Europe/Lisbon"), Locale.getDefault())
 
 
         // Localização dos TextViews para exibir o ano e o mês
@@ -98,17 +102,25 @@ class CalendarViewFragment : Fragment() {
 
             }
 
+            val localizedMonthNames = arrayOf(
+                "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "junho",
+                "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+            )
+
+            // Inside onMonthScroll callback
             override fun onMonthScroll(firstDayOfNewMonth: Date?) {
-                // Atualização dos TextViews para ano e mês quando o mês do calendário muda
                 firstDayOfNewMonth?.let {
                     val calendar = Calendar.getInstance()
                     calendar.time = it
 
-                    // Extraindo o ano e o mês
+                    // Exctract year and month
                     val year = calendar.get(Calendar.YEAR)
-                    val month = calendar.get(Calendar.MONTH) + 1 // Os meses são indexados a partir de zero
-                    yearTextView.text = year.toString()
-                    monthTextView.text = SimpleDateFormat("MMMM", Locale.getDefault()).format(it)
+                    val month = calendar.get(Calendar.MONTH)
+                    val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1
+
+                    // Set localized month name
+                    monthTextView.text = localizedMonthNames[month]
+                    //dayOfWeekTextView.text = localizedDayNames[dayOfWeek]
                 }
             }
         })

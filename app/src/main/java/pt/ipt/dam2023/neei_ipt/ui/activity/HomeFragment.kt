@@ -1,27 +1,31 @@
+
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import pt.ipt.dam2023.neei_ipt.R
+import android.os.Handler
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import androidx.core.content.ContextCompat
 import android.text.style.StyleSpan
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
-import android.content.Context
-import android.os.Handler
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import pt.ipt.dam2023.neei_ipt.R
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.util.Scanner
 
 class HomeFragment : Fragment() {
     private var cursorVisible = false
@@ -34,10 +38,23 @@ class HomeFragment : Fragment() {
         // Infla o layout para este fragmento
         val view = inflater.inflate(R.layout.activity_home_fragment, container, false)
 
+        val directory: File = requireContext().filesDir
+        val file: File = File(directory, "dados.txt")
+        var newName = ""
+        try {
+            val fi: FileInputStream = FileInputStream(file)
+            val sc: Scanner = Scanner(fi)
+            // Atribui ao elemento usernameText o username guardado no internal storage
+            newName = "@"+sc.nextLine()
+        } catch (e: FileNotFoundException) {
+            Toast.makeText(requireContext(), "File not found", Toast.LENGTH_LONG).show()
+        }
+
         val home = view.findViewById<LinearLayout>(R.id.home_layout)
         val spannabletext = view.findViewById<TextView>(R.id.spantext)
         val text = "guest@neei:/home/guest$"
-        val spannableString = SpannableString(text)
+        val modifiedText = text.replace("guest", newName)
+        val spannableString = SpannableString(modifiedText)
         val azul = ContextCompat.getColor(requireContext(), R.color.blue)
 
         val animDrawable = home.background as AnimationDrawable

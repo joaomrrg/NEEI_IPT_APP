@@ -4,22 +4,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:backgroundTint="@color/backgroundnight">
+    android:background="@color/backgroundnightlite">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
     <!-- Título da Página -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lista de Documentos"
         android:textSize="20sp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"/><!-- Lista de Documentos -->
-    <ListView
+        android:layout_weight="1"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/white"/><!-- Lista de Documentos -->
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_add"
+            android:layout_marginRight="20dp"
+            >
+
+        </ImageView>
+
+    </LinearLayout>
+        <ListView
         android:id="@+id/documentListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:dividerHeight="1dp"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@color/backgroundnight"/>
+        android:backgroundTint="@color/backgroundnight"
+        android:layout_margin="10dp"/>
 
 </LinearLayout>
