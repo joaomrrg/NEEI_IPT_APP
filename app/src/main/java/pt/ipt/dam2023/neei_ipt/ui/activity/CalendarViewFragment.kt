@@ -42,7 +42,6 @@ class CalendarViewFragment : Fragment() {
         val view = inflater.inflate(R.layout.activity_calendar_neei, container, false)
 
         val btnAddEvent = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
-
         // Leitura da Internal Storage
         val directory: File = requireContext().filesDir
         val file: File = File(directory, "dados.txt")
@@ -55,7 +54,7 @@ class CalendarViewFragment : Fragment() {
             // Guarda a role do user
             val role =  sc.nextLine().toInt()
             //Mostra o botao se for admin
-            btnAddEvent.isVisible = role==1 || role==2
+            btnAddEvent.isVisible = role==1
             sc.close()
             fi.close()
         } catch (e: FileNotFoundException) {
@@ -80,6 +79,13 @@ class CalendarViewFragment : Fragment() {
             ), null, Shader.TileMode.REPEAT
         )
 
+
+        val localizedDayInitials = arrayOf("DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB")
+        val localizedMonthNames = arrayOf(
+            "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+        )
+
         // Configuração da ActionBar
         val actionBar = (requireActivity() as AppCompatActivity?)?.supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(false)
@@ -88,12 +94,16 @@ class CalendarViewFragment : Fragment() {
         // Localização do CompactCalendarView no layout
         compactCalendar = view.findViewById(R.id.calenderView)
         val ptTimeZone = TimeZone.getTimeZone("Europe/Lisbon")
-        compactCalendar.setLocale(TimeZone.getTimeZone("Europe/Lisbon"), Locale.getDefault())
-
+        compactCalendar.setLocale(ptTimeZone, Locale("pt", "PT"))
+        compactCalendar.setFirstDayOfWeek(Calendar.SUNDAY)
+        compactCalendar.setDayColumnNames(localizedDayInitials)
+        compactCalendar.setCurrentDate(Calendar.getInstance().time)
 
         // Localização dos TextViews para exibir o ano e o mês
         val yearTextView: TextView = view.findViewById(R.id.year)
         val monthTextView: TextView = view.findViewById(R.id.month)
+        monthTextView.text = localizedMonthNames[Calendar.getInstance().get(Calendar.MONTH)]
+        yearTextView.text = Calendar.getInstance().get(Calendar.YEAR).toString()
 
         // Definição de um ouvinte para os eventos do CompactCalendarView (onMonthScroll)
         compactCalendar.setListener(object : CompactCalendarView.CompactCalendarViewListener {
@@ -102,10 +112,9 @@ class CalendarViewFragment : Fragment() {
 
             }
 
-            val localizedMonthNames = arrayOf(
-                "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "junho",
-                "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-            )
+
+
+
 
             // Inside onMonthScroll callback
             override fun onMonthScroll(firstDayOfNewMonth: Date?) {
@@ -120,11 +129,10 @@ class CalendarViewFragment : Fragment() {
 
                     // Set localized month name
                     monthTextView.text = localizedMonthNames[month]
-                    //dayOfWeekTextView.text = localizedDayNames[dayOfWeek]
+                    yearTextView.text = year.toString()
                 }
             }
         })
-
         return view
     }
 

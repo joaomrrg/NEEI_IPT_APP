@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
             val fi: FileInputStream = FileInputStream(file)
             val sc: Scanner = Scanner(fi)
             // Atribui ao elemento usernameText o username guardado no internal storage
-            newName = "@"+sc.nextLine()
+            newName = sc.nextLine()
         } catch (e: FileNotFoundException) {
             Toast.makeText(requireContext(), "File not found", Toast.LENGTH_LONG).show()
         }

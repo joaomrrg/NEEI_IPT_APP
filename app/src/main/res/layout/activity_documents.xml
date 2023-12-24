@@ -21,11 +21,11 @@
         android:textColor="@color/white"/><!-- Lista de Documentos -->
 
         <ImageView
+            android:id="@+id/addDocument"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_add"
             android:layout_marginRight="20dp"
-            >
+            android:src="@drawable/ic_add">
 
         </ImageView>
 

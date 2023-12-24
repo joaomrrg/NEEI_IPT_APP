@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.view.isVisible
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -16,9 +18,12 @@ import kotlinx.coroutines.withContext
 import pt.ipt.dam2023.neei_ipt.R
 import pt.ipt.dam2023.neei_ipt.model.Document
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.net.URL
 import java.text.SimpleDateFormat
+import java.util.Scanner
 
 class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) :
     ArrayAdapter<Document>(context, resource, objects) {
@@ -33,11 +38,33 @@ class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) 
         val descriptionTextView = itemView.findViewById<TextView>(R.id.documentDescription)
         val dateTextView = itemView.findViewById<TextView>(R.id.documentDate)
         val downloadImageView = itemView.findViewById<ImageView>(R.id.downloadButton)
+        val editImageView = itemView.findViewById<ImageView>(R.id.editButton)
         titleTextView.text = document?.title
         descriptionTextView.text = document?.description
         val dateFormatter = SimpleDateFormat("dd/MM/yyyy")
         val formattedDate = dateFormatter.format(document?.date)
         dateTextView.text = formattedDate
+
+        // Leitura da Internal Storage
+        val directory: File = context.filesDir
+        val file: File = File(directory, "dados.txt")
+        try {
+            val fi: FileInputStream = FileInputStream(file)
+            val sc: Scanner = Scanner(fi)
+            sc.nextLine()
+            sc.nextLine()
+            sc.nextLine()
+            // Guarda a role do user
+            val role =  sc.nextLine().toInt()
+            //Mostra o botao se for admin
+            editImageView.isVisible = role==1
+            sc.close()
+            fi.close()
+        } catch (e: FileNotFoundException) {
+            Toast.makeText(context, "File not found", Toast.LENGTH_LONG).show()
+        }
+
+
 
         // Configurar a lógica de download (se necessário) para o ImageView
         downloadImageView.setOnClickListener {
