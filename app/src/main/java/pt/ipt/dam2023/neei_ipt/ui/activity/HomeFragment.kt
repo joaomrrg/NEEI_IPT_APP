@@ -14,9 +14,11 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -25,6 +27,9 @@ import pt.ipt.dam2023.neei_ipt.R
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import java.util.Scanner
 
 class HomeFragment : Fragment() {
@@ -50,7 +55,7 @@ class HomeFragment : Fragment() {
             Toast.makeText(requireContext(), "File not found", Toast.LENGTH_LONG).show()
         }
 
-        val home = view.findViewById<LinearLayout>(R.id.home_layout)
+        val home = view.findViewById<RelativeLayout>(R.id.home_layout)
         val spannabletext = view.findViewById<TextView>(R.id.spantext)
         val text = "guest@neei:/home/guest$"
         val modifiedText = text.replace("guest", newName)
@@ -84,25 +89,42 @@ class HomeFragment : Fragment() {
 
         spannabletext.text = spannableString
 
-
-        val textCursor = view.findViewById<TextView>(R.id.text_cursor)
-        textCursor.visibility = View.INVISIBLE
-        // Handler for cursor blinking effect
-        val handler = Handler()
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                cursorVisible = !cursorVisible
-                textCursor.visibility = if (cursorVisible) View.VISIBLE else View.INVISIBLE
-                handler.postDelayed(this, 500) // Adjust blinking speed here (500ms for example)
-            }
-        }, 500)
-
         // Set EditText focus and show keyboard
         val editText = view.findViewById<EditText>(R.id.command_input)
+        editText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val command = editText.text.toString().trim()
+                handleCommand(command, view)
+                editText.text.clear()  // Limpar o texto após processar o comando
+                return@setOnEditorActionListener true
+            }
+            false
+        }
         editText.requestFocus()
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
 
         return view
+    }
+    // Função para manipular comandos
+    private fun handleCommand(command: String,view: View) {
+        val response: String = when (command.toLowerCase()) {
+            "hello" -> "Olá! Como estás?\n"
+            "date" -> "Hoje é dia: "+SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())+"\n"
+            "ls" -> "Não há nada a ver aqui!\n"
+            "cd" -> "Estás no Núcleo de Estudantes Engenharia Informática\n"
+            "clear" -> "clear"
+            else -> "$$command: Comando não reconhecido. Tenta outro.\n"
+        }
+
+        // Exiba a resposta no seu TextView ou faça o que for necessário
+        val outputTextView = view.findViewById<TextView>(R.id.output_text_view)
+        if (response=="clear"){
+            outputTextView.text=""
+        }else{
+            outputTextView.append(response)
+        }
+        val inputEditText = view.findViewById<EditText>(R.id.command_input)
+        inputEditText.text.clear()
     }
 }

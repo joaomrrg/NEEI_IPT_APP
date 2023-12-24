@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat
 import java.util.Scanner
 
 class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) :
+
     ArrayAdapter<Document>(context, resource, objects) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -65,48 +66,58 @@ class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) 
         }
 
 
+        //PERMISSION request constant, assign any value
+        val STORAGE_PERMISSION_CODE = 100
+        val TAG = "PERMISSION_TAG"
 
         // Configurar a lógica de download (se necessário) para o ImageView
         downloadImageView.setOnClickListener {
             // Use corrotinas para realizar o download em segundo plano
-            GlobalScope.launch(Dispatchers.IO) {
-                try {
-                    val url = URL("https://neei.eu.pythonanywhere.com/files/" + document?.file)
-                    val connection = url.openConnection()
-                    val inputStream = connection.getInputStream()
-                    // Diretório de Downloads
-                    val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-
-                    // Nome do arquivo no diretório de Downloads
-                    val fileName = document?.file  // Substitua pelo nome real do arquivo
-
-                    val file = File(downloadDir, fileName)
-                    val outputStream = FileOutputStream(file)
-
-                    val buffer = ByteArray(1024)
-                    var bytesRead: Int
-                    while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-                        outputStream.write(buffer, 0, bytesRead)
-                    }
-                    outputStream.close()
-                    inputStream.close()
-                    withContext(Dispatchers.Main) {
-                        showToast("Download completo")
-                        println("Download completo para: ${file.absolutePath}")
-                    }
-                } catch (e: Exception) {
-                    withContext(Dispatchers.Main) {
-                        showToast("Erro ao fazer download§")
-                        println("Erro durante o download: ${e.message}")
-                    }
-                }
+            if (document != null) {
+                downloadFile(document)
             }
+
         }
         return itemView
     }
 
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun downloadFile(document: Document){
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val url = URL("https://neei.eu.pythonanywhere.com/files/" + document?.file)
+                val connection = url.openConnection()
+                val inputStream = connection.getInputStream()
+                // Diretório de Downloads
+                val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+
+                // Nome do arquivo no diretório de Downloads
+                val fileName = document?.file  // Substitua pelo nome real do arquivo
+
+                val file = File(downloadDir, fileName)
+                val outputStream = FileOutputStream(file)
+
+                val buffer = ByteArray(1024)
+                var bytesRead: Int
+                while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                    outputStream.write(buffer, 0, bytesRead)
+                }
+                outputStream.close()
+                inputStream.close()
+                withContext(Dispatchers.Main) {
+                    showToast("Download completo")
+                    println("Download completo para: ${file.absolutePath}")
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    showToast("Erro ao fazer download§")
+                    println("Erro durante o download: ${e.message}")
+                }
+            }
+        }
     }
 
 }

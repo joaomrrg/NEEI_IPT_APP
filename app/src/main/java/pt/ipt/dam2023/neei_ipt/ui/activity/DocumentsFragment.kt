@@ -23,7 +23,6 @@ import java.io.FileNotFoundException
 import java.util.Scanner
 
 class DocumentFragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
