@@ -69,6 +69,7 @@
 
 
     <ImageView
+        android:id="@+id/underlineBackgroundImage"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:src="@drawable/underline"

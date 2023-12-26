@@ -8,6 +8,7 @@ import java.util.Date
  */
 data class Calendar (
     @SerializedName("id") val id: Int,
+    @SerializedName("title") val title: String,
     @SerializedName("description") val description: String,
     @SerializedName("initialDate") val initialDate: Date,
     @SerializedName("endDate") val endDate: Date?,
@@ -19,6 +20,7 @@ data class Calendar (
  */
 data class CalendarWithColor(
     @SerializedName("id") val id: Int,
+    @SerializedName("title") val title: String,
     @SerializedName("description") val description: String,
     @SerializedName("initialDate") val initialDate: Date,
     @SerializedName("endDate") val endDate: Date?,

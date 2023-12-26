@@ -1,7 +1,6 @@
 package pt.ipt.dam2023.neei_ipt.ui.adapter
 
 import android.content.Context
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,40 +8,33 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.isVisible
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import pt.ipt.dam2023.neei_ipt.R
-import pt.ipt.dam2023.neei_ipt.model.Document
+import pt.ipt.dam2023.neei_ipt.model.CalendarWithColor
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.Scanner
 
-class CalendarItemAdapter(context: Context, resource: Int, objects: List<Document>) :
+class CalendarItemAdapter(context: Context, resource: Int, objects: List<CalendarWithColor>) :
 
-    ArrayAdapter<Document>(context, resource, objects) {
+    ArrayAdapter<CalendarWithColor>(context, resource, objects) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val itemView = convertView ?: LayoutInflater.from(context)
-            .inflate(R.layout.item_document, parent, false)
+            .inflate(R.layout.item_calendar, parent, false)
 
-        val document = getItem(position)
+        val calendar = getItem(position)
 
         val titleTextView = itemView.findViewById<TextView>(R.id.documentTitle)
         val descriptionTextView = itemView.findViewById<TextView>(R.id.documentDescription)
         val dateTextView = itemView.findViewById<TextView>(R.id.documentDate)
-        val downloadImageView = itemView.findViewById<ImageView>(R.id.downloadButton)
-        val editImageView = itemView.findViewById<ImageView>(R.id.editButton)
-        titleTextView.text = document?.title
-        descriptionTextView.text = document?.description
+        val lineColor = itemView.findViewById<ImageView>(R.id.underlineBackgroundImage)
+
+        titleTextView.text = calendar?.title
+        descriptionTextView.text = calendar?.description
         val dateFormatter = SimpleDateFormat("dd/MM/yyyy")
-        val formattedDate = dateFormatter.format(document?.date)
+        val formattedDate = dateFormatter.format(calendar?.initialDate)
         dateTextView.text = formattedDate
 
         // Leitura da Internal Storage
@@ -56,8 +48,6 @@ class CalendarItemAdapter(context: Context, resource: Int, objects: List<Documen
             sc.nextLine()
             // Guarda a role do user
             val role =  sc.nextLine().toInt()
-            //Mostra o botao se for admin
-            editImageView.isVisible = role==1
             sc.close()
             fi.close()
         } catch (e: FileNotFoundException) {
@@ -65,18 +55,25 @@ class CalendarItemAdapter(context: Context, resource: Int, objects: List<Documen
         }
 
 
+
         //PERMISSION request constant, assign any value
         val STORAGE_PERMISSION_CODE = 100
         val TAG = "PERMISSION_TAG"
 
-        // Configurar a lógica de download (se necessário) para o ImageView
-        downloadImageView.setOnClickListener {
-            // Use corrotinas para realizar o download em segundo plano
-            if (document != null) {
-                downloadFile(document)
-            }
-
+        val lineColorResource = when (calendar?.groupId) {
+            1 -> R.drawable.underline_g1
+            2 -> R.drawable.underline_g2
+            3 -> R.drawable.underline_g3
+            4 -> R.drawable.underline_g4
+            5 -> R.drawable.underline_g5
+            6 -> R.drawable.underline_g6
+            7 -> R.drawable.underline_g7
+            8 -> R.drawable.underline_g8
+            else -> R.drawable.underline
         }
+
+        lineColor.setImageResource(lineColorResource)
+
         return itemView
     }
 
@@ -84,39 +81,5 @@ class CalendarItemAdapter(context: Context, resource: Int, objects: List<Documen
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun downloadFile(document: Document){
-        GlobalScope.launch(Dispatchers.IO) {
-            try {
-                val url = URL("https://neei.eu.pythonanywhere.com/files/" + document?.file)
-                val connection = url.openConnection()
-                val inputStream = connection.getInputStream()
-                // Diretório de Downloads
-                val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-
-                // Nome do arquivo no diretório de Downloads
-                val fileName = document?.file  // Substitua pelo nome real do arquivo
-
-                val file = File(downloadDir, fileName)
-                val outputStream = FileOutputStream(file)
-
-                val buffer = ByteArray(1024)
-                var bytesRead: Int
-                while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-                    outputStream.write(buffer, 0, bytesRead)
-                }
-                outputStream.close()
-                inputStream.close()
-                withContext(Dispatchers.Main) {
-                    showToast("Download completo")
-                    println("Download completo para: ${file.absolutePath}")
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    showToast("Erro ao fazer download§")
-                    println("Erro durante o download: ${e.message}")
-                }
-            }
-        }
-    }
 
 }

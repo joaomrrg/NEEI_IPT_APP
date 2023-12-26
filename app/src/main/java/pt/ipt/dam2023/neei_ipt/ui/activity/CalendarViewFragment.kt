@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import pt.ipt.dam2023.neei_ipt.R
 import pt.ipt.dam2023.neei_ipt.model.CalendarWithColor
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
+import pt.ipt.dam2023.neei_ipt.ui.adapter.CalendarItemAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,6 +44,7 @@ class CalendarViewFragment : Fragment() {
         val view = inflater.inflate(R.layout.activity_calendar_neei, container, false)
 
         val btnAddEvent = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
+        val listView: ListView = view.findViewById(R.id.listViewCalendar)
         // Leitura da Internal Storage
         val directory: File = requireContext().filesDir
         val file: File = File(directory, "dados.txt")
@@ -112,10 +115,6 @@ class CalendarViewFragment : Fragment() {
 
             }
 
-
-
-
-
             // Inside onMonthScroll callback
             override fun onMonthScroll(firstDayOfNewMonth: Date?) {
                 firstDayOfNewMonth?.let {
@@ -133,6 +132,16 @@ class CalendarViewFragment : Fragment() {
                 }
             }
         })
+
+        getEvents { result ->
+            if (result != null) {
+                val calendarList = result.filterNotNull() // Filtrar documentos nulos
+                // Inicializar a ListView e configurar o adaptador
+                val adapter = CalendarItemAdapter(requireContext(), R.layout.item_calendar, calendarList)
+                listView.adapter = adapter
+            }
+        }
+
         return view
     }
 
