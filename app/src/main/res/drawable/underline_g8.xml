@@ -2,8 +2,7 @@
     android:shape="line">
     <stroke
         android:width="2dp"
-        android:color="@color/white"
+        android:color="#FFC100"
         >
-
     </stroke>
 </shape>

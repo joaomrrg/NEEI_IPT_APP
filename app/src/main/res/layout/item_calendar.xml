@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/cli_background"
+    android:layout_marginBottom="20dp">
+
+    <!-- Título do Documento -->
+    <TextView
+        android:id="@+id/documentTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Título do Evento"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/white"/>
+
+    <!-- Descrição do Documento -->
+    <TextView
+        android:id="@+id/documentDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descrição do Evento"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start">
+    <!-- Data do Documento -->
+    <TextView
+        android:id="@+id/documentDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="01/01/2023"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/white"/>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="277dp"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12:00H"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:layout_marginRight="3dp"
+                >
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:src="@drawable/underline"
+        android:layout_marginTop="5dp">
+    </ImageView>
+
+</LinearLayout>
