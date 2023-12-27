@@ -1,4 +1,5 @@
-import android.media.Image
+
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,10 +10,10 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import pt.ipt.dam2023.neei_ipt.R
 import pt.ipt.dam2023.neei_ipt.model.Document
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
+import pt.ipt.dam2023.neei_ipt.ui.activity.DocumentAddActivity
 import pt.ipt.dam2023.neei_ipt.ui.adapter.DocumentAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -58,6 +59,11 @@ class DocumentFragment : Fragment() {
                 val adapter = DocumentAdapter(requireContext(), R.layout.item_document, documentList)
                 listView.adapter = adapter
             }
+        }
+
+        btnAddDocument.setOnClickListener{
+            val intent = Intent(requireActivity(), DocumentAddActivity::class.java)
+            startActivity(intent)
         }
 
         return view
