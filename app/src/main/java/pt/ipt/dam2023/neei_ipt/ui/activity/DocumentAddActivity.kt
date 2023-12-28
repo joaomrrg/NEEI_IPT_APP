@@ -1,6 +1,5 @@
 package pt.ipt.dam2023.neei_ipt.ui.activity
 
-import DocumentFragment
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,7 +10,6 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.navigation.NavigationView
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -23,9 +21,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.io.FileNotFoundException
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class DocumentAddActivity : AppCompatActivity() {
 
@@ -73,10 +68,6 @@ class DocumentAddActivity : AppCompatActivity() {
                             // Registo bem sucedido
                             Toast.makeText(this, "Documento adicionado com sucesso.", Toast.LENGTH_LONG).show()
                             // Navegar para o seu fragmento de destino
-                            val documentFragment = DocumentFragment() // Create an instance of your AboutUsFragment
-                            supportFragmentManager.beginTransaction()
-                                .replace(R.id.fragment_container, documentFragment)
-                                .commit()
                         }else{
                             // Erro não identificado / Falha no servidor
                             Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
@@ -87,6 +78,11 @@ class DocumentAddActivity : AppCompatActivity() {
                     Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
                 }
             }
+
+            val intent = Intent(this, MainActivity::class.java)
+            // Adicionando um extra chamado "fragment_to_show" com o valor "DocumentFragment" ao Intent
+            intent.putExtra("fragment_to_show", "DocumentFragment")
+            startActivity(intent)
 
         }
     }

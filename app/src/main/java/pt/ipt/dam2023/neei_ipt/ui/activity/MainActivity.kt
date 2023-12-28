@@ -4,6 +4,7 @@ import AboutUsFragment
 import CalendarViewFragment
 import DocumentFragment
 import HomeFragment
+import TeamFragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -17,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import pt.ipt.dam2023.neei_ipt.R
 import java.io.File
@@ -39,6 +39,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .commit()
 
         drawerLayout = findViewById(R.id.drawer_layout)
+
+        //Informação passada pela Intent
+        val fragmentToShow = intent.getStringExtra("fragment_to_show")
+
+        // Lógica para substituir o fragmento conforme necessário
+        if (fragmentToShow == "DocumentFragment") {
+            val documentFragment = DocumentFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, documentFragment)
+                .commit()
+        }
 
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbars)
         setSupportActionBar(toolbar)
@@ -137,6 +148,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .replace(R.id.fragment_container, documentsFragment)
                     .commit()
             }
+            R.id.nav_equipa -> {
+                val teamFragment = TeamFragment() // Create an instance of your AboutUsFragment
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, teamFragment)
+                    .commit()
+            }
         }
 
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -174,5 +191,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             builder.show()
         }
+
     }
 

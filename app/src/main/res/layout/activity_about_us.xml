@@ -98,7 +98,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/icon_equipa" />
+                android:src="@drawable/icon_equipa"/>
 
             <TextView
                 android:layout_width="wrap_content"
