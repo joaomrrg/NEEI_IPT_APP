@@ -1,14 +1,28 @@
 package pt.ipt.dam2023.neei_ipt.ui.activity
 
+import DocumentFragment
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.navigation.NavigationView
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import pt.ipt.dam2023.neei_ipt.R
+import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
+import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
+import java.io.FileNotFoundException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -17,11 +31,12 @@ class DocumentAddActivity : AppCompatActivity() {
 
     private val PICK_FILE_REQUEST_CODE = 123
     private lateinit var fileNameText: TextView
-
+    private lateinit var selectedFileUri: Uri
+    private lateinit var file: File
+    private lateinit var displayName: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_document_add)
-
         // Inicialização dos elementos de interface
         val title = findViewById<EditText>(R.id.titleText) // Campo de título
         val description = findViewById<EditText>(R.id.descriptionText) // Campo de descrição
@@ -42,22 +57,44 @@ class DocumentAddActivity : AppCompatActivity() {
             // Conversão do EditText para String
             val dateString = dateEditText.text.toString()
 
-            // Conversão da string de data para o formato Date
-            val date = stringToDate(dateString)
-        }
-    }
+            val documentreq = DocumentRequest(
+                title = title.text.toString(),
+                description = description.text.toString(),
+                date= dateString,
+                file = fileNameText.text.toString(),
+                schoolYearId = 1
+            )
+            // Chamada da função que comunica com a API, para registar um utilizador
 
-    // Função para converter uma string em um objeto Date
-    fun stringToDate(date_as_String: String): Date? {
-        val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        return format.parse(date_as_String)
+            uploadFile(file){statusCode ->
+                if (statusCode == 201) {
+                    addDocument(documentreq){statusCode ->
+                        if (statusCode == 201) {
+                            // Registo bem sucedido
+                            Toast.makeText(this, "Documento adicionado com sucesso.", Toast.LENGTH_LONG).show()
+                            // Navegar para o seu fragmento de destino
+                            val documentFragment = DocumentFragment() // Create an instance of your AboutUsFragment
+                            supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragment_container, documentFragment)
+                                .commit()
+                        }else{
+                            // Erro não identificado / Falha no servidor
+                            Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }else{
+                    // Erro não identificado / Falha no servidor
+                    Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        }
     }
 
     // Função para abrir o seletor de arquivos
     private fun openFilePicker() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "application/pdf"
-
         startActivityForResult(intent, PICK_FILE_REQUEST_CODE)
     }
 
@@ -67,18 +104,22 @@ class DocumentAddActivity : AppCompatActivity() {
 
         if (requestCode == PICK_FILE_REQUEST_CODE && resultCode == RESULT_OK) {
             // Manipular o arquivo selecionado aqui
-            val selectedFileUri = data?.data // URI do arquivo selecionado
+            selectedFileUri = data?.data!! // URI do arquivo selecionado
 
-            // Obter o nome do arquivo selecionado
-            val displayName = selectedFileUri?.let { getFileName(it) }
+                file = getFileFromUri(selectedFileUri)
+                // Obter o nome do arquivo selecionado
+                displayName = getFileName(selectedFileUri)
 
-            // Exibir o nome do arquivo no TextView
-            fileNameText.text = displayName ?: " "
+                // Exibir o nome do arquivo no TextView
+                fileNameText.text = displayName ?: " "
+
+
         }
     }
 
+
     // Função para obter o nome de um arquivo a partir de sua URI
-    private fun getFileName(uri: Uri): String? {
+    private fun getFileName(uri: Uri): String {
         val cursor = contentResolver.query(uri, null, null, null, null)
         cursor?.use {
             val nameIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
@@ -86,6 +127,61 @@ class DocumentAddActivity : AppCompatActivity() {
                 return it.getString(nameIndex)
             }
         }
-        return null
+        return ""
     }
+
+    // Função para receber um ficheiro
+    private fun getFileFromUri(uri: Uri): File {
+        val inputStream = contentResolver.openInputStream(uri)
+        if (inputStream != null) {
+            // Criar um arquivo temporário para armazenar os dados do InputStream
+            val tempFile = createTempFile("temp", null, cacheDir)
+            tempFile.outputStream().use { output ->
+                inputStream.copyTo(output)
+            }
+            return tempFile
+        } else {
+            throw FileNotFoundException("Não foi possível obter o ficheiro a partir da Uri.")
+        }
+    }
+
+    // Função para adiconar um novo Documento
+    private fun addDocument(document: DocumentRequest, onResult: (Int) -> Unit) {
+        // Faz a chamada a API
+        val call = RetrofitInitializer().APIService().addDocument(document)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                t?.message?.let { Log.e("onFailure error", it) }
+                onResult(501)
+            }
+
+            // Retorna o StatusCode da resposta
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                onResult(response.code())
+            }
+        })
+    }
+
+    //Função para dar upload de um ficheiro
+    private fun uploadFile(file: File, onResult: (Int) -> Unit) {
+        // Criar uma instância de MultipartBody.Part para o arquivo
+        val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+        val filePart = MultipartBody.Part.createFormData("file", displayName, requestFile)
+        // Faz a chamada a API
+        val call = RetrofitInitializer().APIService().uploadFile(filePart)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                t?.message?.let { Log.e("onFailure error", it) }
+                onResult(501)
+            }
+
+            // Retorna o StatusCode da resposta
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                onResult(response.code())
+            }
+        })
+    }
+
 }

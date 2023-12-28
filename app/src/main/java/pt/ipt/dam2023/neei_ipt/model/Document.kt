@@ -15,3 +15,11 @@ data class Document(
     @SerializedName("schoolYearId") val schoolYearId: Int?,
     @SerializedName("createdAt") val createdAt: Date?,
     )
+
+data class DocumentRequest(
+    @SerializedName("title") val title: String?,
+    @SerializedName("description") val description: String?,
+    @SerializedName("date") val date: String?,
+    @SerializedName("file") val file: String?,
+    @SerializedName("schoolYearId") val schoolYearId: Int?,
+)

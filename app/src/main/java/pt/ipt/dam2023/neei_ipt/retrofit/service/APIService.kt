@@ -1,19 +1,22 @@
 package pt.ipt.dam2023.neei_ipt.retrofit.service
 
+import okhttp3.MultipartBody
 import pt.ipt.dam2023.neei_ipt.model.AuthRequest
 import pt.ipt.dam2023.neei_ipt.model.AuthResponse
-import pt.ipt.dam2023.neei_ipt.model.Calendar
 import pt.ipt.dam2023.neei_ipt.model.CalendarRequest
 import pt.ipt.dam2023.neei_ipt.model.CalendarResponse
 import pt.ipt.dam2023.neei_ipt.model.CalendarWithColor
 import pt.ipt.dam2023.neei_ipt.model.Document
+import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
 import pt.ipt.dam2023.neei_ipt.model.Group
 import pt.ipt.dam2023.neei_ipt.model.RegisterRequest
 import pt.ipt.dam2023.neei_ipt.model.User
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface APIService {
@@ -61,5 +64,18 @@ interface APIService {
 
         @GET("users/{id}")
         fun getUserById(@Path("id") id: Int): Call<User>
+
+        /**
+         * Permite a adição de um documento a bd
+         */
+        @POST("documents/")
+        fun addDocument(@Body request: DocumentRequest): Call<Void>
+
+        /**
+         * Permite o upload de um ficheiro para o servidor
+         */
+        @Multipart
+        @POST("uploadFile/")
+        fun uploadFile(@Part file: MultipartBody.Part): Call<Void>
 
 }
