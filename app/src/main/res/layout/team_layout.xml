@@ -60,12 +60,20 @@
             android:textAlignment="center"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center">
 
             <ImageView
-                android:layout_width="match_parent"
+                android:id="@+id/inJoao"
+                android:layout_width="30dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_linkedin"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_github"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -98,6 +106,24 @@
                 android:text="Vice-Presidente"
                 android:textColor="#636262"
                 android:textAlignment="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/inMiguel"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_linkedin"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_instagram"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
@@ -135,6 +161,24 @@
                 android:textColor="#636262"
                 android:textAlignment="center"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/inGoncalo"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_linkedin"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_github"/>
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -165,6 +209,24 @@
                 android:text="Secretário"
                 android:textColor="#636262"
                 android:textAlignment="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/inTiago"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_linkedin"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_github"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
@@ -202,6 +264,24 @@
                 android:textColor="#636262"
                 android:textAlignment="center"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/inBarbosa"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_linkedin"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_instagram"/>
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -232,6 +312,24 @@
                 android:text="Suplente"
                 android:textColor="#636262"
                 android:textAlignment="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/inFilipe"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_linkedin"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_instagram"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
@@ -262,6 +360,23 @@
             android:text="Suplente"
             android:textColor="#636262"
             android:textAlignment="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/inGuilherme"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_linkedin"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_instagram"/>
+        </LinearLayout>
     </LinearLayout>
 
     <TextView

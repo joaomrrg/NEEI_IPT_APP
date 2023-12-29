@@ -1,4 +1,6 @@
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +43,13 @@ class TeamFragment : Fragment() {
         val anotherBarbosa1 =view.findViewById<ImageView>(R.id.anotherBarbosa1)
         val imageMiguel =view.findViewById<ImageView>(R.id.imageMiguel)
         val anotherMiguel1 =view.findViewById<ImageView>(R.id.anotherMiguel1)
+        val inJoao = view.findViewById<ImageView>(R.id.inJoao)
+        val inGoncalo = view.findViewById<ImageView>(R.id.inGoncalo)
+        val inBarbosa = view.findViewById<ImageView>(R.id.inBarbosa)
+        val inMiguel = view.findViewById<ImageView>(R.id.inMiguel)
+        val inTiago = view.findViewById<ImageView>(R.id.inTiago)
+        val inFilipe = view.findViewById<ImageView>(R.id.inFilipe)
+        val inGuilherme = view.findViewById<ImageView>(R.id.inGuilherme)
 
 
         loadImageView(joao, imageJoao)
@@ -55,6 +64,41 @@ class TeamFragment : Fragment() {
         loadImageView(barbosa, anotherBarbosa1)
         loadImageView(miguel, imageMiguel)
         loadImageView(miguel, anotherMiguel1)
+
+        inJoao.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubJoao)))
+            startActivity(intent)
+        }
+
+        inMiguel.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubMiguel)))
+            startActivity(intent)
+        }
+
+        inTiago.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubTiago)))
+            startActivity(intent)
+        }
+
+        inBarbosa.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubBarbosa)))
+            startActivity(intent)
+        }
+
+        inFilipe.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubFilipe)))
+            startActivity(intent)
+        }
+
+        inGoncalo.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubGoncalo)))
+            startActivity(intent)
+        }
+
+        inGuilherme.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubJoao)))
+            startActivity(intent)
+        }
 
 
         return view
