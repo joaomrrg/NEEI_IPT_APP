@@ -1,4 +1,5 @@
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
@@ -14,10 +15,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
+import com.github.sundeepk.compactcalendarview.domain.Event
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import pt.ipt.dam2023.neei_ipt.R
 import pt.ipt.dam2023.neei_ipt.model.CalendarWithColor
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
+import pt.ipt.dam2023.neei_ipt.ui.activity.CalendarEvent
+import pt.ipt.dam2023.neei_ipt.ui.activity.RegisterActivity
 import pt.ipt.dam2023.neei_ipt.ui.adapter.CalendarItemAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,6 +48,11 @@ class CalendarViewFragment : Fragment() {
         val view = inflater.inflate(R.layout.activity_calendar_neei, container, false)
 
         val btnAddEvent = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
+
+        btnAddEvent.setOnClickListener {
+            val intent = Intent(requireContext(), CalendarEvent::class.java)
+            startActivity(intent)
+        }
         val listView: ListView = view.findViewById(R.id.listViewCalendar)
         // Leitura da Internal Storage
         val directory: File = requireContext().filesDir
@@ -139,6 +148,19 @@ class CalendarViewFragment : Fragment() {
                 // Inicializar a ListView e configurar o adaptador
                 val adapter = CalendarItemAdapter(requireContext(), R.layout.item_calendar, calendarList)
                 listView.adapter = adapter
+                if (result.isNotEmpty()){
+                    //Lista todos os eventos
+                    for (evento in result){
+                        // Obtem o int da cor
+                        val colorInt = Color.parseColor(evento.color)
+                        // Cria um objeto evento
+                        val ev1 = Event(colorInt, evento.initialDate.time, evento.description)
+                        //Adiciona ao calendario o evento
+                        compactCalendar.addEvent(ev1)
+                    }
+                }else{
+                    Log.i("Calendar","Lista vazia")
+                }
             }
         }
 

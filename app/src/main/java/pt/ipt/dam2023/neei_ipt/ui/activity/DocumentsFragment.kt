@@ -24,6 +24,8 @@ import java.io.FileNotFoundException
 import java.util.Scanner
 
 class DocumentFragment : Fragment() {
+    private lateinit var listView: ListView
+    private lateinit var documentAdapter: DocumentAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,7 +33,7 @@ class DocumentFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.activity_documents, container, false)
 
-        val listView: ListView = view.findViewById(R.id.documentListView)
+        listView = view.findViewById(R.id.documentListView)
         val btnAddDocument = view.findViewById<ImageView>(R.id.addDocument)
         // Leitura da Internal Storage
         val directory: File = requireContext().filesDir

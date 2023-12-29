@@ -1,10 +1,15 @@
 package pt.ipt.dam2023.neei_ipt.ui.activity
 
+import android.Manifest
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import pt.ipt.dam2023.neei_ipt.R
@@ -21,9 +26,20 @@ import java.util.Calendar
 import java.util.Locale
 import java.util.Scanner
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.RequestOptions
+import com.vmadalin.easypermissions.EasyPermissions
+import com.vmadalin.easypermissions.dialogs.SettingsDialog
 
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
+    val PICK_IMAGE = 1
+    val TAKE_PHOTO = 2
+
+    companion object {
+        const val PERMISSION_REQUEST_CODE = 1
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile) // Define o layout da atividade como activity_profile.xml
@@ -42,11 +58,9 @@ class ProfileActivity : AppCompatActivity() {
         val githubText = findViewById<EditText>(R.id.editTextGithub)
         val numAlunoText = findViewById<EditText>(R.id.editTextNumAluno)
         val image = findViewById<ImageView>(R.id.imageViewProfile)
-
+        image.isClickable=false
         // Lista de IDs de elementos a serem editados
         val elementos = listOf(
-            R.id.editTextUsername,
-            R.id.editTextEmail,
             R.id.editTextName,
             R.id.editTextSurname,
             R.id.editTextBirthDate,
@@ -64,7 +78,7 @@ class ProfileActivity : AppCompatActivity() {
         buttConfirmar.setBackgroundColor(night)
 
         // Ação ao clicar no botão Editar
-        buttEditar.setOnClickListener{
+        buttEditar.setOnClickListener {
             elementos.forEach { viewId ->
                 val textView = findViewById<EditText>(viewId)
                 textView.setHintTextColor(Color.WHITE)
@@ -75,10 +89,11 @@ class ProfileActivity : AppCompatActivity() {
                 buttEditar.isEnabled = false
                 buttEditar.setBackgroundColor(night)
             }
+            image.isClickable = true
         }
 
         // Ação ao clicar no botão Confirmar
-        buttConfirmar.setOnClickListener{
+        buttConfirmar.setOnClickListener {
             elementos.forEach { viewId ->
                 val textView = findViewById<EditText>(viewId)
                 textView.setHintTextColor(Color.BLACK)
@@ -89,10 +104,11 @@ class ProfileActivity : AppCompatActivity() {
                 buttEditar.isEnabled = true
                 buttEditar.setBackgroundColor(azul)
             }
+            image.isClickable = false
         }
 
         var userId = -1 // ID do usuário logado
-        var imagePath= "" // Caminho da imagem do perfil
+        var imagePath = "" // Caminho da imagem do perfil
 
         // Leitura da Internal Storage para obter dados do usuário de um arquivo dados.txt
         val directory: File = filesDir
@@ -105,7 +121,7 @@ class ProfileActivity : AppCompatActivity() {
             sc.nextLine()
             sc.nextLine()
             sc.nextLine()
-            imagePath=sc.nextLine()
+            imagePath = sc.nextLine()
             userId = sc.nextLine().toInt() // ID do usuário armazenado
             sc.close()
             fi.close()
@@ -127,11 +143,11 @@ class ProfileActivity : AppCompatActivity() {
                     val formattedDate = dateFormat.format(birthDate)
                     birthDateText.setText(formattedDate)
                 }
-                if(result.person.gender==null){
+                if (result.person.gender == null) {
                     genderText.setSelection(2)
-                }else if(result.person.gender=="M"){
+                } else if (result.person.gender == "M") {
                     genderText.setSelection(0)
-                }else{
+                } else {
                     genderText.setSelection(1)
                 }
                 linkedinText.setText(result.person.linkedIn)
@@ -139,13 +155,76 @@ class ProfileActivity : AppCompatActivity() {
                 numAlunoText.setText(result.person.numAluno)
                 Glide.with(this)
                     .load(imagePath)
-                    .into(image) // Carregar a imagem de perfil usando Glide
+                    .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                    .into(image)
+            }
+        }
+
+        image.setOnClickListener {
+            if (image.isClickable){
+                if (hasPermissions()){
+                    val options = arrayOf("Escolher da Galeria", "Tirar Foto")
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle("Escolher uma opção")
+                    builder.setItems(options) { dialog, which ->
+                        when (which) {
+                            0 -> openGallery()
+                            1 -> openCamera()
+                        }
+                    }
+                    builder.show()
+                }else{
+                    requestPermissions()
+                }
             }
         }
     }
 
+    private fun openGallery() {
+        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(galleryIntent, PICK_IMAGE)
+    }
+
+    private fun openCamera() {
+        val takePhotoIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(takePhotoIntent, TAKE_PHOTO)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
+                PICK_IMAGE -> {
+                    // Foto escolhida da galeria
+                    val selectedImage = data?.data
+                    val image = findViewById<ImageView>(R.id.imageViewProfile)
+                  //  image.setImageURI(selectedImage)
+                    Glide.with(this)
+                        .load(selectedImage)
+                        .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                        .into(image)
+                }
+
+                TAKE_PHOTO -> {
+                    // Foto tirada pela câmera
+                    val photo = data?.extras?.get("data") as Bitmap
+                    val image = findViewById<ImageView>(R.id.imageViewProfile)
+
+                    // Exibir a foto na ImageView
+                    //image.setImageBitmap(photo)
+                    Glide.with(this)
+                        .load(photo)
+                        .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                        .into(image)
+                }
+            }
+        }
+    }
+
+
     // Configura o Spinner com opções de gênero
-    private fun setSpinner(){
+    private fun setSpinner() {
         val spinner = findViewById<Spinner>(R.id.spinnerGender)
         val genderOptions = arrayOf("Masculino", "Feminino", "Outro")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genderOptions)
@@ -154,7 +233,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     // Configura o DatePicker para a data de nascimento
-    private fun setDatePicker(){
+    private fun setDatePicker() {
         val editTextBirthDate = findViewById<EditText>(R.id.editTextBirthDate);
         editTextBirthDate.setOnClickListener {
             val calendar: Calendar = Calendar.getInstance()
@@ -194,4 +273,47 @@ class ProfileActivity : AppCompatActivity() {
             // Lidar com o caso em que o ID é nulo
         }
     }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            SettingsDialog.Builder(this).build().show()
+        } else {
+            requestPermissions()
+        }
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
+        showToast("Permissões garantidas com sucesso")
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    private fun hasPermissions() =
+        EasyPermissions.hasPermissions(
+            this,
+            Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.CAMERA
+        )
+
+
+    private fun requestPermissions() {
+        EasyPermissions.requestPermissions(
+            this,
+            "Esta permissão é requerida para fazer download",
+            PERMISSION_REQUEST_CODE,
+            Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.CAMERA
+        )
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
 }

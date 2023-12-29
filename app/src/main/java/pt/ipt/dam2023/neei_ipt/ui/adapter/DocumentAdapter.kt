@@ -1,5 +1,6 @@
 package pt.ipt.dam2023.neei_ipt.ui.adapter
 
+import android.Manifest
 import android.content.Context
 import android.os.Environment
 import android.view.LayoutInflater
@@ -9,8 +10,13 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentActivity
+import com.vmadalin.easypermissions.EasyPermissions
+import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -27,8 +33,12 @@ import java.util.Scanner
 
 class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) :
 
-    ArrayAdapter<Document>(context, resource, objects) {
-
+    ArrayAdapter<Document>(context, resource, objects){
+    /**
+    companion object{
+        const val PERMISSION_REQUEST_CODE = 1
+    }
+    */
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val itemView = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.item_document, parent, false)
@@ -65,10 +75,6 @@ class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) 
             Toast.makeText(context, "File not found", Toast.LENGTH_LONG).show()
         }
 
-
-        //PERMISSION request constant, assign any value
-        val STORAGE_PERMISSION_CODE = 100
-        val TAG = "PERMISSION_TAG"
 
         // Configurar a lógica de download (se necessário) para o ImageView
         downloadImageView.setOnClickListener {
@@ -119,5 +125,42 @@ class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) 
             }
         }
     }
+    /**
+    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(activityContext,perms)){
+            SettingsDialog.Builder(context).build().show()
+        }else{
+            requestPermissions()
+        }
+    }
 
+    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
+        showToast("Permissões garantidas com sucesso")
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        EasyPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults,this)
+    }
+
+    private fun hasPermissions() =
+        EasyPermissions.hasPermissions(
+            context,
+            Manifest.permission.READ_MEDIA_AUDIO,Manifest.permission.READ_MEDIA_IMAGES,Manifest.permission.READ_MEDIA_VIDEO
+        )
+    
+
+    private fun requestPermissions(){
+        EasyPermissions.requestPermissions(
+            activityContext,
+            "Esta permissão é requerida para fazer download",
+            PERMISSION_REQUEST_CODE,
+            Manifest.permission.READ_MEDIA_AUDIO,Manifest.permission.READ_MEDIA_IMAGES,Manifest.permission.READ_MEDIA_VIDEO
+        )
+    }
+    */
 }
