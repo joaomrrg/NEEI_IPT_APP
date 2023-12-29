@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.navigation.NavigationView
 import pt.ipt.dam2023.neei_ipt.R
 import java.io.File
@@ -93,8 +95,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             cargoText.text = sc.nextLine()
             // Mete a imagem no ImageView por url
             Glide.with(this)
-                .load(sc.nextLine())
+                .load("https://neei.eu.pythonanywhere.com/images/"+sc.nextLine())
+                .apply(RequestOptions.bitmapTransform(CircleCrop()))
                 .into(imageView)
+
             sc.close()
             fi.close()
             // Verifica se é administrador para mostrar o menu de Administração
@@ -173,7 +177,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Terminar Sessão")
             builder.setMessage("Tem a certeza que quer terminar sessão?")
-
             builder.setPositiveButton("Sim") { dialog, which ->
                 // Código a ser executado quando o utilizador escolhe "Sim"
                 // Apagar as informações de utilizador do localStorage

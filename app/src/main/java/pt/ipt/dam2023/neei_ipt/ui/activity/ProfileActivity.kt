@@ -5,8 +5,10 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -26,15 +28,31 @@ import java.util.Calendar
 import java.util.Locale
 import java.util.Scanner
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
+import pt.ipt.dam2023.neei_ipt.model.updatePersonRequest
+import java.io.FileOutputStream
+import java.io.PrintStream
+import java.net.URI
 
 
 class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     val PICK_IMAGE = 1
     val TAKE_PHOTO = 2
+    var roleId = -1
+    var roleDescription = ""
+    var userId = -1
+    private lateinit var displayName: String
+    private lateinit var imageFile: File
+    private lateinit var usernamePub: String
+
 
     companion object {
         const val PERMISSION_REQUEST_CODE = 1
@@ -58,7 +76,6 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
         val githubText = findViewById<EditText>(R.id.editTextGithub)
         val numAlunoText = findViewById<EditText>(R.id.editTextNumAluno)
         val image = findViewById<ImageView>(R.id.imageViewProfile)
-        image.isClickable=false
         // Lista de IDs de elementos a serem editados
         val elementos = listOf(
             R.id.editTextName,
@@ -89,25 +106,106 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                 buttEditar.isEnabled = false
                 buttEditar.setBackgroundColor(night)
             }
-            image.isClickable = true
         }
 
         // Ação ao clicar no botão Confirmar
         buttConfirmar.setOnClickListener {
-            elementos.forEach { viewId ->
-                val textView = findViewById<EditText>(viewId)
-                textView.setHintTextColor(Color.BLACK)
-                textView.setTextColor(Color.BLACK)
-                textView.isEnabled = false
-                buttConfirmar.isEnabled = false
-                buttConfirmar.setBackgroundColor(night)
-                buttEditar.isEnabled = true
-                buttEditar.setBackgroundColor(azul)
+            var genderLow = genderText.selectedItem.toString()
+            genderLow = if (genderLow == "Masculino") {
+                "M"
+            } else if (genderLow == "Feminino") {
+                "F"
+            } else {
+                "O"
             }
-            image.isClickable = false
+            val personReq = updatePersonRequest(
+                username = usernameText.text.toString(),
+                name = nameText.text.toString(),
+                surname = surnameText.text.toString(),
+                birthDate = birthDateText.text.toString(),
+                linkedIn = linkedinText.text.toString(),
+                github = githubText.text.toString(),
+                gender = genderText.selectedItem.toString(),
+                image = displayName,
+                numAluno = numAlunoText.text.toString()
+            )
+            usernamePub = usernameText.text.toString()
+            // Chamada da função que comunica com a API, para registar um utilizador
+            if (imageFile.toString().contains(displayName)) {
+                updateProfile(personReq) { statusCode ->
+                    if (statusCode == 200) {
+                        // Registo bem sucedido
+                        Toast.makeText(this, "Perfil atualizado com sucesso.", Toast.LENGTH_LONG)
+                            .show()
+                        elementos.forEach { viewId ->
+                            val textView = findViewById<EditText>(viewId)
+                            textView.setHintTextColor(Color.BLACK)
+                            textView.setTextColor(Color.BLACK)
+                            textView.isEnabled = false
+                            buttConfirmar.isEnabled = false
+                            buttConfirmar.setBackgroundColor(night)
+                            buttEditar.isEnabled = true
+                            buttEditar.setBackgroundColor(azul)
+                        }
+                    } else {
+                        // Erro não identificado / Falha no servidor
+                        Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            } else {
+                uploadImage(imageFile) { statusCode ->
+                    if (statusCode == 201) {
+                        personReq.image = displayName
+                        updateProfile(personReq) { statusCode ->
+                            if (statusCode == 200) {
+                                // Registo bem sucedido
+                                Toast.makeText(
+                                    this,
+                                    "Perfil atualizado com sucesso.",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                elementos.forEach { viewId ->
+                                    val textView = findViewById<EditText>(viewId)
+                                    textView.setHintTextColor(Color.BLACK)
+                                    textView.setTextColor(Color.BLACK)
+                                    textView.isEnabled = false
+                                    buttConfirmar.isEnabled = false
+                                    buttConfirmar.setBackgroundColor(night)
+                                    buttEditar.isEnabled = true
+                                    buttEditar.setBackgroundColor(azul)
+                                }
+                            } else {
+                                // Erro não identificado / Falha no servidor
+                                Toast.makeText(
+                                    this,
+                                    "Erro. Contacte o Administrador",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    } else {
+                        // Erro não identificado / Falha no servidor
+                        Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            }
+            val directory: File = getFilesDir()
+            val file: File = File(directory, "dados.txt")
+            val fo: FileOutputStream = FileOutputStream(file)
+            val ps: PrintStream = PrintStream(fo)
+            ps.println(usernameText.text.toString())
+            ps.println(nameText.text.toString())
+            ps.println(surnameText.text.toString())
+            ps.println(roleId)
+            ps.println(roleDescription)
+            ps.println(displayName)
+            ps.println(userId)
+            ps.close()
+            fo.close()
+            Log.i("Internal Storage","Dados inseridos com sucesso")
         }
-
-        var userId = -1 // ID do usuário logado
         var imagePath = "" // Caminho da imagem do perfil
 
         // Leitura da Internal Storage para obter dados do usuário de um arquivo dados.txt
@@ -119,8 +217,8 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
             sc.nextLine()
             sc.nextLine()
             sc.nextLine()
-            sc.nextLine()
-            sc.nextLine()
+            roleId = sc.nextLine().toInt()
+            roleDescription = sc.nextLine()
             imagePath = sc.nextLine()
             userId = sc.nextLine().toInt() // ID do usuário armazenado
             sc.close()
@@ -134,6 +232,7 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
             if (result != null) {
                 // Carregar todas as informações para os elementos da interface
                 usernameText.setText(result.username)
+                displayName = result.username
                 emailText.setText(result.email)
                 nameText.setText(result.person.name)
                 surnameText.setText(result.person.surname)
@@ -154,29 +253,31 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                 githubText.setText(result.person.github)
                 numAlunoText.setText(result.person.numAluno)
                 Glide.with(this)
-                    .load(imagePath)
+                    .load("https://neei.eu.pythonanywhere.com/images/$imagePath")
                     .apply(RequestOptions.bitmapTransform(CircleCrop()))
                     .into(image)
+                val imageUrl = "https://neei.eu.pythonanywhere.com/images/$imagePath"
+                imageFile = File(imageUrl)
+                displayName = imagePath
             }
         }
 
         image.setOnClickListener {
-            if (image.isClickable){
-                if (hasPermissions()){
-                    val options = arrayOf("Escolher da Galeria", "Tirar Foto")
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle("Escolher uma opção")
-                    builder.setItems(options) { dialog, which ->
-                        when (which) {
-                            0 -> openGallery()
-                            1 -> openCamera()
-                        }
+            if (hasPermissions()) {
+                val options = arrayOf("Escolher da Galeria", "Tirar Foto")
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Escolher uma opção")
+                builder.setItems(options) { dialog, which ->
+                    when (which) {
+                        0 -> openGallery()
+                        1 -> openCamera()
                     }
-                    builder.show()
-                }else{
-                    requestPermissions()
                 }
+                builder.show()
+            } else {
+                requestPermissions()
             }
+
         }
     }
 
@@ -198,25 +299,42 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                 PICK_IMAGE -> {
                     // Foto escolhida da galeria
                     val selectedImage = data?.data
-                    val image = findViewById<ImageView>(R.id.imageViewProfile)
-                  //  image.setImageURI(selectedImage)
-                    Glide.with(this)
-                        .load(selectedImage)
-                        .apply(RequestOptions.bitmapTransform(CircleCrop()))
-                        .into(image)
+                    if (selectedImage != null) {
+                        imageFile = getFileFromUri(selectedImage)
+                        // Obter o nome do arquivo selecionado
+                        displayName = getFileName(selectedImage)
+                        val image = findViewById<ImageView>(R.id.imageViewProfile)
+                        if (Glide.with(this) != null) {
+                            Glide.with(this)
+                                .load(selectedImage)
+                                .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                                .into(image)
+                        } else {
+                            // Lógica de tratamento se Glide for nulo
+                        }
+                    } else {
+                        // Lógica de tratamento se selectedImage for nulo
+                    }
                 }
 
                 TAKE_PHOTO -> {
-                    // Foto tirada pela câmera
                     val photo = data?.extras?.get("data") as Bitmap
-                    val image = findViewById<ImageView>(R.id.imageViewProfile)
 
-                    // Exibir a foto na ImageView
-                    //image.setImageBitmap(photo)
+                    // Salvar a foto em um arquivo temporário
+                    val tempFile = createTempFile("temp", null, cacheDir)
+                    tempFile.outputStream().use { output ->
+                        photo.compress(Bitmap.CompressFormat.PNG, 100, output)
+                    }
+
+                    // Usar o arquivo temporário para exibir a imagem na imageView
+                    val image = findViewById<ImageView>(R.id.imageViewProfile)
                     Glide.with(this)
-                        .load(photo)
+                        .load(tempFile)
                         .apply(RequestOptions.bitmapTransform(CircleCrop()))
                         .into(image)
+
+                    // Configurar a variável imageFile para o arquivo temporário
+                    imageFile = tempFile
                 }
             }
         }
@@ -253,7 +371,7 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
         }
     }
 
-    // Função para obter informações do usuário da API com base no ID
+    // Função para obter informações do utilizador da API com base no ID
     private fun getUser(id: Int?, onResult: (User?) -> Unit) {
         if (id != null) {
             val call = RetrofitInitializer().APIService().getUserById(id)
@@ -273,6 +391,47 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
             // Lidar com o caso em que o ID é nulo
         }
     }
+
+    //Função para dar upload a uma imagem
+    private fun uploadImage(imageFile: File, onResult: (Int) -> Unit) {
+        displayName = "$usernamePub.png"
+        // Criar uma instância de MultipartBody.Part para o arquivo
+        val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile)
+        val filePart = MultipartBody.Part.createFormData("image", displayName, requestFile)
+        // Faz a chamada a API
+        val call = RetrofitInitializer().APIService().uploadImage(filePart)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                t?.message?.let { Log.e("onFailure error", it) }
+                onResult(501)
+            }
+
+            // Retorna o StatusCode da resposta
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                onResult(response.code())
+            }
+        })
+    }
+
+    // Função para atualizar um utilizador na bd
+    private fun updateProfile(person: updatePersonRequest, onResult: (Int) -> Unit) {
+        // Faz a chamada a API
+        val call = RetrofitInitializer().APIService().updateProfile(person)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                t?.message?.let { Log.e("onFailure error", it) }
+                onResult(501)
+            }
+
+            // Retorna o StatusCode da resposta
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                onResult(response.code())
+            }
+        })
+    }
+
 
     override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
@@ -314,6 +473,32 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    // Função para receber um ficheiro
+    private fun getFileFromUri(uri: Uri): File {
+        val inputStream = contentResolver.openInputStream(uri)
+        if (inputStream != null) {
+            // Criar um arquivo temporário para armazenar os dados do InputStream
+            val tempFile = createTempFile("temp", null, cacheDir)
+            tempFile.outputStream().use { output ->
+                inputStream.copyTo(output)
+            }
+            return tempFile
+        } else {
+            throw FileNotFoundException("Não foi possível obter o ficheiro a partir da Uri.")
+        }
+    }
+
+    private fun getFileName(uri: Uri): String {
+        val cursor = contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            val nameIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            if (it.moveToFirst()) {
+                return it.getString(nameIndex)
+            }
+        }
+        return ""
     }
 
 }

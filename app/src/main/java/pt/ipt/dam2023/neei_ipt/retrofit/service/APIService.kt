@@ -11,6 +11,7 @@ import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
 import pt.ipt.dam2023.neei_ipt.model.Group
 import pt.ipt.dam2023.neei_ipt.model.RegisterRequest
 import pt.ipt.dam2023.neei_ipt.model.User
+import pt.ipt.dam2023.neei_ipt.model.updatePersonRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -72,10 +73,20 @@ interface APIService {
         fun addDocument(@Body request: DocumentRequest): Call<Void>
 
         /**
+         * Permite o update de um utilizador nop sistema
+         */
+        @POST("updateProfile/")
+        fun updateProfile(@Body request: updatePersonRequest): Call<Void>
+
+        /**
          * Permite o upload de um ficheiro para o servidor
          */
         @Multipart
         @POST("uploadFile/")
         fun uploadFile(@Part file: MultipartBody.Part): Call<Void>
+
+        @Multipart
+        @POST("uploadImage/")
+        fun uploadImage(@Part image: MultipartBody.Part): Call<Void>
 
 }

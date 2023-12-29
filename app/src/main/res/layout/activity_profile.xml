@@ -19,7 +19,6 @@
             android:layout_gravity="center"
             android:layout_marginBottom="16dp"
             android:scaleType="fitCenter"
-            android:clickable="false"
             android:src="@drawable/icon_about" />
 
         <EditText
