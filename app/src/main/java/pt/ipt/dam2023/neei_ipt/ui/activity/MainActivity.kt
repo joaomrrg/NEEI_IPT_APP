@@ -1,6 +1,7 @@
 package pt.ipt.dam2023.neei_ipt.ui.activity
 
 import AboutUsFragment
+import BalanceFragment
 import CalendarViewFragment
 import DocumentFragment
 import HomeFragment
@@ -156,6 +157,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val teamFragment = TeamFragment() // Create an instance of your AboutUsFragment
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, teamFragment)
+                    .commit()
+            }
+            R.id.nav_money -> {
+                val balanceFragment = BalanceFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, balanceFragment)
                     .commit()
             }
         }
