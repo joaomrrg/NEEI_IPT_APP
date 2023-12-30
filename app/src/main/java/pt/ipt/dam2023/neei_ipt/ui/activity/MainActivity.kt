@@ -6,6 +6,7 @@ import CalendarViewFragment
 import DocumentFragment
 import HomeFragment
 import TeamFragment
+import TemporaryInfoFragment
 import UserFragment
 import android.content.Intent
 import android.os.Bundle
@@ -170,6 +171,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val userFragment = UserFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, userFragment)
+                    .commit()
+            }
+            R.id.nav_temporary -> {
+                val temporaryFragment = TemporaryInfoFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, temporaryFragment)
                     .commit()
             }
         }

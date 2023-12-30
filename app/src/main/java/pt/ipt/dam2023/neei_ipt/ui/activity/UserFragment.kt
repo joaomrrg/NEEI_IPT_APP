@@ -1,3 +1,4 @@
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +17,6 @@ import pt.ipt.dam2023.neei_ipt.ui.adapter.UserAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
 
 class UserFragment : Fragment() {
     private lateinit var listView: ListView
@@ -35,10 +35,6 @@ class UserFragment : Fragment() {
 
         // Referenciar o botão de adicionar usuário
         val btnAddUser = view.findViewById<ImageView>(R.id.addUser)
-
-        // Leitura da Internal Storage
-        val directory: File = requireContext().filesDir
-        val file: File = File(directory, "dados.txt")
 
         // Obter a lista de usuários utilizando Retrofit
         getUsers { result ->

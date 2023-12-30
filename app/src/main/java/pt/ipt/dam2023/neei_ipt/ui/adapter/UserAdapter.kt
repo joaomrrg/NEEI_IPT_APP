@@ -16,6 +16,7 @@ import pt.ipt.dam2023.neei_ipt.model.User
 
 class UserAdapter(context: Context, resource: Int, objects: List<User>) :
     ArrayAdapter<User>(context, resource, objects) {
+    
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         // Inflar o layout do item do utilizador
