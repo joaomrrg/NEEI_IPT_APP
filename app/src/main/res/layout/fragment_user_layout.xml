@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/backgroundnightlite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <!-- Título da Página -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lista de Utilizadores"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/white"/><!-- Lista de Documentos -->
+
+        <ImageView
+            android:id="@+id/addUser"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_add">
+
+        </ImageView>
+
+    </LinearLayout>
+    <ListView
+        android:id="@+id/userListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="1dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/backgroundnight"
+        android:layout_margin="10dp"/>
+
+</LinearLayout>

@@ -22,12 +22,14 @@
         android:layout_marginTop="5dp">
 
         <TextView
+            android:id="@+id/currentBalanceText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="23,54"
             android:textColor="@color/white"
             android:textSize="60dp"/>
         <TextView
+            android:id="@+id/euro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="€"
@@ -37,6 +39,7 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/hideBttn"
         android:layout_marginTop="5dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -60,7 +63,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp">
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+            android:id="@+id/addMoneyBttn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
@@ -88,6 +91,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp">
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/addMovementBttn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clickable="true"
@@ -115,6 +119,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp">
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/checkMovementBttn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clickable="true"

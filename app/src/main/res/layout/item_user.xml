@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/cli_background"
+    android:layout_marginBottom="20dp">
+
+    <!-- Título do Documento -->
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nome do Utilizador"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/white"/>
+
+    <!-- Descrição do Documento -->
+    <TextView
+        android:id="@+id/userGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Grupo"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start">
+    <!-- Data do Documento -->
+    <TextView
+        android:id="@+id/userRole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Role"
+        android:textSize="17sp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/white"/>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:layout_marginTop="5dp">
+
+            <ImageView
+                android:id="@+id/editButton"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_edit_file"
+                android:contentDescription="Download"
+                android:layout_gravity="end"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/underlineBackgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:src="@drawable/underline"
+        android:layout_marginTop="10dp">
+    </ImageView>
+
+</LinearLayout>

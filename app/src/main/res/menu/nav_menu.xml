@@ -56,6 +56,7 @@
                 android:title="Conta"/>
 
             <item
+                android:id="@+id/nav_users"
                 android:icon="@drawable/icon_user"
                 android:title="Utilizadores"/>
 

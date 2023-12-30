@@ -6,6 +6,7 @@ import CalendarViewFragment
 import DocumentFragment
 import HomeFragment
 import TeamFragment
+import UserFragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -163,6 +164,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val balanceFragment = BalanceFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, balanceFragment)
+                    .commit()
+            }
+            R.id.nav_users -> {
+                val userFragment = UserFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, userFragment)
                     .commit()
             }
         }
