@@ -41,6 +41,8 @@ class CalendarEvent : AppCompatActivity() {
         val addButton = findViewById<Button>(R.id.addbutton)
         val datePicker = findViewById<DatePicker>(R.id.datepicker)
         val eventName = findViewById<TextView>(R.id.nomeevento)
+        val eventDescription = findViewById<TextView>(R.id.descricaoevento)
+
         val spinner = findViewById<Spinner>(R.id.spinner)
         getGroups { result ->
             if (result != null) {
@@ -88,6 +90,7 @@ class CalendarEvent : AppCompatActivity() {
             // Adicionar evento ao calendário
             val evento = CalendarRequest(
                 eventName.text.toString(),
+                eventDescription.text.toString(),
                 formattedTime,
                 null,
                 spinner.selectedItemPosition + 1

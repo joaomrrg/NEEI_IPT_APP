@@ -32,6 +32,7 @@ data class CalendarWithColor(
  * API - Atributos que são requeridos num POST para adicionar um evento no calendario
  */
 data class CalendarRequest (
+    @SerializedName("title") val title: String?,
     @SerializedName("description") val description: String?,
     @SerializedName("initialDate") val initialDate: String?,
     @SerializedName("endDate") val endDate: Date?,

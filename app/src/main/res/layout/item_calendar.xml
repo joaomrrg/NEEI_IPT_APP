@@ -56,6 +56,7 @@
             android:layout_marginTop="5dp">
 
             <TextView
+                android:id="@+id/eventHours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="12:00H"

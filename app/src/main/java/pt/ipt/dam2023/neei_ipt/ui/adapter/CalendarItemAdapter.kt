@@ -29,6 +29,7 @@ class CalendarItemAdapter(context: Context, resource: Int, objects: List<Calenda
         val titleTextView = itemView.findViewById<TextView>(R.id.documentTitle)
         val descriptionTextView = itemView.findViewById<TextView>(R.id.documentDescription)
         val dateTextView = itemView.findViewById<TextView>(R.id.documentDate)
+        val hourTextView = itemView.findViewById<TextView>(R.id.eventHours)
         val lineColor = itemView.findViewById<ImageView>(R.id.underlineBackgroundImage)
 
         titleTextView.text = calendar?.title
@@ -36,6 +37,15 @@ class CalendarItemAdapter(context: Context, resource: Int, objects: List<Calenda
         val dateFormatter = SimpleDateFormat("dd/MM/yyyy")
         val formattedDate = dateFormatter.format(calendar?.initialDate)
         dateTextView.text = formattedDate
+
+        val timeFormatter = SimpleDateFormat("HH:mm")
+        val formattedTime = timeFormatter.format(calendar?.initialDate)
+        if (formattedTime != "00:00"){
+            hourTextView.text = formattedTime
+        }else{
+            hourTextView.text = "Todo o dia"
+        }
+
 
         // Leitura da Internal Storage
         val directory: File = context.filesDir
