@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.navigation.NavigationView
@@ -33,7 +34,7 @@ import java.util.Scanner
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawerLayout: DrawerLayout
-
+    private lateinit var imagePath: String;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -97,9 +98,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val role =  sc.nextLine().toInt()
             cargoText.text = sc.nextLine()
             // Mete a imagem no ImageView por url
+            imagePath = sc.nextLine()
             Glide.with(this)
-                .load("https://neei.eu.pythonanywhere.com/images/"+sc.nextLine())
+                .load("https://neei.eu.pythonanywhere.com/images/" + imagePath)
                 .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(imageView)
 
             sc.close()
@@ -124,6 +128,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
     }
 
+    override fun onResume() {
+        // Quando volta a ter foco
+        super.onResume()
+        // Ponteiro para a navigation view
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+
+        // Obter o cabeçalho da NavigationView
+        val headerView = navigationView.getHeaderView(0)
+
+        // Ponteiro para a imagem de perfil do utilizador
+        val imageView = headerView.findViewById<ImageView>(R.id.imageView)
+        Glide.with(this)
+            .load("https://neei.eu.pythonanywhere.com/images/" + imagePath)
+            .apply(RequestOptions.bitmapTransform(CircleCrop()))
+            .skipMemoryCache(true)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .into(imageView)
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

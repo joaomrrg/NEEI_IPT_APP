@@ -8,14 +8,14 @@ import java.time.LocalDateTime
  * Descreve um utilizador da aplicação
  */
 data class User(
-    @SerializedName("id") val id: Int,
-    @SerializedName("username") val username: String,
-    @SerializedName("email") val email: String,
-    @SerializedName("password") val password: String,
-    @SerializedName("role") val role: Int,
-    @SerializedName("person") val person: Person,
-    @SerializedName("verified") val verified: Boolean,
-    @SerializedName("createdAt") val createdAt: Date
+    @SerializedName("id") val id: Int?,
+    @SerializedName("username") val username: String?,
+    @SerializedName("email") val email: String?,
+    @SerializedName("password") val password: String?,
+    @SerializedName("role") val role: Int?,
+    @SerializedName("person") val person: Person?,
+    @SerializedName("verified") val verified: Boolean?,
+    @SerializedName("createdAt") val createdAt: Date?
 )
 
 /**

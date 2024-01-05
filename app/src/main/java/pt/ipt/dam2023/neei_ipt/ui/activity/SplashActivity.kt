@@ -20,6 +20,5 @@ class SplashActivity : AppCompatActivity() {
             finish() // Optional, depending on whether you want to finish the splash screen activity or not
         }, 2000)
 
-
     }
 }

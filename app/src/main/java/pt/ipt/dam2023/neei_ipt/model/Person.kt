@@ -7,16 +7,17 @@ import java.util.Date
  *  Dados pessoais de um utilizador
  */
 data class Person (
-    val id: Int,
-    val name: String,
-    val surname: String,
+    val id: Int?,
+    val name: String?,
+    val surname: String?,
     val birthDate: Date?,
     val gender: String?,
     val linkedIn: String?,
     val github: String?,
+    val image: String?,
     val numAluno: String?,
-    val groupId: Int,
-    val userId: Int
+    val groupId: Int?,
+    val userId: Int?
 )
 
 data class updatePersonRequest(

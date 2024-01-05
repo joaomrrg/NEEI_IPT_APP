@@ -29,6 +29,7 @@ import java.util.Locale
 import java.util.Scanner
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.vmadalin.easypermissions.EasyPermissions
@@ -125,7 +126,7 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                 birthDate = birthDateText.text.toString(),
                 linkedIn = linkedinText.text.toString(),
                 github = githubText.text.toString(),
-                gender = genderText.selectedItem.toString(),
+                gender = genderLow,
                 image = displayName,
                 numAluno = numAlunoText.text.toString()
             )
@@ -135,8 +136,7 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                 updateProfile(personReq) { statusCode ->
                     if (statusCode == 200) {
                         // Registo bem sucedido
-                        Toast.makeText(this, "Perfil atualizado com sucesso.", Toast.LENGTH_LONG)
-                            .show()
+                        Toast.makeText(applicationContext, "Perfil atualizado com sucesso.", Toast.LENGTH_LONG).show()
                         elementos.forEach { viewId ->
                             val textView = findViewById<EditText>(viewId)
                             textView.setHintTextColor(Color.BLACK)
@@ -161,7 +161,7 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                             if (statusCode == 200) {
                                 // Registo bem sucedido
                                 Toast.makeText(
-                                    this,
+                                    applicationContext,
                                     "Perfil atualizado com sucesso.",
                                     Toast.LENGTH_LONG
                                 ).show()
@@ -231,10 +231,10 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
         getUser(userId) { result ->
             if (result != null) {
                 // Carregar todas as informações para os elementos da interface
-                usernameText.setText(result.username)
-                displayName = result.username
+                usernameText.setText(result!!.username)
+                displayName = result.username.toString()
                 emailText.setText(result.email)
-                nameText.setText(result.person.name)
+                nameText.setText(result.person!!.name)
                 surnameText.setText(result.person.surname)
                 val birthDate = result.person.birthDate
                 if (birthDate != null) {
@@ -252,13 +252,15 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                 linkedinText.setText(result.person.linkedIn)
                 githubText.setText(result.person.github)
                 numAlunoText.setText(result.person.numAluno)
-                Glide.with(this)
-                    .load("https://neei.eu.pythonanywhere.com/images/$imagePath")
-                    .apply(RequestOptions.bitmapTransform(CircleCrop()))
-                    .into(image)
                 val imageUrl = "https://neei.eu.pythonanywhere.com/images/$imagePath"
                 imageFile = File(imageUrl)
                 displayName = imagePath
+                Glide.with(this)
+                    .load(imageUrl)
+                    .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(image)
             }
         }
 
