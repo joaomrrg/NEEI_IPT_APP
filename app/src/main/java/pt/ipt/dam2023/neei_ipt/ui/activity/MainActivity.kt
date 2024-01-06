@@ -55,6 +55,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, documentFragment)
                 .commit()
+        }else if (fragmentToShow == "CalendarViewFragment") {
+            val calendarFragment = CalendarViewFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, calendarFragment)
+                .commit()
         }
 
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbars)

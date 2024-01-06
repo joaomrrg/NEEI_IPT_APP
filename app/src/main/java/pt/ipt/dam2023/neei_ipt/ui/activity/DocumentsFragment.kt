@@ -71,6 +71,18 @@ class DocumentFragment : Fragment() {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        getDocumentation { result ->
+            if (result != null) {
+                val documentList = result.filterNotNull() // Filtrar documentos nulos
+                // Inicializar a ListView e configurar o adaptador
+                val adapter = DocumentAdapter(requireContext(), R.layout.item_document, documentList)
+                listView.adapter = adapter
+            }
+        }
+    }
+
     /**
      * Função para listar toda a documentação pública do NEEI
      */

@@ -67,7 +67,10 @@ class DocumentAddActivity : AppCompatActivity() {
                         if (statusCode == 201) {
                             // Registo bem sucedido
                             Toast.makeText(this, "Documento adicionado com sucesso.", Toast.LENGTH_LONG).show()
-                            // Navegar para o seu fragmento de destino
+                            val intent = Intent(this, MainActivity::class.java)
+                            // Adicionando um extra chamado "fragment_to_show" com o valor "DocumentFragment" ao Intent
+                            intent.putExtra("fragment_to_show", "DocumentFragment")
+                            startActivity(intent)
                         }else{
                             // Erro não identificado / Falha no servidor
                             Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
@@ -78,11 +81,6 @@ class DocumentAddActivity : AppCompatActivity() {
                     Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
                 }
             }
-
-            val intent = Intent(this, MainActivity::class.java)
-            // Adicionando um extra chamado "fragment_to_show" com o valor "DocumentFragment" ao Intent
-            intent.putExtra("fragment_to_show", "DocumentFragment")
-            startActivity(intent)
 
         }
     }

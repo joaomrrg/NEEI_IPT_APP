@@ -1,11 +1,13 @@
 package pt.ipt.dam2023.neei_ipt.ui.activity
 
+import CalendarViewFragment
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.CalendarView
 import android.widget.DatePicker
 import android.widget.Spinner
 import android.widget.TextView
@@ -101,7 +103,9 @@ class CalendarEvent : AppCompatActivity() {
                     if (result.code == 201) {
                         Toast.makeText(this, "Evento adicionado com sucesso", Toast.LENGTH_LONG)
                             .show()
-                        //val intent = Intent(this, CalendarActivity::class.java)
+                        val intent = Intent(this, MainActivity::class.java)
+                        // Adicionando um extra chamado "fragment_to_show" com o valor "DocumentFragment" ao Intent
+                        intent.putExtra("fragment_to_show", "CalendarViewFragment")
                         startActivity(intent)
                     } else {
                         Toast.makeText(
