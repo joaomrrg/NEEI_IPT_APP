@@ -137,4 +137,14 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/transactionsListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="1dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/backgroundnight"
+        android:layout_margin="10dp"/>
+
 </LinearLayout>
