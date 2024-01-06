@@ -10,6 +10,9 @@ import pt.ipt.dam2023.neei_ipt.model.Document
 import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
 import pt.ipt.dam2023.neei_ipt.model.Group
 import pt.ipt.dam2023.neei_ipt.model.RegisterRequest
+import pt.ipt.dam2023.neei_ipt.model.Transaction
+import pt.ipt.dam2023.neei_ipt.model.TransactionBudget
+import pt.ipt.dam2023.neei_ipt.model.TransactionRequest
 import pt.ipt.dam2023.neei_ipt.model.UpdateRoleRequest
 import pt.ipt.dam2023.neei_ipt.model.User
 import pt.ipt.dam2023.neei_ipt.model.updatePersonRequest
@@ -96,4 +99,21 @@ interface APIService {
         @POST("uploadImage/")
         fun uploadImage(@Part image: MultipartBody.Part): Call<Void>
 
+        /**
+         * Recebe a lista de todas as transações
+         */
+        @GET("transactions")
+        fun listTransactions(): Call<List<Transaction>>
+
+        /**
+         * Recebe o valor do "cofre" do NEEI
+         */
+        @GET("getBudget")
+        fun getBudget(): Call<TransactionBudget>
+
+        /**
+         * Permite a adição de um movimento (transação)
+         */
+        @POST("transactions/")
+        fun addTransaction(@Body request: TransactionRequest): Call<Void>
 }

@@ -1,4 +1,5 @@
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +9,17 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import pt.ipt.dam2023.neei_ipt.R
+import pt.ipt.dam2023.neei_ipt.model.TransactionBudget
+import pt.ipt.dam2023.neei_ipt.model.User
+import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class BalanceFragment : Fragment() {
 
     // Saldo atual simulado
-    private val currentBalance = "1003.54"
+    private var currentBalance = "-"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,8 +37,15 @@ class BalanceFragment : Fragment() {
         val checkMovementButton = view.findViewById<FloatingActionButton>(R.id.checkMovementBttn)
         val euroText = view.findViewById<TextView>(R.id.euro)
 
-        // Define o saldo atual no TextView correspondente
-        currentBalanceText.text = currentBalance
+
+        getBudget { result ->
+            if (result != null) {
+                // Define o saldo atual no TextView correspondente
+                currentBalanceText.text = result.budget.toString()
+                currentBalance = result.budget.toString()
+            }
+        }
+
 
         // Define o comportamento do botão de ocultar/mostrar saldo
         hideButton.setOnClickListener {
@@ -60,5 +74,25 @@ class BalanceFragment : Fragment() {
         }
 
         return view
+    }
+
+    /**
+     * Função para obter o Saldo da conta do NEEI
+     */
+    private fun getBudget(onResult: (TransactionBudget?) -> Unit) {
+        val call = RetrofitInitializer().APIService().getBudget()
+        call.enqueue(object : Callback<TransactionBudget?> {
+            override fun onResponse(call: Call<TransactionBudget?>?, response: Response<TransactionBudget?>?) {
+                response?.body()?.let {
+                    val budget: TransactionBudget = it
+                    onResult(budget)
+                }
+            }
+
+            override fun onFailure(call: Call<TransactionBudget?>, t: Throwable) {
+                // Em caso de falha na requisição, registra o erro no Log
+                t.message?.let { Log.e("Erro onFailure", it) }
+            }
+        })
     }
 }
