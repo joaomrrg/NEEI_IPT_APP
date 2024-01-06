@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import pt.ipt.dam2023.neei_ipt.R
 import pt.ipt.dam2023.neei_ipt.model.User
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
+import pt.ipt.dam2023.neei_ipt.ui.activity.AdminRegisterActivity
 import pt.ipt.dam2023.neei_ipt.ui.activity.DocumentAddActivity
 import pt.ipt.dam2023.neei_ipt.ui.adapter.DocumentAdapter
 import pt.ipt.dam2023.neei_ipt.ui.adapter.UserAdapter
@@ -49,7 +50,7 @@ class UserFragment : Fragment() {
 
         // Configurar o evento de clique do botão para adicionar usuário
         btnAddUser.setOnClickListener{
-            val intent = Intent(requireActivity(), DocumentAddActivity::class.java)
+            val intent = Intent(requireActivity(), AdminRegisterActivity::class.java)
             startActivity(intent)
         }
 

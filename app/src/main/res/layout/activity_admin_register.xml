@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    tools:context=".ui.activity.SplashActivity">
+
+    <ImageView
+        android:id="@+id/cores"
+        android:layout_width="422dp"
+        android:layout_height="157dp"
+        android:src="@drawable/cores"></ImageView>
+
+    <EditText
+        android:id="@+id/nomeText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input"
+        android:hint="Nome"
+        android:paddingLeft="20dp"></EditText>
+
+    <EditText
+        android:id="@+id/apelidoText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input"
+        android:hint="Apelido"
+        android:paddingLeft="20dp"></EditText>
+
+    <EditText
+        android:id="@+id/emailText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input"
+        android:hint="Email"
+        android:paddingLeft="20dp"></EditText>
+
+    <EditText
+        android:id="@+id/usernameText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input"
+        android:hint="Username"
+        android:paddingLeft="20dp"></EditText>
+
+    <EditText
+        android:id="@+id/passwordText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="20dp"></EditText>
+
+    <EditText
+        android:id="@+id/repetePasswordText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input"
+        android:hint="Repetir Password"
+        android:inputType="textPassword"
+        android:paddingLeft="20dp"></EditText>
+
+
+    <Spinner
+        android:id="@+id/roleSpinner2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input"
+         />
+
+    <Button
+        android:id="@+id/registarBtn2"
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="#11568C"
+        android:text="Registar"></Button>
+
+
+</LinearLayout>

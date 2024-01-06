@@ -24,25 +24,16 @@
         android:theme="@style/Theme.NEEI_IPT"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activity.AdminRegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.DocumentAddActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.DocumentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activity.AboutUsActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.activity.CalendarEvent"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activity.CalendarActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activity.HomeFragment"
             android:exported="false" />
         <activity
             android:name=".ui.activity.ForgotPasswordActivity"
