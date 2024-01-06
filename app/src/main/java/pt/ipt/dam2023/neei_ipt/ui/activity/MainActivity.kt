@@ -226,7 +226,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     // Função para um utilizador dar logout
-    fun terminarSessao(){
+    private fun terminarSessao(){
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Terminar Sessão")
             builder.setMessage("Tem a certeza que quer terminar sessão?")
@@ -240,7 +240,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 // Inicie a nova Activity
                 startActivity(intent)
             }
-
             builder.setNegativeButton("Não") { dialog, which ->
                 // Não faz nada
             }

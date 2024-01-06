@@ -1,18 +1,25 @@
 package pt.ipt.dam2023.neei_ipt.ui.adapter
 
 import android.Manifest
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import com.vmadalin.easypermissions.EasyPermissions
@@ -81,6 +88,7 @@ class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) 
             // Use corrotinas para realizar o download em segundo plano
             if (document != null) {
                 downloadFile(document)
+
             }
 
         }
@@ -116,6 +124,7 @@ class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) 
                 withContext(Dispatchers.Main) {
                     showToast("Download completo")
                     println("Download completo para: ${file.absolutePath}")
+                    showOpenFilePopup(file)
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -125,42 +134,37 @@ class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) 
             }
         }
     }
-    /**
-    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(activityContext,perms)){
-            SettingsDialog.Builder(context).build().show()
-        }else{
-            requestPermissions()
+
+    private fun showOpenFilePopup(file: File) {
+        val alertDialogBuilder = AlertDialog.Builder(context)
+        alertDialogBuilder.setTitle("Abrir ficheiro")
+            .setMessage("A transferência foi concluída. Quer abrir o ficheiro?")
+            .setPositiveButton("Sim") { _, _ ->
+                openFile(context,file)
+            }
+            .setNegativeButton("Não") { _, _ ->
+                // Opção para não abrir o arquivo, caso o usuário clique em "Não"
+            }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun openFile(context: Context, file: File) {
+        val uri = FileProvider.getUriForFile(context, "pt.ipt.dam2023.neei_ipt.fileprovider", file)
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.setDataAndType(uri, getMimeType(file.absolutePath))
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_GRANT_READ_URI_PERMISSION
+
+        try {
+            context.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            showToast("Nenhum aplicativo encontrado para abrir o arquivo")
         }
     }
 
-    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
-        showToast("Permissões garantidas com sucesso")
 
+    private fun getMimeType(url: String): String? {
+        val extension = MimeTypeMap.getFileExtensionFromUrl(url)
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
     }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        EasyPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults,this)
-    }
-
-    private fun hasPermissions() =
-        EasyPermissions.hasPermissions(
-            context,
-            Manifest.permission.READ_MEDIA_AUDIO,Manifest.permission.READ_MEDIA_IMAGES,Manifest.permission.READ_MEDIA_VIDEO
-        )
-    
-
-    private fun requestPermissions(){
-        EasyPermissions.requestPermissions(
-            activityContext,
-            "Esta permissão é requerida para fazer download",
-            PERMISSION_REQUEST_CODE,
-            Manifest.permission.READ_MEDIA_AUDIO,Manifest.permission.READ_MEDIA_IMAGES,Manifest.permission.READ_MEDIA_VIDEO
-        )
-    }
-    */
 }
