@@ -49,3 +49,11 @@ data class RegisterRequest(
     @SerializedName("name") val name: String?,
     @SerializedName("surname") val surname: String?
 )
+
+/**
+ * API - Atributos requeridos para atualizar um cargo do utilizador
+ */
+data class UpdateRoleRequest(
+    @SerializedName("id") val id: Int?,
+    @SerializedName("role") val role: Int?
+)

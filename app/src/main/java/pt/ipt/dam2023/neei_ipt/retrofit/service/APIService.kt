@@ -10,6 +10,7 @@ import pt.ipt.dam2023.neei_ipt.model.Document
 import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
 import pt.ipt.dam2023.neei_ipt.model.Group
 import pt.ipt.dam2023.neei_ipt.model.RegisterRequest
+import pt.ipt.dam2023.neei_ipt.model.UpdateRoleRequest
 import pt.ipt.dam2023.neei_ipt.model.User
 import pt.ipt.dam2023.neei_ipt.model.updatePersonRequest
 import retrofit2.Call
@@ -77,6 +78,12 @@ interface APIService {
          */
         @POST("updateProfile/")
         fun updateProfile(@Body request: updatePersonRequest): Call<Void>
+
+        /**
+         * Permite o update de um cargo de um utilizador no sistema
+         */
+        @POST("updateRole/")
+        fun updateRole(@Body request: UpdateRoleRequest): Call<Void>
 
         /**
          * Permite o upload de um ficheiro para o servidor
