@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import kotlinx.coroutines.Dispatchers
@@ -30,6 +32,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pt.ipt.dam2023.neei_ipt.R
 import pt.ipt.dam2023.neei_ipt.model.Document
+import pt.ipt.dam2023.neei_ipt.model.TransactionRequest
+import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
+import pt.ipt.dam2023.neei_ipt.ui.activity.MainActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -41,11 +49,6 @@ import java.util.Scanner
 class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) :
 
     ArrayAdapter<Document>(context, resource, objects){
-    /**
-    companion object{
-        const val PERMISSION_REQUEST_CODE = 1
-    }
-    */
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val itemView = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.item_document, parent, false)
@@ -56,12 +59,13 @@ class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) 
         val descriptionTextView = itemView.findViewById<TextView>(R.id.documentDescription)
         val dateTextView = itemView.findViewById<TextView>(R.id.documentDate)
         val downloadImageView = itemView.findViewById<ImageView>(R.id.downloadButton)
-        val editImageView = itemView.findViewById<ImageView>(R.id.editButton)
+        val removeImageView = itemView.findViewById<ImageView>(R.id.removeButton)
         titleTextView.text = document?.title
         descriptionTextView.text = document?.description
         val dateFormatter = SimpleDateFormat("dd/MM/yyyy")
         val formattedDate = dateFormatter.format(document?.date)
         dateTextView.text = formattedDate
+
 
         // Leitura da Internal Storage
         val directory: File = context.filesDir
@@ -75,7 +79,7 @@ class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) 
             // Guarda a role do user
             val role =  sc.nextLine().toInt()
             //Mostra o botao se for admin
-            editImageView.isVisible = role==1
+            removeImageView.isVisible = role==1
             sc.close()
             fi.close()
         } catch (e: FileNotFoundException) {
@@ -90,11 +94,42 @@ class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) 
                 downloadFile(document)
 
             }
+        }
 
+        removeImageView.setOnClickListener {
+            removeTransaction(document?.id!!){statusCode ->
+                if (statusCode == 200) {
+                    // Registo bem sucedido
+                    showToast("Documento removido com sucesso.",)
+                    // Remove o documento da lista
+                    remove(document)
+
+                    // Notifica o adaptador sobre a mudança na lista
+                    notifyDataSetChanged()
+                }else{
+                    // Erro não identificado / Falha no servidor
+                    showToast("Erro. Contacte o Administrador",)
+                }
+            }
         }
         return itemView
     }
 
+    // Função para remover um documento
+    private fun removeTransaction(id: Int, onResult: (Int) -> Unit) {
+        // Faz a chamada a API
+        val call = RetrofitInitializer().APIService().removeDocument(id)
+        call.enqueue(object : Callback<Void> {
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                t?.message?.let { Log.e("onFailure error", it) }
+                onResult(501)
+            }
+            // Retorna o StatusCode da resposta
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                onResult(response.code())
+            }
+        })
+    }
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
@@ -167,4 +202,6 @@ class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) 
         val extension = MimeTypeMap.getFileExtensionFromUrl(url)
         return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
     }
+
+
 }

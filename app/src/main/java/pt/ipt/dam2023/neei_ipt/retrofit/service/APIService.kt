@@ -116,4 +116,10 @@ interface APIService {
          */
         @POST("transactions/")
         fun addTransaction(@Body request: TransactionRequest): Call<Void>
+
+        /**
+         * Permite remover um documento
+         */
+        @POST("removeDocument/{id}")
+        fun removeDocument(@Path("id") id: Int): Call<Void>
 }

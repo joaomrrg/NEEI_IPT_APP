@@ -44,11 +44,11 @@
         android:layout_height="wrap_content"
         android:gravity="end">
     <ImageView
-        android:id="@+id/editButton"
+        android:id="@+id/removeButton"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_edit_file"
-        android:contentDescription="Download"
+        android:src="@drawable/ic_trash"
+        android:contentDescription="Remove"
         android:layout_gravity="end"
         android:layout_marginTop="4dp"
         android:layout_marginRight="20dp"/>
