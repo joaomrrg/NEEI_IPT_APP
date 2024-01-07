@@ -32,6 +32,9 @@
         </provider>
 
         <activity
+            android:name=".ui.activity.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.TransactionAddActivity"
             android:exported="false" />
         <activity

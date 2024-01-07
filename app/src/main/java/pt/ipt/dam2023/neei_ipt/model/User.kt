@@ -64,3 +64,11 @@ data class UpdateRoleRequest(
 data class RecoverPasswordRequest(
     @SerializedName("email") val email: String?
 )
+
+/**
+ * API - Atributos requeridos para alterar password
+ */
+data class ChangePasswordRequest(
+    @SerializedName("username") val username: String?,
+    @SerializedName("password") val password: String?
+)

@@ -6,6 +6,7 @@ import pt.ipt.dam2023.neei_ipt.model.AuthResponse
 import pt.ipt.dam2023.neei_ipt.model.CalendarRequest
 import pt.ipt.dam2023.neei_ipt.model.CalendarResponse
 import pt.ipt.dam2023.neei_ipt.model.CalendarWithColor
+import pt.ipt.dam2023.neei_ipt.model.ChangePasswordRequest
 import pt.ipt.dam2023.neei_ipt.model.Document
 import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
 import pt.ipt.dam2023.neei_ipt.model.Group
@@ -129,5 +130,11 @@ interface APIService {
          */
         @POST("recoverPassword/")
         fun recoverPassword(@Body request: RecoverPasswordRequest): Call<Void>
+
+        /**
+         * Permite a alteração de password de um utilizador
+         */
+        @POST("changePassword/")
+        fun changePassword(@Body request: ChangePasswordRequest): Call<Void>
 
 }

@@ -47,41 +47,48 @@ class LoginActivity : AppCompatActivity() {
         // Evento de Mouse Click no botão de Login
         loginButton.setOnClickListener{
             // Recebe o valor da chamada da API para Autenticar um User
-            val user = AuthRequest(usernameText.text.toString(), passwordText.text.toString())
-            authUser(user){ result ->
-                if (result != null) {
-                    // Utilizador autenticado com sucesso
-                    if (result.code == 200) {
-                        // Guarda informações no Internal Storage
-                        val directory: File = getFilesDir()
-                        val file: File = File(directory, "dados.txt")
-                        val fo: FileOutputStream = FileOutputStream(file)
-                        val ps: PrintStream = PrintStream(fo)
-                        ps.println(user.username)
-                        ps.println(result.name)
-                        ps.println(result.surname)
-                        ps.println(result.role)
-                        ps.println(result.roleDescription)
-                        ps.println(result.image)
-                        ps.println(result.id)
-                        ps.close()
-                        fo.close()
-                        Log.i("Internal Storage","Dados inseridos com sucesso")
-                        Toast.makeText(this, "Bem-vindo, ${result.name} ${result.surname}", Toast.LENGTH_LONG).show()
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                    // Utilizador não encontrado
-                    } else if (result.code == 404){
-                        Toast.makeText(this, "Utilizador não encontrado", Toast.LENGTH_SHORT).show()
-                    // Utilizador sem autorização (maioritariamente por ter a password errada)
-                    }else if(result.code == 401){
-                        Toast.makeText(this, "Utilizado sem autorização", Toast.LENGTH_SHORT).show()
+            if (passwordText.text.toString().contains("recover:")){
+                val intent = Intent(this, ChangePasswordActivity::class.java)
+                intent.putExtra("username",usernameText.text.toString())
+                startActivity(intent)
+            }else{
+                val user = AuthRequest(usernameText.text.toString(), passwordText.text.toString())
+                authUser(user){ result ->
+                    if (result != null) {
+                        // Utilizador autenticado com sucesso
+                        if (result.code == 200) {
+                            // Guarda informações no Internal Storage
+                            val directory: File = getFilesDir()
+                            val file: File = File(directory, "dados.txt")
+                            val fo: FileOutputStream = FileOutputStream(file)
+                            val ps: PrintStream = PrintStream(fo)
+                            ps.println(user.username)
+                            ps.println(result.name)
+                            ps.println(result.surname)
+                            ps.println(result.role)
+                            ps.println(result.roleDescription)
+                            ps.println(result.image)
+                            ps.println(result.id)
+                            ps.close()
+                            fo.close()
+                            Log.i("Internal Storage","Dados inseridos com sucesso")
+                            Toast.makeText(this, "Bem-vindo, ${result.name} ${result.surname}", Toast.LENGTH_LONG).show()
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            // Utilizador não encontrado
+                        } else if (result.code == 404){
+                            Toast.makeText(this, "Utilizador não encontrado", Toast.LENGTH_SHORT).show()
+                            // Utilizador sem autorização (maioritariamente por ter a password errada)
+                        }else if(result.code == 401){
+                            Toast.makeText(this, "Utilizado sem autorização", Toast.LENGTH_SHORT).show()
+                        }
+                    }else{
+                        // Erro não identificado / Falha no servidor
+                        Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
                     }
-                }else{
-                    // Erro não identificado / Falha no servidor
-                    Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
                 }
             }
+
         }
 
     }
