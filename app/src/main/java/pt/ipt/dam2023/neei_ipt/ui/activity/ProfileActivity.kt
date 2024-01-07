@@ -1,8 +1,10 @@
 package pt.ipt.dam2023.neei_ipt.ui.activity
 
 import android.Manifest
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
@@ -11,8 +13,11 @@ import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
 import android.widget.*
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
 import pt.ipt.dam2023.neei_ipt.R
 import pt.ipt.dam2023.neei_ipt.model.User
@@ -44,7 +49,7 @@ import java.io.PrintStream
 import java.net.URI
 
 
-class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
+class ProfileActivity : AppCompatActivity(){
     val PICK_IMAGE = 1
     val TAKE_PHOTO = 2
     var roleId = -1
@@ -53,8 +58,7 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
     private lateinit var displayName: String
     private lateinit var imageFile: File
     private lateinit var usernamePub: String
-
-
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     companion object {
         const val PERMISSION_REQUEST_CODE = 1
     }
@@ -65,7 +69,7 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
 
         setSpinner() // Configura o Spinner com opções de gênero
         setDatePicker() // Configura o DatePicker para a data de nascimento
-
+        registerResult()
         // Ponteiros para os elementos do layout
         val usernameText = findViewById<EditText>(R.id.editTextUsername)
         val emailText = findViewById<EditText>(R.id.editTextEmail)
@@ -265,7 +269,7 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
         }
 
         image.setOnClickListener {
-            if (hasPermissions()) {
+            if (hasCameraPermission()) {
                 val options = arrayOf("Escolher da Galeria", "Tirar Foto")
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("Escolher uma opção")
@@ -277,17 +281,48 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                 }
                 builder.show()
             } else {
-                requestPermissions()
+                requestCameraPermission()
             }
-
         }
     }
 
     private fun openGallery() {
-        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(galleryIntent, PICK_IMAGE)
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = "image/*"
+        resultLauncher.launch(intent)
     }
 
+    private fun registerResult(){
+        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            // Handle the result here
+            if (result.resultCode == Activity.RESULT_OK) {
+                // Handle success
+                val data: Intent? = result.data
+                // Foto escolhida da galeria
+                val selectedImage = data?.data
+                if (selectedImage != null) {
+                    imageFile = getFileFromUri(selectedImage)
+                    // Obter o nome do arquivo selecionado
+                    displayName = getFileName(selectedImage)
+                    val image = findViewById<ImageView>(R.id.imageViewProfile)
+                    if (Glide.with(this) != null) {
+                        Glide.with(this)
+                            .load(selectedImage)
+                            .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                            .into(image)
+                    } else {
+                        // Lógica de tratamento se Glide for nulo
+                    }
+                } else {
+                    // Lógica de tratamento se selectedImage for nulo
+                }
+                // Process the data
+            } else {
+                // Handle other cases
+            }
+        }
+    }
     private fun openCamera() {
         val takePhotoIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(takePhotoIntent, TAKE_PHOTO)
@@ -298,27 +333,6 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
 
         if (resultCode == RESULT_OK) {
             when (requestCode) {
-                PICK_IMAGE -> {
-                    // Foto escolhida da galeria
-                    val selectedImage = data?.data
-                    if (selectedImage != null) {
-                        imageFile = getFileFromUri(selectedImage)
-                        // Obter o nome do arquivo selecionado
-                        displayName = getFileName(selectedImage)
-                        val image = findViewById<ImageView>(R.id.imageViewProfile)
-                        if (Glide.with(this) != null) {
-                            Glide.with(this)
-                                .load(selectedImage)
-                                .apply(RequestOptions.bitmapTransform(CircleCrop()))
-                                .into(image)
-                        } else {
-                            // Lógica de tratamento se Glide for nulo
-                        }
-                    } else {
-                        // Lógica de tratamento se selectedImage for nulo
-                    }
-                }
-
                 TAKE_PHOTO -> {
                     val photo = data?.extras?.get("data") as Bitmap
 
@@ -434,44 +448,29 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
         })
     }
 
-
-    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            SettingsDialog.Builder(this).build().show()
-        } else {
-            requestPermissions()
-        }
-    }
-
-    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
-        showToast("Permissões garantidas com sucesso")
-
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                val options = arrayOf("Escolher da Galeria", "Tirar Foto")
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Escolher uma opção")
+                builder.setItems(options) { dialog, which ->
+                    when (which) {
+                        0 -> openGallery()
+                        1 -> openCamera()
+                    }
+                }
+                builder.show()
+            } else {
+            }
+        }
     }
 
-    private fun hasPermissions() =
-        EasyPermissions.hasPermissions(
-            this,
-            Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.CAMERA
-        )
-
-
-    private fun requestPermissions() {
-        EasyPermissions.requestPermissions(
-            this,
-            "Esta permissão é requerida para fazer download",
-            PERMISSION_REQUEST_CODE,
-            Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.CAMERA
-        )
-    }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
@@ -501,6 +500,21 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
             }
         }
         return ""
+    }
+
+    private fun hasCameraPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestCameraPermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.CAMERA),
+            PERMISSION_REQUEST_CODE
+        )
     }
 
 }

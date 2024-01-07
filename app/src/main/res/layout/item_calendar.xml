@@ -59,12 +59,11 @@
                 android:id="@+id/eventHours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:text="12:00H"
-                android:textSize="14sp"
+
                 android:textColor="@color/white"
-                android:layout_marginRight="3dp"
-                >
-            </TextView>
+                android:textSize="14sp"></TextView>
         </LinearLayout>
     </LinearLayout>
 
