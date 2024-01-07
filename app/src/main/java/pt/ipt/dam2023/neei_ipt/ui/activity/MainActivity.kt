@@ -5,6 +5,7 @@ import BalanceFragment
 import CalendarViewFragment
 import DocumentFragment
 import HomeFragment
+import SettingsFragment
 import TeamFragment
 import TemporaryInfoFragment
 import UserFragment
@@ -214,6 +215,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val temporaryFragment = TemporaryInfoFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, temporaryFragment)
+                    .commit()
+            }
+            R.id.nav_settings -> {
+                val settingsFragment = SettingsFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, settingsFragment)
                     .commit()
             }
         }
