@@ -10,6 +10,7 @@ import pt.ipt.dam2023.neei_ipt.model.ChangePasswordRequest
 import pt.ipt.dam2023.neei_ipt.model.Document
 import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
 import pt.ipt.dam2023.neei_ipt.model.Group
+import pt.ipt.dam2023.neei_ipt.model.Note
 import pt.ipt.dam2023.neei_ipt.model.RecoverPasswordRequest
 import pt.ipt.dam2023.neei_ipt.model.RegisterRequest
 import pt.ipt.dam2023.neei_ipt.model.Transaction
@@ -38,6 +39,12 @@ interface APIService {
          */
         @GET("documents")
         fun listDocs(): Call<List<Document>>
+
+        /**
+         * Recebe a lista de todos os apontamentos disponibilipados pelo NEEI
+         */
+        @GET("notes")
+        fun listNotes(): Call<List<Note>>
 
         /**
          * Recebe a lista de todos os eventos do calendário do sistema
@@ -124,6 +131,12 @@ interface APIService {
          */
         @POST("removeDocument/{id}")
         fun removeDocument(@Path("id") id: Int): Call<Void>
+
+        /**
+         * Permite remover um documento
+         */
+        @POST("removeNote/{id}")
+        fun removeApontamento(@Path("id") id: Int): Call<Void>
 
         /**
          * Permite a recuperação de password de um utilizador

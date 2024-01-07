@@ -28,7 +28,7 @@
             android:title="Equipa"/>
 
         <item
-            android:id="@+id/nav_membro"
+            android:id="@+id/nav_apontamentos"
             android:icon="@drawable/ic_book"
             android:title="Apontamentos"/>
 

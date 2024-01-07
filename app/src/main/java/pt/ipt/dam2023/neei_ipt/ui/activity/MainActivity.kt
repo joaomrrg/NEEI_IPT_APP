@@ -5,12 +5,14 @@ import BalanceFragment
 import CalendarViewFragment
 import DocumentFragment
 import HomeFragment
+import NotesFragment
 import SettingsFragment
 import TeamFragment
 import TemporaryInfoFragment
 import UserFragment
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -27,6 +29,11 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.navigation.NavigationView
 import pt.ipt.dam2023.neei_ipt.R
+import pt.ipt.dam2023.neei_ipt.model.User
+import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -35,7 +42,9 @@ import java.util.Scanner
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var imagePath: String;
+    private lateinit var imagePath: String
+    private lateinit var userId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -121,7 +130,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(imageView)
-
+            userId = sc.nextLine()
             sc.close()
             fi.close()
             // Verifica se é administrador para mostrar o menu de Administração
@@ -153,14 +162,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Obter o cabeçalho da NavigationView
         val headerView = navigationView.getHeaderView(0)
 
-        // Ponteiro para a imagem de perfil do utilizador
-        val imageView = headerView.findViewById<ImageView>(R.id.imageView)
-        Glide.with(this)
-            .load("https://neei.eu.pythonanywhere.com/images/" + imagePath)
-            .apply(RequestOptions.bitmapTransform(CircleCrop()))
-            .skipMemoryCache(true)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .into(imageView)
+        getUser(userId.toInt()) { result ->
+            if (result != null) {
+                imagePath = result.person?.image!!
+                // Ponteiro para a imagem de perfil do utilizador
+                val imageView = headerView.findViewById<ImageView>(R.id.imageView)
+                Glide.with(this)
+                    .load("https://neei.eu.pythonanywhere.com/images/" + imagePath)
+                    .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(imageView)
+            }
+        }
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -223,6 +238,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .replace(R.id.fragment_container, settingsFragment)
                     .commit()
             }
+            R.id.nav_apontamentos -> {
+                val apontamentosFragment = NotesFragment() // Create an instance of your AboutUsFragment
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, apontamentosFragment)
+                    .commit()
+            }
         }
 
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -258,6 +279,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             builder.show()
         }
+
+    private fun getUser(id: Int?, onResult: (User?) -> Unit) {
+        if (id != null) {
+            val call = RetrofitInitializer().APIService().getUserById(id)
+            call.enqueue(object : Callback<User?> {
+                override fun onResponse(call: Call<User?>?, response: Response<User?>?) {
+                    response?.body()?.let {
+                        val user: User = it
+                        onResult(user)
+                    }
+                }
+
+                override fun onFailure(call: Call<User?>, t: Throwable) {
+                    Log.e("Erro", t.message ?: "Erro na chamada da API")
+                }
+            })
+        } else {
+            // Lidar com o caso em que o ID é nulo
+        }
+    }
 
     }
 
