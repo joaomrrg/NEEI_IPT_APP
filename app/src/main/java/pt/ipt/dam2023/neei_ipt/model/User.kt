@@ -57,3 +57,10 @@ data class UpdateRoleRequest(
     @SerializedName("id") val id: Int?,
     @SerializedName("role") val role: Int?
 )
+
+/**
+ * API - Atributos requeridos para recuperar password
+ */
+data class RecoverPasswordRequest(
+    @SerializedName("email") val email: String?
+)

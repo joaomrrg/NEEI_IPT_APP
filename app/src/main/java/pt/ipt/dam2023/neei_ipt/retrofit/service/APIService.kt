@@ -9,6 +9,7 @@ import pt.ipt.dam2023.neei_ipt.model.CalendarWithColor
 import pt.ipt.dam2023.neei_ipt.model.Document
 import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
 import pt.ipt.dam2023.neei_ipt.model.Group
+import pt.ipt.dam2023.neei_ipt.model.RecoverPasswordRequest
 import pt.ipt.dam2023.neei_ipt.model.RegisterRequest
 import pt.ipt.dam2023.neei_ipt.model.Transaction
 import pt.ipt.dam2023.neei_ipt.model.TransactionBudget
@@ -122,4 +123,11 @@ interface APIService {
          */
         @POST("removeDocument/{id}")
         fun removeDocument(@Path("id") id: Int): Call<Void>
+
+        /**
+         * Permite a recuperação de password de um utilizador
+         */
+        @POST("recoverPassword/")
+        fun recoverPassword(@Body request: RecoverPasswordRequest): Call<Void>
+
 }

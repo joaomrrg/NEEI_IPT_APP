@@ -103,7 +103,6 @@ class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) 
                     showToast("Documento removido com sucesso.",)
                     // Remove o documento da lista
                     remove(document)
-
                     // Notifica o adaptador sobre a mudança na lista
                     notifyDataSetChanged()
                 }else{
@@ -193,7 +192,7 @@ class DocumentAdapter(context: Context, resource: Int, objects: List<Document>) 
         try {
             context.startActivity(intent)
         } catch (e: ActivityNotFoundException) {
-            showToast("Nenhum aplicativo encontrado para abrir o arquivo")
+            showToast("Nenhuma aplicação encontrada para abrir o ficheiro")
         }
     }
 
