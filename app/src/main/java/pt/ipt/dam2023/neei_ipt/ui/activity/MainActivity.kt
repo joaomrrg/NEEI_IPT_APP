@@ -65,6 +65,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, userFragment)
                 .commit()
+        }else if (fragmentToShow == "BalanceFragment") {
+            val balanceFragment = BalanceFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, balanceFragment)
+                .commit()
         }
 
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbars)

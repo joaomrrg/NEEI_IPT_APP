@@ -61,23 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp">
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addMoneyBttn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:src="@android:drawable/ic_input_add"
-            style="@style/mainfloating"
-            android:backgroundTint="@color/white" />
-        </FrameLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Adicionar Fundos"
-                android:textColor="@color/white"
-                android:textAlignment="center"
-                android:textSize="14dp"/>
+            android:layout_marginLeft="10dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -117,23 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp">
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/checkMovementBttn"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:src="@android:drawable/ic_input_add"
-                    style="@style/mainfloating"
-                    android:backgroundTint="@color/white" />
-            </FrameLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Consultar Movimentos"
-                android:textColor="@color/white"
-                android:textAlignment="center"
-                android:textSize="14dp"/>
+                android:layout_marginLeft="10dp"/>
         </LinearLayout>
 
     </LinearLayout>

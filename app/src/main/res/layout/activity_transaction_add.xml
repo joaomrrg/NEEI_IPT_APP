@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.DocumentAddActivity"
+    android:background="@color/backgroundnight"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nova Transação"
+        android:textSize="35dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:padding="10dp"
+        android:background="@color/blue"
+        >
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp">
+
+    <EditText
+        android:id="@+id/descriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input"
+        android:hint="Descrição"
+        android:paddingLeft="20dp"
+        android:backgroundTint="@color/backgroundnightlite"
+        android:textColorHint="@color/white" />
+
+    <EditText
+        android:id="@+id/valueText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input"
+        android:hint="Valor"
+        android:inputType="numberDecimal"
+        android:paddingLeft="20dp"
+
+        android:backgroundTint="@color/backgroundnightlite"
+        android:textColorHint="@color/white" />
+
+        <EditText
+            android:id="@+id/dateText"
+            style="@style/Widget.AppCompat.AutoCompleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/input"
+            android:backgroundTint="@color/backgroundnightlite"
+            android:hint="Data (formato dd/MM/yyyy)"
+            android:paddingLeft="20dp"
+            android:textColorHint="@color/white" />
+
+        <!-- Adição do grupo de RadioButtons -->
+        <RadioGroup
+            android:id="@+id/transactionTypeRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tipo de Movimento:"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:padding="10dp"
+                />
+
+            <RadioButton
+                android:id="@+id/radioExpense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gasto"
+                android:textColor="@color/white" />
+
+            <RadioButton
+                android:id="@+id/radioIncome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ganho"
+                android:textColor="@color/white" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        />
+
+    <Button
+        android:id="@+id/createButton"
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#19568C"
+        android:text="Adicionar"
+        android:textSize="15dp"
+        android:layout_marginBottom="15dp"/>
+
+
+</LinearLayout>

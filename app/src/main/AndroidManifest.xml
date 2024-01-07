@@ -33,6 +33,9 @@
         </provider>
 
         <activity
+            android:name=".ui.activity.TransactionAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.AdminRegisterActivity"
             android:exported="false" />
         <activity

@@ -12,7 +12,7 @@ data class Transaction(
 
 data class TransactionRequest(
     @SerializedName("description") val description: String?,
-    @SerializedName("date") val date: Date?,
+    @SerializedName("date") val date: String?,
     @SerializedName("value") val value: Float?
 )
 

@@ -1,3 +1,4 @@
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,8 @@ import pt.ipt.dam2023.neei_ipt.model.Transaction
 import pt.ipt.dam2023.neei_ipt.model.TransactionBudget
 import pt.ipt.dam2023.neei_ipt.model.User
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
+import pt.ipt.dam2023.neei_ipt.ui.activity.DocumentAddActivity
+import pt.ipt.dam2023.neei_ipt.ui.activity.TransactionAddActivity
 import pt.ipt.dam2023.neei_ipt.ui.adapter.DocumentAdapter
 import pt.ipt.dam2023.neei_ipt.ui.adapter.TransactionAdapter
 import retrofit2.Call
@@ -37,9 +40,7 @@ class BalanceFragment : Fragment() {
         // Encontra as views no layout inflado
         val currentBalanceText = view.findViewById<TextView>(R.id.currentBalanceText)
         val hideButton = view.findViewById<ImageView>(R.id.hideBttn)
-        val addMoneyButton = view.findViewById<FloatingActionButton>(R.id.addMoneyBttn)
         val addMovementButton = view.findViewById<FloatingActionButton>(R.id.addMovementBttn)
-        val checkMovementButton = view.findViewById<FloatingActionButton>(R.id.checkMovementBttn)
         val euroText = view.findViewById<TextView>(R.id.euro)
 
         getTransactions { result ->
@@ -71,19 +72,11 @@ class BalanceFragment : Fragment() {
             }
         }
 
-        // Define o comportamento do botão de adicionar dinheiro
-        addMoneyButton.setOnClickListener {
-
-        }
 
         // Define o comportamento do botão de adicionar movimento
         addMovementButton.setOnClickListener {
-
-        }
-
-        // Define o comportamento do botão de verificar movimentos
-        checkMovementButton.setOnClickListener {
-
+            val intent = Intent(requireActivity(), TransactionAddActivity::class.java)
+            startActivity(intent)
         }
 
         return view
