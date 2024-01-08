@@ -81,12 +81,11 @@ class HomeFragment : Fragment() {
 
         val colorSpan = ForegroundColorSpan(azul)
         val boldSpan = StyleSpan(android.graphics.Typeface.BOLD)
-        spannableString.setSpan(colorSpan, 0, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannableString.setSpan(boldSpan, 0, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(colorSpan, 0, newName.length+5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(boldSpan, 0, newName.length+5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         val restColorSpan = ForegroundColorSpan(Color.WHITE) // Change to your desired color
-        spannableString.setSpan(restColorSpan, 10, text.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
+        spannableString.setSpan(restColorSpan, newName.length+5, modifiedText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannabletext.text = spannableString
 
         // Set EditText focus and show keyboard

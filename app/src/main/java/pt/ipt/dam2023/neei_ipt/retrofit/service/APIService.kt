@@ -90,7 +90,7 @@ interface APIService {
          * Permite o update de um utilizador nop sistema
          */
         @POST("updateProfile/")
-        fun updateProfile(@Body request: updatePersonRequest): Call<Void>
+        fun updateProfile(@Body request: updatePersonRequest): Call<Error>
 
         /**
          * Permite o update de um cargo de um utilizador no sistema

@@ -43,6 +43,7 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
+import pt.ipt.dam2023.neei_ipt.model.Error
 import pt.ipt.dam2023.neei_ipt.model.updatePersonRequest
 import java.io.FileOutputStream
 import java.io.PrintStream
@@ -137,8 +138,8 @@ class ProfileActivity : AppCompatActivity(){
             usernamePub = usernameText.text.toString()
             // Chamada da função que comunica com a API, para registar um utilizador
             if (imageFile.toString().contains(displayName)) {
-                updateProfile(personReq) { statusCode ->
-                    if (statusCode == 200) {
+                updateProfile(personReq) { result ->
+                    if (result?.code() == 201) {
                         // Registo bem sucedido
                         Toast.makeText(applicationContext, "Perfil atualizado com sucesso.", Toast.LENGTH_LONG).show()
                         elementos.forEach { viewId ->
@@ -151,7 +152,9 @@ class ProfileActivity : AppCompatActivity(){
                             buttEditar.isEnabled = true
                             buttEditar.setBackgroundColor(azul)
                         }
-                    } else {
+                    }else if (result?.code() == 200) {
+                        Toast.makeText(applicationContext, result.body()?.message, Toast.LENGTH_LONG).show()
+                    }else {
                         // Erro não identificado / Falha no servidor
                         Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT)
                             .show()
@@ -161,8 +164,8 @@ class ProfileActivity : AppCompatActivity(){
                 uploadImage(imageFile) { statusCode ->
                     if (statusCode == 201) {
                         personReq.image = displayName
-                        updateProfile(personReq) { statusCode ->
-                            if (statusCode == 200) {
+                        updateProfile(personReq) { result ->
+                            if (result?.code() == 201) {
                                 // Registo bem sucedido
                                 Toast.makeText(
                                     applicationContext,
@@ -179,10 +182,16 @@ class ProfileActivity : AppCompatActivity(){
                                     buttEditar.isEnabled = true
                                     buttEditar.setBackgroundColor(azul)
                                 }
+                            }else if (result?.code() == 200) {
+                                Toast.makeText(
+                                    applicationContext,
+                                    result.body()?.message,
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             } else {
                                 // Erro não identificado / Falha no servidor
                                 Toast.makeText(
-                                    this,
+                                    applicationContext,
                                     "Erro. Contacte o Administrador",
                                     Toast.LENGTH_SHORT
                                 ).show()
@@ -431,19 +440,19 @@ class ProfileActivity : AppCompatActivity(){
     }
 
     // Função para atualizar um utilizador na bd
-    private fun updateProfile(person: updatePersonRequest, onResult: (Int) -> Unit) {
+    private fun updateProfile(person: updatePersonRequest, onResult: (Response<Error>?) -> Unit) {
         // Faz a chamada a API
         val call = RetrofitInitializer().APIService().updateProfile(person)
 
-        call.enqueue(object : Callback<Void> {
-            override fun onFailure(call: Call<Void>, t: Throwable) {
+        call.enqueue(object : Callback<Error> {
+            override fun onFailure(call: Call<Error>, t: Throwable) {
                 t?.message?.let { Log.e("onFailure error", it) }
-                onResult(501)
+                onResult(null)
             }
 
             // Retorna o StatusCode da resposta
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                onResult(response.code())
+            override fun onResponse(call: Call<Error>, response: Response<Error>) {
+                onResult(response)
             }
         })
     }
