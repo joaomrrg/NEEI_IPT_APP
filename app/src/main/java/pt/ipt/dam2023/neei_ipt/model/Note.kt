@@ -3,6 +3,9 @@ package pt.ipt.dam2023.neei_ipt.model
 import com.google.gson.annotations.SerializedName
 import java.util.Date
 
+/**
+ * Descreve um apontamento ( Notes )
+ */
 data class Note(
     @SerializedName("id") val id: Int?,
     @SerializedName("title") val title: String?,

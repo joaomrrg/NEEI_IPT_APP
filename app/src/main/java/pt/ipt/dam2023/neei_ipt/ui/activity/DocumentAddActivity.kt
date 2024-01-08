@@ -15,7 +15,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import pt.ipt.dam2023.neei_ipt.R
 import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
-import pt.ipt.dam2023.neei_ipt.model.Error
+import pt.ipt.dam2023.neei_ipt.model.ResponseAPI
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
 import retrofit2.Call
 import retrofit2.Callback
@@ -155,39 +155,39 @@ class DocumentAddActivity : AppCompatActivity() {
     }
 
     // Função para adiconar um novo Documento
-    private fun addDocument(document: DocumentRequest, onResult: (Response<Error>?) -> Unit) {
+    private fun addDocument(document: DocumentRequest, onResult: (Response<ResponseAPI>?) -> Unit) {
         // Faz a chamada a API
         val call = RetrofitInitializer().APIService().addDocument(document)
 
-        call.enqueue(object : Callback<Error> {
-            override fun onFailure(call: Call<Error>, t: Throwable) {
+        call.enqueue(object : Callback<ResponseAPI> {
+            override fun onFailure(call: Call<ResponseAPI>, t: Throwable) {
                 t?.message?.let { Log.e("onFailure error", it) }
                 onResult(null)
             }
 
             // Retorna o StatusCode da resposta
-            override fun onResponse(call: Call<Error>, response: Response<Error>) {
+            override fun onResponse(call: Call<ResponseAPI>, response: Response<ResponseAPI>) {
                 onResult(response)
             }
         })
     }
 
     //Função para dar upload de um ficheiro
-    private fun uploadFile(file: File, onResult: (Response<Error>?) -> Unit) {
+    private fun uploadFile(file: File, onResult: (Response<ResponseAPI>?) -> Unit) {
         // Criar uma instância de MultipartBody.Part para o arquivo
         val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
         val filePart = MultipartBody.Part.createFormData("file", displayName, requestFile)
         // Faz a chamada a API
         val call = RetrofitInitializer().APIService().uploadFile(filePart)
 
-        call.enqueue(object : Callback<Error> {
-            override fun onFailure(call: Call<Error>, t: Throwable) {
+        call.enqueue(object : Callback<ResponseAPI> {
+            override fun onFailure(call: Call<ResponseAPI>, t: Throwable) {
                 t?.message?.let { Log.e("onFailure error", it) }
                 onResult(null)
             }
 
             // Retorna o StatusCode da resposta
-            override fun onResponse(call: Call<Error>, response: Response<Error>) {
+            override fun onResponse(call: Call<ResponseAPI>, response: Response<ResponseAPI>) {
                 onResult(response)
             }
         })

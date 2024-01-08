@@ -11,17 +11,14 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import pt.ipt.dam2023.neei_ipt.R
-import pt.ipt.dam2023.neei_ipt.model.Role
 import pt.ipt.dam2023.neei_ipt.model.UpdateRoleRequest
 import pt.ipt.dam2023.neei_ipt.model.User
-import pt.ipt.dam2023.neei_ipt.model.updatePersonRequest
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
 import retrofit2.Call
 import retrofit2.Callback

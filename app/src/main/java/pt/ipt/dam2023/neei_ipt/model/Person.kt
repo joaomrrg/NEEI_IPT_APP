@@ -20,7 +20,10 @@ data class Person (
     val userId: Int?
 )
 
-data class updatePersonRequest(
+/**
+ * API - Atributos requeridos pela API num POST para atualizar os dados pessoais de um utilizador
+ */
+data class UpdatePersonRequest(
     @SerializedName("username") val username: String?,
     @SerializedName("name") val name: String?,
     @SerializedName("surname") val surname: String?,

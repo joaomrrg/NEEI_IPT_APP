@@ -39,6 +39,9 @@ data class CalendarRequest (
     @SerializedName("groupId") val groupId: Int?
 )
 
+/**
+ * API - Atributos da resposta dada pela API quando adicionamos um evento no calendário
+ */
 data class CalendarResponse (
     @SerializedName("message") val message: String?,
     @SerializedName("code") val code: Int?

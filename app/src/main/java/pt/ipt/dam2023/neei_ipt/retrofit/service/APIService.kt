@@ -9,7 +9,7 @@ import pt.ipt.dam2023.neei_ipt.model.CalendarWithColor
 import pt.ipt.dam2023.neei_ipt.model.ChangePasswordRequest
 import pt.ipt.dam2023.neei_ipt.model.Document
 import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
-import pt.ipt.dam2023.neei_ipt.model.Error
+import pt.ipt.dam2023.neei_ipt.model.ResponseAPI
 import pt.ipt.dam2023.neei_ipt.model.Group
 import pt.ipt.dam2023.neei_ipt.model.Note
 import pt.ipt.dam2023.neei_ipt.model.RecoverPasswordRequest
@@ -19,7 +19,7 @@ import pt.ipt.dam2023.neei_ipt.model.TransactionBudget
 import pt.ipt.dam2023.neei_ipt.model.TransactionRequest
 import pt.ipt.dam2023.neei_ipt.model.UpdateRoleRequest
 import pt.ipt.dam2023.neei_ipt.model.User
-import pt.ipt.dam2023.neei_ipt.model.updatePersonRequest
+import pt.ipt.dam2023.neei_ipt.model.UpdatePersonRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -69,7 +69,7 @@ interface APIService {
          * Permite o registo de um utilizador
          */
         @POST("users/")
-        fun register(@Body request: RegisterRequest): Call<Error>
+        fun register(@Body request: RegisterRequest): Call<ResponseAPI>
 
         /**
          * Recebe a lista de todos os grupos do sistema
@@ -84,13 +84,13 @@ interface APIService {
          * Permite a adição de um documento a bd
          */
         @POST("documents/")
-        fun addDocument(@Body request: DocumentRequest): Call<Error>
+        fun addDocument(@Body request: DocumentRequest): Call<ResponseAPI>
 
         /**
          * Permite o update de um utilizador nop sistema
          */
         @POST("updateProfile/")
-        fun updateProfile(@Body request: updatePersonRequest): Call<Error>
+        fun updateProfile(@Body request: UpdatePersonRequest): Call<ResponseAPI>
 
         /**
          * Permite o update de um cargo de um utilizador no sistema
@@ -103,7 +103,7 @@ interface APIService {
          */
         @Multipart
         @POST("uploadFile/")
-        fun uploadFile(@Part file: MultipartBody.Part): Call<Error>
+        fun uploadFile(@Part file: MultipartBody.Part): Call<ResponseAPI>
 
         @Multipart
         @POST("uploadImage/")
@@ -125,7 +125,7 @@ interface APIService {
          * Permite a adição de um movimento (transação)
          */
         @POST("transactions/")
-        fun addTransaction(@Body request: TransactionRequest): Call<Error>
+        fun addTransaction(@Body request: TransactionRequest): Call<ResponseAPI>
 
         /**
          * Permite remover um documento

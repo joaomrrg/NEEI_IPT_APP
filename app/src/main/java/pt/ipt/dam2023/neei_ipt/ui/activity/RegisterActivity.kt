@@ -5,11 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import pt.ipt.dam2023.neei_ipt.R
-import pt.ipt.dam2023.neei_ipt.model.Error
+import pt.ipt.dam2023.neei_ipt.model.ResponseAPI
 import pt.ipt.dam2023.neei_ipt.model.RegisterRequest
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
 import retrofit2.Call
@@ -96,18 +95,18 @@ class RegisterActivity : AppCompatActivity() {
 
 
     // Função para registar um novo Utilizador (User/Person)
-    private fun registerUser(user: RegisterRequest, onResult: (Response<Error>?) -> Unit) {
+    private fun registerUser(user: RegisterRequest, onResult: (Response<ResponseAPI>?) -> Unit) {
         // Faz a chamada a API
         val call = RetrofitInitializer().APIService().register(user)
 
-        call.enqueue(object : Callback<Error> {
-            override fun onFailure(call: Call<Error>, t: Throwable) {
+        call.enqueue(object : Callback<ResponseAPI> {
+            override fun onFailure(call: Call<ResponseAPI>, t: Throwable) {
                 t?.message?.let { Log.e("onFailure error", it) }
                 onResult(null)
             }
 
             // Retorna o StatusCode da resposta
-            override fun onResponse(call: Call<Error>, response: Response<Error>) {
+            override fun onResponse(call: Call<ResponseAPI>, response: Response<ResponseAPI>) {
                     onResult(response)
             }
         })

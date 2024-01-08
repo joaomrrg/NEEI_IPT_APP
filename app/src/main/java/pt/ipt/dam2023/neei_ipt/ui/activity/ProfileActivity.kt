@@ -33,21 +33,16 @@ import java.util.Calendar
 import java.util.Locale
 import java.util.Scanner
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
-import com.vmadalin.easypermissions.EasyPermissions
-import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
-import pt.ipt.dam2023.neei_ipt.model.Error
-import pt.ipt.dam2023.neei_ipt.model.updatePersonRequest
+import pt.ipt.dam2023.neei_ipt.model.ResponseAPI
+import pt.ipt.dam2023.neei_ipt.model.UpdatePersonRequest
 import java.io.FileOutputStream
 import java.io.PrintStream
-import java.net.URI
 
 
 class ProfileActivity : AppCompatActivity(){
@@ -124,7 +119,7 @@ class ProfileActivity : AppCompatActivity(){
             } else {
                 "O"
             }
-            val personReq = updatePersonRequest(
+            val personReq = UpdatePersonRequest(
                 username = usernameText.text.toString(),
                 name = nameText.text.toString(),
                 surname = surnameText.text.toString(),
@@ -440,18 +435,18 @@ class ProfileActivity : AppCompatActivity(){
     }
 
     // Função para atualizar um utilizador na bd
-    private fun updateProfile(person: updatePersonRequest, onResult: (Response<Error>?) -> Unit) {
+    private fun updateProfile(person: UpdatePersonRequest, onResult: (Response<ResponseAPI>?) -> Unit) {
         // Faz a chamada a API
         val call = RetrofitInitializer().APIService().updateProfile(person)
 
-        call.enqueue(object : Callback<Error> {
-            override fun onFailure(call: Call<Error>, t: Throwable) {
+        call.enqueue(object : Callback<ResponseAPI> {
+            override fun onFailure(call: Call<ResponseAPI>, t: Throwable) {
                 t?.message?.let { Log.e("onFailure error", it) }
                 onResult(null)
             }
 
             // Retorna o StatusCode da resposta
-            override fun onResponse(call: Call<Error>, response: Response<Error>) {
+            override fun onResponse(call: Call<ResponseAPI>, response: Response<ResponseAPI>) {
                 onResult(response)
             }
         })

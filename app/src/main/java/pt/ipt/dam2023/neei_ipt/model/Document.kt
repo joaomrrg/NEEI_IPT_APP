@@ -16,6 +16,9 @@ data class Document(
     @SerializedName("createdAt") val createdAt: Date?,
     )
 
+/**
+ * API - Atributos requeridos pela API num POST para adiconar um documento
+ */
 data class DocumentRequest(
     @SerializedName("title") val title: String?,
     @SerializedName("description") val description: String?,
@@ -23,6 +26,11 @@ data class DocumentRequest(
     @SerializedName("file") val file: String?,
     @SerializedName("schoolYearId") val schoolYearId: Int?,
 )
-data class Error(
+
+/**
+ * API - Atributo de resposta dada pela API num POST que devolve apenas uma mensagem e o respetivo statusCode
+ * um
+ */
+data class ResponseAPI(
     @SerializedName("message") val message: String?,
 )
