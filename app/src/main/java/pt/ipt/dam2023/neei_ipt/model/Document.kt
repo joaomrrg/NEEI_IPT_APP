@@ -23,3 +23,6 @@ data class DocumentRequest(
     @SerializedName("file") val file: String?,
     @SerializedName("schoolYearId") val schoolYearId: Int?,
 )
+data class Error(
+    @SerializedName("message") val message: String?,
+)

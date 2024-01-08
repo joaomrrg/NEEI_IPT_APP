@@ -9,6 +9,7 @@ import pt.ipt.dam2023.neei_ipt.model.CalendarWithColor
 import pt.ipt.dam2023.neei_ipt.model.ChangePasswordRequest
 import pt.ipt.dam2023.neei_ipt.model.Document
 import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
+import pt.ipt.dam2023.neei_ipt.model.Error
 import pt.ipt.dam2023.neei_ipt.model.Group
 import pt.ipt.dam2023.neei_ipt.model.Note
 import pt.ipt.dam2023.neei_ipt.model.RecoverPasswordRequest
@@ -83,7 +84,7 @@ interface APIService {
          * Permite a adição de um documento a bd
          */
         @POST("documents/")
-        fun addDocument(@Body request: DocumentRequest): Call<Void>
+        fun addDocument(@Body request: DocumentRequest): Call<Error>
 
         /**
          * Permite o update de um utilizador nop sistema
@@ -102,7 +103,7 @@ interface APIService {
          */
         @Multipart
         @POST("uploadFile/")
-        fun uploadFile(@Part file: MultipartBody.Part): Call<Void>
+        fun uploadFile(@Part file: MultipartBody.Part): Call<Error>
 
         @Multipart
         @POST("uploadImage/")

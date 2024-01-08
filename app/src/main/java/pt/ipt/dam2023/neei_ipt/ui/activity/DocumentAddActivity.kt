@@ -15,6 +15,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import pt.ipt.dam2023.neei_ipt.R
 import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
+import pt.ipt.dam2023.neei_ipt.model.Error
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,7 +28,7 @@ class DocumentAddActivity : AppCompatActivity() {
     private val PICK_FILE_REQUEST_CODE = 123
     private lateinit var fileNameText: TextView
     private lateinit var selectedFileUri: Uri
-    private lateinit var file: File
+    private var file: File? = null
     private lateinit var displayName: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,27 +61,41 @@ class DocumentAddActivity : AppCompatActivity() {
                 schoolYearId = 1
             )
             // Chamada da função que comunica com a API, para registar um utilizador
-
-            uploadFile(file){statusCode ->
-                if (statusCode == 201) {
-                    addDocument(documentreq){statusCode ->
-                        if (statusCode == 201) {
-                            // Registo bem sucedido
-                            Toast.makeText(this, "Documento adicionado com sucesso.", Toast.LENGTH_LONG).show()
-                            val intent = Intent(this, MainActivity::class.java)
-                            // Adicionando um extra chamado "fragment_to_show" com o valor "DocumentFragment" ao Intent
-                            intent.putExtra("fragment_to_show", "DocumentFragment")
-                            startActivity(intent)
-                        }else{
+            if (file!=null){
+                uploadFile(file!!){ response ->
+                    if (response!=null){
+                        if (response.code() == 201) {
+                            addDocument(documentreq){response ->
+                                if (response!=null){
+                                    if (response.code() == 201) {
+                                        // Registo bem sucedido
+                                        Toast.makeText(this, "Documento adicionado com sucesso.", Toast.LENGTH_LONG).show()
+                                        val intent = Intent(this, MainActivity::class.java)
+                                        // Adicionando um extra chamado "fragment_to_show" com o valor "DocumentFragment" ao Intent
+                                        intent.putExtra("fragment_to_show", "DocumentFragment")
+                                        startActivity(intent)
+                                    }else if (response.code() == 200){
+                                        // Erro não identificado / Falha no servidor
+                                        Toast.makeText(this, response.body()!!.message, Toast.LENGTH_SHORT).show()
+                                    }
+                                }else{
+                                    Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }else if (response.code() == 200) {
                             // Erro não identificado / Falha no servidor
+                            Toast.makeText(this, response.body()!!.message, Toast.LENGTH_SHORT).show()
+                        }else{
                             Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
                         }
+                    }else{
+                        Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
                     }
-                }else{
-                    // Erro não identificado / Falha no servidor
-                    Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
                 }
+            }else{
+                Toast.makeText(this, "Ficheiro não fornecido", Toast.LENGTH_SHORT).show()
             }
+
 
         }
     }
@@ -140,40 +155,40 @@ class DocumentAddActivity : AppCompatActivity() {
     }
 
     // Função para adiconar um novo Documento
-    private fun addDocument(document: DocumentRequest, onResult: (Int) -> Unit) {
+    private fun addDocument(document: DocumentRequest, onResult: (Response<Error>?) -> Unit) {
         // Faz a chamada a API
         val call = RetrofitInitializer().APIService().addDocument(document)
 
-        call.enqueue(object : Callback<Void> {
-            override fun onFailure(call: Call<Void>, t: Throwable) {
+        call.enqueue(object : Callback<Error> {
+            override fun onFailure(call: Call<Error>, t: Throwable) {
                 t?.message?.let { Log.e("onFailure error", it) }
-                onResult(501)
+                onResult(null)
             }
 
             // Retorna o StatusCode da resposta
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                onResult(response.code())
+            override fun onResponse(call: Call<Error>, response: Response<Error>) {
+                onResult(response)
             }
         })
     }
 
     //Função para dar upload de um ficheiro
-    private fun uploadFile(file: File, onResult: (Int) -> Unit) {
+    private fun uploadFile(file: File, onResult: (Response<Error>?) -> Unit) {
         // Criar uma instância de MultipartBody.Part para o arquivo
         val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
         val filePart = MultipartBody.Part.createFormData("file", displayName, requestFile)
         // Faz a chamada a API
         val call = RetrofitInitializer().APIService().uploadFile(filePart)
 
-        call.enqueue(object : Callback<Void> {
-            override fun onFailure(call: Call<Void>, t: Throwable) {
+        call.enqueue(object : Callback<Error> {
+            override fun onFailure(call: Call<Error>, t: Throwable) {
                 t?.message?.let { Log.e("onFailure error", it) }
-                onResult(501)
+                onResult(null)
             }
 
             // Retorna o StatusCode da resposta
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                onResult(response.code())
+            override fun onResponse(call: Call<Error>, response: Response<Error>) {
+                onResult(response)
             }
         })
     }
