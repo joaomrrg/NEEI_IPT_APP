@@ -69,7 +69,7 @@ interface APIService {
          * Permite o registo de um utilizador
          */
         @POST("users/")
-        fun register(@Body request: RegisterRequest): Call<Void>
+        fun register(@Body request: RegisterRequest): Call<Error>
 
         /**
          * Recebe a lista de todos os grupos do sistema
