@@ -17,6 +17,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import pt.ipt.dam2023.neei_ipt.R
 import pt.ipt.dam2023.neei_ipt.model.DocumentRequest
+import pt.ipt.dam2023.neei_ipt.model.Error
 import pt.ipt.dam2023.neei_ipt.model.Transaction
 import pt.ipt.dam2023.neei_ipt.model.TransactionRequest
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
@@ -60,14 +61,16 @@ class TransactionAddActivity : AppCompatActivity() {
                     value = valueTransaction
                 )
                 // Chamada da função que comunica com a API, para registar uma transação
-                addTransaction(transactioReq){statusCode ->
-                    if (statusCode == 201) {
+                addTransaction(transactioReq){response ->
+                    if (response?.code() == 201) {
                         // Registo bem sucedido
                         Toast.makeText(this, "Transação adicionada com sucesso.", Toast.LENGTH_LONG).show()
                         val intent = Intent(this, MainActivity::class.java)
                         // Adicionando um extra chamado "fragment_to_show" com o valor "DocumentFragment" ao Intent
                         intent.putExtra("fragment_to_show", "BalanceFragment")
                         startActivity(intent)
+                    }else if (response?.code() == 200) {
+                        Toast.makeText(this, response.body()?.message, Toast.LENGTH_SHORT).show()
                     }else{
                         // Erro não identificado / Falha no servidor
                         Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
@@ -84,18 +87,18 @@ class TransactionAddActivity : AppCompatActivity() {
 
 
     // Função para adiconar uma nova transação
-    private fun addTransaction(transaction: TransactionRequest, onResult: (Int) -> Unit) {
+    private fun addTransaction(transaction: TransactionRequest, onResult: (Response<Error>?) -> Unit) {
         // Faz a chamada a API
         val call = RetrofitInitializer().APIService().addTransaction(transaction)
 
-        call.enqueue(object : Callback<Void> {
-            override fun onFailure(call: Call<Void>, t: Throwable) {
+        call.enqueue(object : Callback<Error> {
+            override fun onFailure(call: Call<Error>, t: Throwable) {
                 t?.message?.let { Log.e("onFailure error", it) }
-                onResult(501)
+                onResult(null)
             }
             // Retorna o StatusCode da resposta
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                onResult(response.code())
+            override fun onResponse(call: Call<Error>, response: Response<Error>) {
+                onResult(response)
             }
         })
     }

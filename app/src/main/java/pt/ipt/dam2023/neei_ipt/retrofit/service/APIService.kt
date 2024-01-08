@@ -125,7 +125,7 @@ interface APIService {
          * Permite a adição de um movimento (transação)
          */
         @POST("transactions/")
-        fun addTransaction(@Body request: TransactionRequest): Call<Void>
+        fun addTransaction(@Body request: TransactionRequest): Call<Error>
 
         /**
          * Permite remover um documento
