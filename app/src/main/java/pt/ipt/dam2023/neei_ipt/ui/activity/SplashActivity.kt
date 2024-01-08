@@ -12,12 +12,14 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash)
 
+        // Oculta a ActionBar durante a execução da SplashActivity
         supportActionBar?.hide()
 
+        // Utiliza um Handler para atrasar a execução das próximas ações por 2000 milissegundos (2 segundos)
         Handler().postDelayed({
             val intent = Intent(this@SplashActivity, LoginActivity::class.java)
             startActivity(intent)
-            finish() // Optional, depending on whether you want to finish the splash screen activity or not
+            finish()
         }, 2000)
 
     }

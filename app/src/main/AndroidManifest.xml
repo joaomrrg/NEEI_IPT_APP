@@ -47,7 +47,7 @@
             android:name=".ui.activity.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.CalendarEvent"
+            android:name=".ui.activity.CalendarAddEventActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.ForgotPasswordActivity"

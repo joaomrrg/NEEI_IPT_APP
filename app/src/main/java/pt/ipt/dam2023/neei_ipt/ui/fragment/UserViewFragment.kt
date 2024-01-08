@@ -1,4 +1,4 @@
-
+package pt.ipt.dam2023.neei_ipt.ui.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,66 +12,67 @@ import pt.ipt.dam2023.neei_ipt.R
 import pt.ipt.dam2023.neei_ipt.model.User
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
 import pt.ipt.dam2023.neei_ipt.ui.activity.AdminRegisterActivity
-import pt.ipt.dam2023.neei_ipt.ui.activity.DocumentAddActivity
-import pt.ipt.dam2023.neei_ipt.ui.adapter.DocumentAdapter
 import pt.ipt.dam2023.neei_ipt.ui.adapter.UserAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserFragment : Fragment() {
+class UserViewFragment : Fragment() {
+    // Variável que guarda o ponteiro para a ListView de Utilizadores
     private lateinit var listView: ListView
-    private lateinit var documentAdapter: DocumentAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflar o layout do fragmento
+        // Infla (hierarquiza) o layout para este fragmento
         val view = inflater.inflate(R.layout.fragment_user_layout, container, false)
 
-        // Inicializar a ListView
+        // Associa a variável listView com o ponteiro do objeto na view
         listView = view.findViewById(R.id.userListView)
 
-        // Referenciar o botão de adicionar usuário
+        // Ponteiros de elementos da View
         val btnAddUser = view.findViewById<ImageView>(R.id.addUser)
 
-        // Obter a lista de usuários utilizando Retrofit
+        // Chamada da função que comunica com a API, para obter a lista de utilizadores
         getUsers { result ->
             if (result != null) {
                 // Filtrar usuários nulos
                 val userList = result.filterNotNull()
-                // Inicializar e configurar o adaptador para a ListView
+                // Inicializare configura o adaptador para a ListView
                 val adapter = UserAdapter(requireContext(), R.layout.item_user, userList)
                 listView.adapter = adapter
             }
         }
 
-        // Configurar o evento de clique do botão para adicionar usuário
+        // Evento de Mouse Click no botão Adicionar Utilizador
         btnAddUser.setOnClickListener{
             val intent = Intent(requireActivity(), AdminRegisterActivity::class.java)
             startActivity(intent)
         }
-
         return view
     }
 
     /**
-     * Função para obter a lista de usuários usando Retrofit
+     * Função para obter a lista de utilizadores
      */
     private fun getUsers(onResult: (List<User?>) -> Unit) {
+        // Faz a chamada a API
         val call = RetrofitInitializer().APIService().listUsers()
         call.enqueue(object : Callback<List<User>?> {
+            // Tratamento da resposta bem-sucedida da chamada à API
             override fun onResponse(call: Call<List<User>?>?, response: Response<List<User>?>?) {
                 response?.body()?.let {
+                    // Guarda a lista de utilizadores em variavel
                     val users: List<User?> = it
-                    onResult(users)
+                    onResult(users) // Chama a função de retorno com a resposta da API
                 }
             }
 
+            // Tratamento de falha da chamada à API
             override fun onFailure(call: Call<List<User>?>, t: Throwable) {
-                // Em caso de falha na requisição, registra o erro no Log
+                // Em caso de falha na requisição, regista o erro no Log
                 t.message?.let { Log.e("Erro onFailure", it) }
             }
         })

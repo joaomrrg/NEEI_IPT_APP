@@ -24,17 +24,20 @@ import java.io.FileNotFoundException
 import java.util.Scanner
 
 class DocumentFragment : Fragment() {
+    // Variável que guarda o ponteiro para a ListView de documentos
     private lateinit var listView: ListView
-    private lateinit var documentAdapter: DocumentAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Infla (hierarquiza) o layout para este fragmento
         val view = inflater.inflate(R.layout.activity_documents, container, false)
-
+        // Associa a variável listView com o ponteiro do objeto na view
         listView = view.findViewById(R.id.documentListView)
+        // Ponteiros de elementos da View
         val btnAddDocument = view.findViewById<ImageView>(R.id.addDocument)
+
         // Leitura da Internal Storage
         val directory: File = requireContext().filesDir
         val file: File = File(directory, "dados.txt")
@@ -46,7 +49,7 @@ class DocumentFragment : Fragment() {
             sc.nextLine()
             // Guarda a role do user
             val role =  sc.nextLine().toInt()
-            //Mostra o botao se for admin
+            // Mostra o botao se for admin
             btnAddDocument.isVisible = role==1
             sc.close()
             fi.close()
@@ -54,29 +57,34 @@ class DocumentFragment : Fragment() {
             Toast.makeText(requireContext(), "File not found", Toast.LENGTH_LONG).show()
         }
 
+        // Chamada da função que comunica com a API, para obter a lista de documentos
         getDocumentation { result ->
             if (result != null) {
                 val documentList = result.filterNotNull() // Filtrar documentos nulos
-                // Inicializar a ListView e configurar o adaptador
+                // Inicializa a ListView e configura o adaptador
                 val adapter = DocumentAdapter(requireContext(), R.layout.item_document, documentList)
                 listView.adapter = adapter
             }
         }
 
+        // Evento de Mouse Click no botão Adicionar Documento
         btnAddDocument.setOnClickListener{
             val intent = Intent(requireActivity(), DocumentAddActivity::class.java)
             startActivity(intent)
         }
-
         return view
     }
 
+    /**
+     * Função chamada quando o focus é retomado (resumed) para listar toda a documentação pública do NEEI.
+     */
     override fun onResume() {
         super.onResume()
+        // Chamada da função que comunica com a API, para obter a lista de documentos
         getDocumentation { result ->
             if (result != null) {
                 val documentList = result.filterNotNull() // Filtrar documentos nulos
-                // Inicializar a ListView e configurar o adaptador
+                // Inicializa a ListView e configura o adaptador
                 val adapter = DocumentAdapter(requireContext(), R.layout.item_document, documentList)
                 listView.adapter = adapter
             }
@@ -87,15 +95,19 @@ class DocumentFragment : Fragment() {
      * Função para listar toda a documentação pública do NEEI
      */
     private fun getDocumentation(onResult: (List<Document?>) -> Unit) {
+        // Faz a chamada a API
         val call = RetrofitInitializer().APIService().listDocs()
         call.enqueue(object : Callback<List<Document>?> {
+            // Tratamento da resposta bem-sucedida da chamada à API
             override fun onResponse(call: Call<List<Document>?>?, response: Response<List<Document>?>?) {
                 response?.body()?.let {
+                    // Guarda a lista de documentos
                     val docs: List<Document?> = it
-                    onResult(docs)
+                    onResult(docs) // Chama a função de retorno com a resposta da API
                 }
             }
 
+            // Tratamento de falha da chamada à API
             override fun onFailure(call: Call<List<Document>?>, t: Throwable) {
                 t.message?.let { Log.e("Erro onFailure", it) }
             }

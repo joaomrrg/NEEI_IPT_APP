@@ -1,4 +1,4 @@
-
+package pt.ipt.dam2023.neei_ipt.ui.fragment
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.LinearGradient
@@ -20,8 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import pt.ipt.dam2023.neei_ipt.R
 import pt.ipt.dam2023.neei_ipt.model.CalendarWithColor
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
-import pt.ipt.dam2023.neei_ipt.ui.activity.CalendarEvent
-import pt.ipt.dam2023.neei_ipt.ui.activity.RegisterActivity
+import pt.ipt.dam2023.neei_ipt.ui.activity.CalendarAddEventActivity
 import pt.ipt.dam2023.neei_ipt.ui.adapter.CalendarItemAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,23 +36,27 @@ import java.util.Scanner
 import java.util.TimeZone
 
 class CalendarViewFragment : Fragment() {
-
+    // Declaração de uma variável CompactCalendarView
     private lateinit var compactCalendar: CompactCalendarView
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Infla (hierarquiza) o layout para este fragmento
         val view = inflater.inflate(R.layout.activity_calendar_neei, container, false)
-
+        // Ponteiro do botão de adicionar da View
         val btnAddEvent = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
 
+        // Evento de Mouse Click no botão Adicionar Evento
         btnAddEvent.setOnClickListener {
-            val intent = Intent(requireContext(), CalendarEvent::class.java)
+            // Cria uma Intent para iniciar o CalendarAddEventActivity
+            val intent = Intent(requireContext(), CalendarAddEventActivity::class.java)
             startActivity(intent)
         }
+        // Guarda numa variável o objeto referido por um ponteiro da view
         val listView: ListView = view.findViewById(R.id.listViewCalendar)
+
         // Leitura da Internal Storage
         val directory: File = requireContext().filesDir
         val file: File = File(directory, "dados.txt")
@@ -63,9 +66,9 @@ class CalendarViewFragment : Fragment() {
             sc.nextLine()
             sc.nextLine()
             sc.nextLine()
-            // Guarda a role do user
+            // Guarda a role do user em variável
             val role =  sc.nextLine().toInt()
-            //Mostra o botao se for admin
+            // Mostra o botao de adicionar se for admin
             btnAddEvent.isVisible = role==1
             sc.close()
             fi.close()
@@ -73,13 +76,7 @@ class CalendarViewFragment : Fragment() {
             Toast.makeText(requireContext(), "File not found", Toast.LENGTH_LONG).show()
         }
 
-        // Declaração de uma variável local CompactCalendarView (não utilizada)
-        lateinit var compactCalendar: CompactCalendarView
-
-        // Formato de data para exibição do mês e ano
-        val dateFormatMonth = SimpleDateFormat("MMMM- yyyy", Locale("pt", "PT"))
-
-        //manipulação de um TextView com um gradiente
+        // Manipulação de um TextView com um gradient
         val gradient = view.findViewById<TextView>(R.id.neei_gradient)
         val paint = gradient.paint
         val width = paint.measureText(gradient.text.toString())
@@ -91,8 +88,9 @@ class CalendarViewFragment : Fragment() {
             ), null, Shader.TileMode.REPEAT
         )
 
-
+        // Array estático com os dias da semana abreviados em portugues
         val localizedDayInitials = arrayOf("DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB")
+        // Array estático com os meses do ano escritos em portugues
         val localizedMonthNames = arrayOf(
             "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
             "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
@@ -103,45 +101,44 @@ class CalendarViewFragment : Fragment() {
         actionBar?.setDisplayHomeAsUpEnabled(false)
         actionBar?.title = null
 
-        // Localização do CompactCalendarView no layout
+        // Ponteiro do objeto CompactCalendarView no layout
         compactCalendar = view.findViewById(R.id.calenderView)
         val ptTimeZone = TimeZone.getTimeZone("Europe/Lisbon")
+        // Configuração do Calendário
         compactCalendar.setLocale(ptTimeZone, Locale("pt", "PT"))
         compactCalendar.setFirstDayOfWeek(Calendar.SUNDAY)
         compactCalendar.setDayColumnNames(localizedDayInitials)
         compactCalendar.setCurrentDate(Calendar.getInstance().time)
 
-        // Localização dos TextViews para exibir o ano e o mês
+        // Ponteiros dos elementos TextViews para exibir o ano e o mês
         val yearTextView: TextView = view.findViewById(R.id.year)
         val monthTextView: TextView = view.findViewById(R.id.month)
         monthTextView.text = localizedMonthNames[Calendar.getInstance().get(Calendar.MONTH)]
         yearTextView.text = Calendar.getInstance().get(Calendar.YEAR).toString()
 
-        // Definição de um ouvinte para os eventos do CompactCalendarView (onMonthScroll)
+        // Definição de um litstener para os eventos do CompactCalendarView (onMonthScroll)
         compactCalendar.setListener(object : CompactCalendarView.CompactCalendarViewListener {
             override fun onDayClick(dateClicked: Date?) {
-                // Lidar com o clique no dia, se necessário
-
             }
 
-            // Inside onMonthScroll callback
+            // Ao dar scroll nos meses
             override fun onMonthScroll(firstDayOfNewMonth: Date?) {
                 firstDayOfNewMonth?.let {
                     val calendar = Calendar.getInstance()
                     calendar.time = it
 
-                    // Exctract year and month
+                    // Extrai o ano e o mês selecionado
                     val year = calendar.get(Calendar.YEAR)
                     val month = calendar.get(Calendar.MONTH)
-                    val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1
 
-                    // Set localized month name
+                    // Mostra o mes e o ano selecionado
                     monthTextView.text = localizedMonthNames[month]
                     yearTextView.text = year.toString()
                 }
             }
         })
 
+        // Chamada da função que comunica com a API, para obter a lista de eventos
         getEvents { result ->
             if (result != null) {
                 val calendarList = result.filterNotNull() // Filtrar documentos nulos
@@ -167,19 +164,22 @@ class CalendarViewFragment : Fragment() {
         return view
     }
 
+    /**
+     * Função para obter eventos
+     */
     private fun getEvents(onResult: (List<CalendarWithColor>?) -> Unit) {
+        // Faz a chamada a API
         val call = RetrofitInitializer().APIService().listEvents()
         call.enqueue(object : Callback<List<CalendarWithColor>?> {
-            override fun onResponse(
-                call: Call<List<CalendarWithColor>?>?,
-                response: Response<List<CalendarWithColor>?>?
-            ) {
+            // Tratamento da resposta bem-sucedida da chamada à API
+            override fun onResponse(call: Call<List<CalendarWithColor>?>?, response: Response<List<CalendarWithColor>?>?) {
                 response?.body()?.let {
+                    // Guarda numa variável a lista de eventos recebida pela API
                     val events: List<CalendarWithColor> = it
-                    onResult(events)
+                    onResult(events) // Chama a função de retorno com a resposta da API
                 }
             }
-
+            // Tratamento de falha da chamada à API
             override fun onFailure(call: Call<List<CalendarWithColor>?>, t: Throwable) {
                 t?.message?.let { Log.e("onFailure error", it) }
             }

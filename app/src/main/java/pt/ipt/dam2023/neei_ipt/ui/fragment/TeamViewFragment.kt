@@ -1,4 +1,4 @@
-
+package pt.ipt.dam2023.neei_ipt.ui.fragment
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,8 +12,8 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import pt.ipt.dam2023.neei_ipt.R
 
-class TeamFragment : Fragment() {
-
+class TeamViewFragment : Fragment() {
+    // Variáveis com as imagens do github dos membros do NEEI
     private val goncalo = "https://avatars.githubusercontent.com/u/55167343"
     private val joao = "https://avatars.githubusercontent.com/u/120472343"
     private val barbosa = "https://avatars.githubusercontent.com/u/101589640"
@@ -27,10 +27,10 @@ class TeamFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Infla o layout para este fragmento
+        // Infla (hierarquia) o layout para este fragmento
         val view = inflater.inflate(R.layout.team_layout, container, false)
 
-        // Encontra as views no layout inflado
+        // Ponteiros de elementos da View
         val imageJoao = view.findViewById<ImageView>(R.id.imageJoao)
         val imageGoncalo = view.findViewById<ImageView>(R.id.imageGoncalo)
         val anotherGoncalo1 = view.findViewById<ImageView>(R.id.anotherGoncalo1)
@@ -51,7 +51,7 @@ class TeamFragment : Fragment() {
         val inFilipe = view.findViewById<ImageView>(R.id.inFilipe)
         val inGuilherme = view.findViewById<ImageView>(R.id.inGuilherme)
 
-
+        // Carregas as imagens para os respetivos ImageView
         loadImageView(joao, imageJoao)
         loadImageView(goncalo, imageGoncalo)
         loadImageView(goncalo, anotherGoncalo1)
@@ -65,51 +65,47 @@ class TeamFragment : Fragment() {
         loadImageView(miguel, imageMiguel)
         loadImageView(miguel, anotherMiguel1)
 
+        // Evento de Mouse Click nos icones de github de cada membro
         inJoao.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubJoao)))
             startActivity(intent)
         }
-
         inMiguel.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubMiguel)))
             startActivity(intent)
         }
-
         inTiago.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubTiago)))
             startActivity(intent)
         }
-
         inBarbosa.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubBarbosa)))
             startActivity(intent)
         }
-
         inFilipe.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubFilipe)))
             startActivity(intent)
         }
-
         inGoncalo.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubGoncalo)))
             startActivity(intent)
         }
-
         inGuilherme.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubJoao)))
             startActivity(intent)
         }
 
-
         return view
     }
 
+    /**
+     * Função para carregar imagens no ImageView utilizando o Glide
+     */
     fun loadImageView(url: String, image: ImageView){
         // Carrega as imagens nos ImageViews usando Glide
         Glide.with(this)
             .load(url)
             .apply(RequestOptions.bitmapTransform(CircleCrop()))
             .into(image)
-
     }
 }

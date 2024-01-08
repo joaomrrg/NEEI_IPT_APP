@@ -39,14 +39,20 @@ class TransactionAdapter(context: Context, resource: Int, objects: List<Transact
         val itemView = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.item_transaction, parent, false)
 
+        // Obtem o objeto (neste caso 1 transação) dada a sua posição
         val transaction = getItem(position)
+
+        // Ponteiros de elementos da View
         val descriptionTextView = itemView.findViewById<TextView>(R.id.transactionDescription)
         val dateTextView = itemView.findViewById<TextView>(R.id.transactionDate)
         val valueTextView = itemView.findViewById<TextView>(R.id.transactionValue)
+        // Manipulação da informação a mostrar
         descriptionTextView.text = transaction?.description
+        // Formata a data recebida em String
         val dateFormatter = SimpleDateFormat("dd/MM/yyyy")
         val formattedDate = dateFormatter.format(transaction?.date)
         dateTextView.text = formattedDate
+        // Formata o valor recebido em String
         valueTextView.text = transaction?.value.toString()+"€"
         return itemView
     }

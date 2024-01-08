@@ -32,10 +32,13 @@ class AdminRegisterActivity : AppCompatActivity() {
         val registarBtn = findViewById<Button>(R.id.registarBtn2)
         val rolesSpinner = findViewById<Spinner>(R.id.roleSpinner2)
 
+        // Array estático de Cargos que um utilizador pode ter atualmente na aplicação
         val roles = arrayOf("Administrador", "Membro", "Aluno", "Alumni", "Convidado")
+        // Carrega para o spinner os cargos
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, roles)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         rolesSpinner.adapter = adapter
+        // Escolhe o cargo aluno para aparecer "default"
         rolesSpinner.setSelection(2)
 
 
@@ -48,15 +51,19 @@ class AdminRegisterActivity : AppCompatActivity() {
             val username = usernameText.text.toString()
             val password = passwordText.text.toString()
             val repetePassword = repetePasswordText.text.toString()
+
+            // Guarda a posição do item selecionado no spinner e acrescenta +1, visto que os valores começam no 0
+            // e na api começa em 1 os id's
             val role = rolesSpinner.selectedItemPosition+1
 
-            // Verifica se todas as EditText estão preenchidas
+            // Verifica se as EditText não estão vazias
             if (nome.isNotEmpty() && apelido.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()
                 && repetePassword.isNotEmpty()) {
+                // Verifica se a EditText do email contem '@' e '.'
                 if (email.contains('@') and email.contains('.')){
                     // Verificar se as passwords coicidem
                     if(password.equals(repetePassword)){
-                        //Criação do objeto a enviar para Registar um utilizador
+                        // Criação do objeto a enviar para Registar um utilizador
                         val registerRequest = RegisterRequest(
                             email = email,
                             username = username,
@@ -69,23 +76,25 @@ class AdminRegisterActivity : AppCompatActivity() {
                         registerUser(registerRequest){response ->
                             if (response!=null){
                                 if (response.code() == 201) {
-                                    // Registo bem sucedido
+                                    // Registo bem sucedido, mostra a devida mensagem
                                     Toast.makeText(this, "Utilizador registado com sucesso.", Toast.LENGTH_LONG).show()
+
+                                    // Adiciona um extra chamado "fragment_to_show" com o valor "UserViewFragment" ao Intent
                                     val intent = Intent(this, MainActivity::class.java)
-                                    // Adicionando um extra chamado "fragment_to_show" com o valor "DocumentFragment" ao Intent
-                                    intent.putExtra("fragment_to_show", "UserFragment")
+                                    intent.putExtra("fragment_to_show", "UserViewFragment")
                                     startActivity(intent)
                                 }else if (response.code() == 409){
                                     // Utilizador já existe no sistema (username ou email)
                                     Toast.makeText(this, "O email ou username inseridos já se encontram registados.", Toast.LENGTH_LONG).show()
                                 }else if (response.code() == 200){
-                                    // Utilizador já existe no sistema (username ou email)
+                                    // Existe algum erro que não permitiu o registo (falta de informação)
                                     Toast.makeText(this, response.body()?.message, Toast.LENGTH_LONG).show()
                                 }else{
                                     // Erro não identificado / Falha no servidor
                                     Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
                                 }
                             }else{
+                                // Erro não identificado / Falha no servidor
                                 Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
                             }
 
@@ -105,20 +114,23 @@ class AdminRegisterActivity : AppCompatActivity() {
 
 
 
-    // Função para registar um novo Utilizador (User/Person)
+
+    /**
+     * Função para registar um novo Utilizador (User/Person)
+     */
     private fun registerUser(user: RegisterRequest, onResult: (Response<ResponseAPI>?) -> Unit) {
         // Faz a chamada a API
         val call = RetrofitInitializer().APIService().register(user)
-
         call.enqueue(object : Callback<ResponseAPI> {
+            // Tratamento de falha da chamada à API
             override fun onFailure(call: Call<ResponseAPI>, t: Throwable) {
                 t?.message?.let { Log.e("onFailure error", it) }
                 onResult(null)
             }
 
-            // Retorna o StatusCode da resposta
+            // Tratamento da resposta bem-sucedida da chamada à API
             override fun onResponse(call: Call<ResponseAPI>, response: Response<ResponseAPI>) {
-                    onResult(response)
+                    onResult(response) // Chama a função de retorno com a resposta da API
             }
         })
     }

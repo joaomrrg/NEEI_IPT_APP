@@ -46,17 +46,22 @@ class LoginActivity : AppCompatActivity() {
 
         // Evento de Mouse Click no botão de Login
         loginButton.setOnClickListener{
-            // Recebe o valor da chamada da API para Autenticar um User
+            // Verifica se a password contem a palavra recover
             if (passwordText.text.toString().contains("recover:")){
+                // Se conntem, cria e inicia a Intent para alterar a password
                 val intent = Intent(this, ChangePasswordActivity::class.java)
+                // Passa por parametro o username
                 intent.putExtra("username",usernameText.text.toString())
                 startActivity(intent)
             }else{
+                // Criação do objeto a enviar para autenticar um utilizador
                 val user = AuthRequest(usernameText.text.toString(), passwordText.text.toString())
+                // Chamada da função que comunica com a API, para registar um utilizador
                 authUser(user){ result ->
                     if (result != null) {
-                        // Utilizador autenticado com sucesso
                         if (result.code == 200) {
+                            // Utilizador autenticado com sucesso
+
                             // Guarda informações no Internal Storage
                             val directory: File = getFilesDir()
                             val file: File = File(directory, "dados.txt")
@@ -72,14 +77,15 @@ class LoginActivity : AppCompatActivity() {
                             ps.close()
                             fo.close()
                             Log.i("Internal Storage","Dados inseridos com sucesso")
+
                             Toast.makeText(this, "Bem-vindo, ${result.name} ${result.surname}", Toast.LENGTH_LONG).show()
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
-                            // Utilizador não encontrado
                         } else if (result.code == 404){
+                            // Utilizador não encontrado
                             Toast.makeText(this, "Utilizador não encontrado", Toast.LENGTH_SHORT).show()
-                            // Utilizador sem autorização (maioritariamente por ter a password errada)
                         }else if(result.code == 401){
+                            // Utilizador sem autorização (maioritariamente por ter a password errada)
                             Toast.makeText(this, "Utilizado sem autorização", Toast.LENGTH_SHORT).show()
                         }
                     }else{
@@ -93,25 +99,6 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    /**
-     * Função para listar todos os utilizadores do sistema
-     */
-    private fun getUsers(){
-        val call = RetrofitInitializer().APIService().listUsers()
-        call.enqueue(object : Callback<List<User>?> {
-            override fun onResponse(call: Call<List<User>?>?,
-                                    response: Response<List<User>?>?) {
-                response?.body()?.let {
-                    val users: List<User> = it
-                    println(users)
-                }
-            }
-
-            override fun onFailure(call: Call<List<User>?>, t: Throwable) {
-                t?.message?.let { Log.e("onFailure error", it) }
-            }
-        })
-    }
 
     /**
      * Função para autenticar um utilizador
@@ -121,12 +108,12 @@ class LoginActivity : AppCompatActivity() {
         val call = RetrofitInitializer().APIService().authenticate(user)
         call.enqueue(
             object : Callback<AuthResponse> {
-                // Escreve uma log sobre o erro
+                // Tratamento de falha da chamada à API
                 override fun onFailure(call: Call<AuthResponse>?, t: Throwable) {
                     t?.message?.let { Log.e("onFailure error", it) }
                     onResult(null)
                 }
-                // Recebe a response
+                // Tratamento da resposta bem-sucedida da chamada à API
                 override fun onResponse( call: Call<AuthResponse>, response: Response<AuthResponse>) {
                     // Guarda o resultado json
                     var result = response.body()
@@ -136,7 +123,7 @@ class LoginActivity : AppCompatActivity() {
                     }else{
                         result.code = response.code()
                     }
-                    onResult(result)
+                    onResult(result) // Chama a função de retorno com a o statusCode da resposta da API
                 }
             }
         )

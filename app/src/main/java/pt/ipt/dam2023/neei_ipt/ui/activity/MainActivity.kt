@@ -1,15 +1,15 @@
 package pt.ipt.dam2023.neei_ipt.ui.activity
 
-import AboutUsFragment
-import BalanceFragment
-import CalendarViewFragment
+import pt.ipt.dam2023.neei_ipt.ui.fragment.AboutUsViewFragment
+import pt.ipt.dam2023.neei_ipt.ui.fragment.BalanceViewFragment
+import pt.ipt.dam2023.neei_ipt.ui.fragment.CalendarViewFragment
 import DocumentFragment
-import HomeFragment
-import NotesFragment
-import SettingsFragment
-import TeamFragment
-import TemporaryInfoFragment
-import UserFragment
+import pt.ipt.dam2023.neei_ipt.ui.fragment.HomeViewFragment
+import pt.ipt.dam2023.neei_ipt.ui.fragment.NoteViewFragment
+import pt.ipt.dam2023.neei_ipt.ui.fragment.SettingsViewFragment
+import pt.ipt.dam2023.neei_ipt.ui.fragment.TeamViewFragment
+import pt.ipt.dam2023.neei_ipt.ui.fragment.TemporaryInfoViewFragment
+import pt.ipt.dam2023.neei_ipt.ui.fragment.UserViewFragment
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val homeFrag = HomeFragment()
+        val homeFrag = HomeViewFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, homeFrag)
             .commit()
@@ -70,15 +70,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, calendarFragment)
                 .commit()
-        }else if (fragmentToShow == "UserFragment") {
-            val userFragment = UserFragment()
+        }else if (fragmentToShow == "UserViewFragment") {
+            val userViewFragment = UserViewFragment()
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, userFragment)
+                .replace(R.id.fragment_container, userViewFragment)
                 .commit()
-        }else if (fragmentToShow == "BalanceFragment") {
-            val balanceFragment = BalanceFragment()
+        }else if (fragmentToShow == "BalanceViewFragment") {
+            val balanceViewFragment = BalanceViewFragment()
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, balanceFragment)
+                .replace(R.id.fragment_container, balanceViewFragment)
                 .commit()
         }
 
@@ -181,14 +181,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> {
-                val homeFrag = HomeFragment()
+                val homeFrag = HomeViewFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, homeFrag)
                     .commit()
             }
             // Adicione outros casos conforme necessário
             R.id.nav_calendario -> {
-                val calendarViewFragment = CalendarViewFragment() // Create an instance of your AboutUsFragment
+                val calendarViewFragment = CalendarViewFragment() // Create an instance of your pt.ipt.dam2023.neei_ipt.ui.fragment.AboutUsViewFragment
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, calendarViewFragment)
                     .commit()
@@ -197,49 +197,49 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 terminarSessao()
             }
             R.id.nav_about -> {
-                val aboutUsFragment = AboutUsFragment() // Create an instance of your AboutUsFragment
+                val aboutUsViewFragment = AboutUsViewFragment() // Create an instance of your pt.ipt.dam2023.neei_ipt.ui.fragment.AboutUsViewFragment
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, aboutUsFragment)
+                    .replace(R.id.fragment_container, aboutUsViewFragment)
                     .commit()
             }
             R.id.nav_documentacao -> {
-                val documentsFragment = DocumentFragment() // Create an instance of your AboutUsFragment
+                val documentsFragment = DocumentFragment() // Create an instance of your pt.ipt.dam2023.neei_ipt.ui.fragment.AboutUsViewFragment
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, documentsFragment)
                     .commit()
             }
             R.id.nav_equipa -> {
-                val teamFragment = TeamFragment() // Create an instance of your AboutUsFragment
+                val teamViewFragment = TeamViewFragment() // Create an instance of your pt.ipt.dam2023.neei_ipt.ui.fragment.AboutUsViewFragment
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, teamFragment)
+                    .replace(R.id.fragment_container, teamViewFragment)
                     .commit()
             }
             R.id.nav_money -> {
-                val balanceFragment = BalanceFragment()
+                val balanceViewFragment = BalanceViewFragment()
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, balanceFragment)
+                    .replace(R.id.fragment_container, balanceViewFragment)
                     .commit()
             }
             R.id.nav_users -> {
-                val userFragment = UserFragment()
+                val userViewFragment = UserViewFragment()
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, userFragment)
+                    .replace(R.id.fragment_container, userViewFragment)
                     .commit()
             }
             R.id.nav_temporary -> {
-                val temporaryFragment = TemporaryInfoFragment()
+                val temporaryFragment = TemporaryInfoViewFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, temporaryFragment)
                     .commit()
             }
             R.id.nav_settings -> {
-                val settingsFragment = SettingsFragment()
+                val settingsViewFragment = SettingsViewFragment()
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, settingsFragment)
+                    .replace(R.id.fragment_container, settingsViewFragment)
                     .commit()
             }
             R.id.nav_apontamentos -> {
-                val apontamentosFragment = NotesFragment() // Create an instance of your AboutUsFragment
+                val apontamentosFragment = NoteViewFragment() // Create an instance of your pt.ipt.dam2023.neei_ipt.ui.fragment.AboutUsViewFragment
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, apontamentosFragment)
                     .commit()

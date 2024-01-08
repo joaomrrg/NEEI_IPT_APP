@@ -149,7 +149,7 @@ interface APIService {
         fun recoverPassword(@Body request: RecoverPasswordRequest): Call<Void>
 
         /**
-         * Permite a alteração de password de um utilizador
+         *  Permite a alteração de password de um utilizador
          */
         @POST("changePassword/")
         fun changePassword(@Body request: ChangePasswordRequest): Call<Void>

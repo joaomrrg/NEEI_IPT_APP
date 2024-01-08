@@ -24,28 +24,33 @@ class CalendarItemAdapter(context: Context, resource: Int, objects: List<Calenda
         val itemView = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.item_calendar, parent, false)
 
+        // Obtem o objeto (neste caso 1 evento) dada a sua posição
         val calendar = getItem(position)
 
+        // Ponteiros de elementos da View
         val titleTextView = itemView.findViewById<TextView>(R.id.documentTitle)
         val descriptionTextView = itemView.findViewById<TextView>(R.id.documentDescription)
         val dateTextView = itemView.findViewById<TextView>(R.id.documentDate)
         val hourTextView = itemView.findViewById<TextView>(R.id.eventHours)
         val lineColor = itemView.findViewById<ImageView>(R.id.underlineBackgroundImage)
 
+        // Manipulação da informação a mostrar
         titleTextView.text = calendar?.title
         descriptionTextView.text = calendar?.description
+        // Formata a data recebida em String
         val dateFormatter = SimpleDateFormat("dd/MM/yyyy")
         val formattedDate = dateFormatter.format(calendar?.initialDate)
         dateTextView.text = formattedDate
 
+        // Formata a hora recebida em String
         val timeFormatter = SimpleDateFormat("HH:mm")
         val formattedTime = timeFormatter.format(calendar?.initialDate)
+        // Verifica a hora, se for 00:00 significa que o evento é o dia todx
         if (formattedTime != "00:00"){
             hourTextView.text = formattedTime
         }else{
             hourTextView.text = "Todo o dia"
         }
-
 
         // Leitura da Internal Storage
         val directory: File = context.filesDir
@@ -63,13 +68,7 @@ class CalendarItemAdapter(context: Context, resource: Int, objects: List<Calenda
         } catch (e: FileNotFoundException) {
             Toast.makeText(context, "File not found", Toast.LENGTH_LONG).show()
         }
-
-
-
-        //PERMISSION request constant, assign any value
-        val STORAGE_PERMISSION_CODE = 100
-        val TAG = "PERMISSION_TAG"
-
+        // Escolhe a cor da linha através do id do grupo associado ao evento
         val lineColorResource = when (calendar?.groupId) {
             1 -> R.drawable.underline_g1
             2 -> R.drawable.underline_g2
@@ -81,15 +80,8 @@ class CalendarItemAdapter(context: Context, resource: Int, objects: List<Calenda
             8 -> R.drawable.underline_g8
             else -> R.drawable.underline
         }
-
         lineColor.setImageResource(lineColorResource)
 
         return itemView
     }
-
-    private fun showToast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
-
-
 }

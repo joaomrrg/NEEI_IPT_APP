@@ -46,7 +46,6 @@ import java.io.PrintStream
 
 
 class ProfileActivity : AppCompatActivity(){
-    val PICK_IMAGE = 1
     val TAKE_PHOTO = 2
     var roleId = -1
     var roleDescription = ""
@@ -63,7 +62,7 @@ class ProfileActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile) // Define o layout da atividade como activity_profile.xml
 
-        setSpinner() // Configura o Spinner com opções de gênero
+        setSpinner() // Configura o Spinner com opções de género
         setDatePicker() // Configura o DatePicker para a data de nascimento
         registerResult()
         // Ponteiros para os elementos do layout
@@ -148,6 +147,7 @@ class ProfileActivity : AppCompatActivity(){
                             buttEditar.setBackgroundColor(azul)
                         }
                     }else if (result?.code() == 200) {
+                        // Existe algum erro que não permitiu o registo (falta de informação)
                         Toast.makeText(applicationContext, result.body()?.message, Toast.LENGTH_LONG).show()
                     }else {
                         // Erro não identificado / Falha no servidor
@@ -178,6 +178,7 @@ class ProfileActivity : AppCompatActivity(){
                                     buttEditar.setBackgroundColor(azul)
                                 }
                             }else if (result?.code() == 200) {
+                                // Existe algum erro que não permitiu o registo (falta de informação)
                                 Toast.makeText(
                                     applicationContext,
                                     result.body()?.message,
@@ -216,7 +217,7 @@ class ProfileActivity : AppCompatActivity(){
         }
         var imagePath = "" // Caminho da imagem do perfil
 
-        // Leitura da Internal Storage para obter dados do usuário de um arquivo dados.txt
+        // Leitura da Internal Storage
         val directory: File = filesDir
         val file: File = File(directory, "dados.txt")
         try {
@@ -235,7 +236,7 @@ class ProfileActivity : AppCompatActivity(){
             Toast.makeText(this, "Arquivo não encontrado", Toast.LENGTH_LONG).show()
         }
 
-        // Chamada e tratamento do resultado da API para obter informações do usuário com base no userId
+        // Chamada e tratamento do resultado da API para obter informações do utilizador com base no userId
         getUser(userId) { result ->
             if (result != null) {
                 // Carregar todas as informações para os elementos da interface
@@ -315,15 +316,8 @@ class ProfileActivity : AppCompatActivity(){
                             .load(selectedImage)
                             .apply(RequestOptions.bitmapTransform(CircleCrop()))
                             .into(image)
-                    } else {
-                        // Lógica de tratamento se Glide for nulo
                     }
-                } else {
-                    // Lógica de tratamento se selectedImage for nulo
                 }
-                // Process the data
-            } else {
-                // Handle other cases
             }
         }
     }
@@ -340,20 +334,20 @@ class ProfileActivity : AppCompatActivity(){
                 TAKE_PHOTO -> {
                     val photo = data?.extras?.get("data") as Bitmap
 
-                    // Salvar a foto em um arquivo temporário
+                    // Salvar a foto num ficheiro temporário
                     val tempFile = createTempFile("temp", null, cacheDir)
                     tempFile.outputStream().use { output ->
                         photo.compress(Bitmap.CompressFormat.PNG, 100, output)
                     }
 
-                    // Usar o arquivo temporário para exibir a imagem na imageView
+                    // Usar o ficheiro temporário para exibir a imagem na imageView
                     val image = findViewById<ImageView>(R.id.imageViewProfile)
                     Glide.with(this)
                         .load(tempFile)
                         .apply(RequestOptions.bitmapTransform(CircleCrop()))
                         .into(image)
 
-                    // Configurar a variável imageFile para o arquivo temporário
+                    // Configurar a variável imageFile para o ficheiro temporário
                     imageFile = tempFile
                 }
             }
@@ -361,7 +355,7 @@ class ProfileActivity : AppCompatActivity(){
     }
 
 
-    // Configura o Spinner com opções de gênero
+    // Configura o Spinner com opções de género
     private fun setSpinner() {
         val spinner = findViewById<Spinner>(R.id.spinnerGender)
         val genderOptions = arrayOf("Masculino", "Feminino", "Outro")
@@ -407,15 +401,13 @@ class ProfileActivity : AppCompatActivity(){
                     Log.e("Erro", t.message ?: "Erro na chamada da API")
                 }
             })
-        } else {
-            // Lidar com o caso em que o ID é nulo
         }
     }
 
     //Função para dar upload a uma imagem
     private fun uploadImage(imageFile: File, onResult: (Int) -> Unit) {
         displayName = "$usernamePub.png"
-        // Criar uma instância de MultipartBody.Part para o arquivo
+        // Criar uma instância de MultipartBody.Part para o ficheiro
         val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile)
         val filePart = MultipartBody.Part.createFormData("image", displayName, requestFile)
         // Faz a chamada a API
@@ -473,11 +465,6 @@ class ProfileActivity : AppCompatActivity(){
             } else {
             }
         }
-    }
-
-
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     // Função para receber um ficheiro

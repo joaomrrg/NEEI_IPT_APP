@@ -43,6 +43,7 @@ class RegisterActivity : AppCompatActivity() {
             // Verifica se todas as EditText estão preenchidas
             if (nome.isNotEmpty() && apelido.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()
                 && repetePassword.isNotEmpty()) {
+                // Verifica se o email contém '@' e '.'
                 if (email.contains('@') and email.contains('.')){
                     // Verificar se as passwords coicidem
                     if(password.equals(repetePassword)){
@@ -67,13 +68,14 @@ class RegisterActivity : AppCompatActivity() {
                                     // Utilizador já existe no sistema (username ou email)
                                     Toast.makeText(this, "O email ou username inseridos já se encontram registados.", Toast.LENGTH_LONG).show()
                                 }else if (response?.code() == 200){
-                                    // Utilizador já existe no sistema (username ou email)
+                                    // Existe algum erro que não permitiu o registo (falta de informação)
                                     Toast.makeText(this, response.body()?.message, Toast.LENGTH_LONG).show()
                                 }else{
                                     // Erro não identificado / Falha no servidor
                                     Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
                                 }
                             }else{
+                                // Erro não identificado / Falha no servidor
                                 Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
                             }
 
@@ -85,29 +87,29 @@ class RegisterActivity : AppCompatActivity() {
                     Toast.makeText(this, "Email inválido.", Toast.LENGTH_LONG).show()
 
                 }
-
             }else{
                 Toast.makeText(this, "Preencha todos os campos.", Toast.LENGTH_LONG).show()
             }
         }
     }
 
-
-
-    // Função para registar um novo Utilizador (User/Person)
+    /**
+     * Função para registar um novo Utilizador (User/Person)
+     */
     private fun registerUser(user: RegisterRequest, onResult: (Response<ResponseAPI>?) -> Unit) {
         // Faz a chamada a API
         val call = RetrofitInitializer().APIService().register(user)
 
         call.enqueue(object : Callback<ResponseAPI> {
+            // Tratamento de falha da chamada à API
             override fun onFailure(call: Call<ResponseAPI>, t: Throwable) {
                 t?.message?.let { Log.e("onFailure error", it) }
                 onResult(null)
             }
 
-            // Retorna o StatusCode da resposta
+            // Tratamento da resposta bem-sucedida da chamada à API
             override fun onResponse(call: Call<ResponseAPI>, response: Response<ResponseAPI>) {
-                    onResult(response)
+                    onResult(response) // Chama a função de retorno com a resposta da API
             }
         })
     }

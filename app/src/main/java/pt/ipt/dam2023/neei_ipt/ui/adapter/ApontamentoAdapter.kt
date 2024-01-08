@@ -54,27 +54,25 @@ class ApontamentoAdapter(context: Context, resource: Int, objects: List<Note>) :
         val itemView = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.item_apontamento, parent, false)
 
+        // Obtem o objeto (neste caso 1 apontamento) dada a sua posição
         val apontamento = getItem(position)
 
+        // Ponteiros de elementos da View
         val titleTextView = itemView.findViewById<TextView>(R.id.apontamentoTitle)
         val subjectTextView = itemView.findViewById<TextView>(R.id.apontamentoSubject)
         val authorTextView = itemView.findViewById<TextView>(R.id.apontamentoAuthor)
         val dateTextView = itemView.findViewById<TextView>(R.id.apontamentoDate)
         val downloadImageView = itemView.findViewById<ImageView>(R.id.downloadButton)
         val removeImageView = itemView.findViewById<ImageView>(R.id.removeButton)
+
+        // Manipulação da informação a mostrar
         titleTextView.text = apontamento?.title
         subjectTextView.text = apontamento?.subject
         authorTextView.text = apontamento?.author
-
-
-        //REVER ISTOOOO
+        // Formata a data recebida em String
         val dateFormatter = SimpleDateFormat("dd/MM/yyyy")
         val formattedDate = dateFormatter.format(apontamento?.createdAt)
         dateTextView.text = formattedDate
-
-
-
-
 
         // Leitura da Internal Storage
         val directory: File = context.filesDir
@@ -96,19 +94,20 @@ class ApontamentoAdapter(context: Context, resource: Int, objects: List<Note>) :
         }
 
 
-        // Configurar a lógica de download (se necessário) para o ImageView
+        // Evento de Mouse Click no botão download
         downloadImageView.setOnClickListener {
-            // Use corrotinas para realizar o download em segundo plano
+            // Verifica se o apontamento não é nulo e chama a função de download
             if (apontamento != null) {
                 downloadFile(apontamento)
-
             }
         }
 
+        // Evento de Mouse Click no botão remover
         removeImageView.setOnClickListener {
+            // Chamada da função que comunica com a API, para remover um apontamento
             removeApontamento(apontamento?.id!!){statusCode ->
                 if (statusCode == 200) {
-                    // Registo bem sucedido
+                    // Removido com sucesso
                     showToast("Apontamento removido com sucesso.",)
                     // Remove o documento da lista
                     remove(apontamento)
@@ -123,40 +122,58 @@ class ApontamentoAdapter(context: Context, resource: Int, objects: List<Note>) :
         return itemView
     }
 
-    // Função para remover um documento
+    /**
+     * Função para remover um apontamento
+     */
     private fun removeApontamento(id: Int, onResult: (Int) -> Unit) {
         // Faz a chamada a API
         val call = RetrofitInitializer().APIService().removeApontamento(id)
         call.enqueue(object : Callback<Void> {
+
+            // Tratamento de falha da chamada à API
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 t?.message?.let { Log.e("onFailure error", it) }
                 onResult(501)
             }
-            // Retorna o StatusCode da resposta
+
+            // Tratamento da resposta bem-sucedida da chamada à API
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                onResult(response.code())
+                onResult(response.code()) // Chama a função de retorno com o statusCode da resposta da API
             }
         })
     }
+
+    /**
+     * Função que mostra um Toast, dada uma mensagem
+     */
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
+    /**
+     * Função para fazer download de um ficheiro
+     */
     private fun downloadFile(apontamento: Note){
+        // Utilizamos o CoroutineScope para fazer download de ficheiros
         GlobalScope.launch(Dispatchers.IO) {
             try {
+                // Constrói a URL para o ficheiro a ser transferido
                 val url = URL("https://neei.eu.pythonanywhere.com/files/" + apontamento?.file)
+                // Abre uma ligação para a URL especificada
                 val connection = url.openConnection()
                 val inputStream = connection.getInputStream()
-                // Diretório de Downloads
+                // Guarda o caminho da pasta de Downloads
                 val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
-                // Nome do arquivo no diretório de Downloads
-                val fileName = apontamento?.file  // Substitua pelo nome real do arquivo
+                // Guarda o nome do ficheiro
+                val fileName = apontamento?.file
 
+                // Cria um objeto File representando o caminho completo para o ficheiro na pasta de Downloads
                 val file = File(downloadDir, fileName)
+                // Cria um fluxo de saída para escrever os dados no ficheiro local
                 val outputStream = FileOutputStream(file)
 
+                // Lê e escreve os dados do ficheiro em blocos usando um buffer
                 val buffer = ByteArray(1024)
                 var bytesRead: Int
                 while (inputStream.read(buffer).also { bytesRead = it } != -1) {
@@ -164,52 +181,63 @@ class ApontamentoAdapter(context: Context, resource: Int, objects: List<Note>) :
                 }
                 outputStream.close()
                 inputStream.close()
+
+                // Executa as operações na thread principal após o download ser concluído
                 withContext(Dispatchers.Main) {
                     showToast("Download completo")
-                    println("Download completo para: ${file.absolutePath}")
+                    // Função para abrir ficheiro
                     showOpenFilePopup(file)
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    showToast("Erro ao fazer download§")
+                    showToast("Erro ao fazer download")
                     println("Erro durante o download: ${e.message}")
                 }
             }
         }
     }
 
+    /**
+     * Função para mostrar uma AlertDialog para abrir o ficheiro imediatamente ao seu download
+     */
     private fun showOpenFilePopup(file: File) {
         val alertDialogBuilder = AlertDialog.Builder(context)
         alertDialogBuilder.setTitle("Abrir ficheiro")
             .setMessage("A transferência foi concluída. Quer abrir o ficheiro?")
             .setPositiveButton("Sim") { _, _ ->
+                // Abre o ficheiro
                 openFile(context,file)
             }
             .setNegativeButton("Não") { _, _ ->
-                // Opção para não abrir o arquivo, caso o usuário clique em "Não"
             }
             .setCancelable(false)
             .show()
     }
 
+    /**
+     * Função para abrir um ficheiro
+     */
     private fun openFile(context: Context, file: File) {
+        // Obtém o URI do ficheiro usando um FileProvider para garantir acesso seguro ao arquivo
         val uri = FileProvider.getUriForFile(context, "pt.ipt.dam2023.neei_ipt.fileprovider", file)
+        // Cria uma Intent para visualizar o ficheiro
         val intent = Intent(Intent.ACTION_VIEW)
         intent.setDataAndType(uri, getMimeType(file.absolutePath))
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_GRANT_READ_URI_PERMISSION
 
         try {
+            // Inicia a atividade para visualizar o arquivo
             context.startActivity(intent)
         } catch (e: ActivityNotFoundException) {
             showToast("Nenhuma aplicação encontrada para abrir o ficheiro")
         }
     }
 
-
+    /**
+     * Função para obter a extensão do ficheiro (tipo de ficheiro)
+     */
     private fun getMimeType(url: String): String? {
         val extension = MimeTypeMap.getFileExtensionFromUrl(url)
         return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
     }
-
-
 }
