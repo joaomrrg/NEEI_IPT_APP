@@ -36,13 +36,13 @@ interface APIService {
         fun listUsers(): Call<List<User>>
 
         /**
-         * Recebe a lista de todos a documentação públic do NEEI
+         * Recebe a lista de todos os documentos público do NEEI
          */
         @GET("documents")
         fun listDocs(): Call<List<Document>>
 
         /**
-         * Recebe a lista de todos os apontamentos disponibilipados pelo NEEI
+         * Recebe a lista de todos os apontamentos disponibilizados pelo NEEI
          */
         @GET("notes")
         fun listNotes(): Call<List<Note>>
@@ -77,6 +77,9 @@ interface APIService {
         @GET("groups")
         fun listGroups(): Call<List<Group>>
 
+        /**
+         * Recebe um objeto User que representa um utilizador, dado o seu id
+         */
         @GET("users/{id}")
         fun getUserById(@Path("id") id: Int): Call<User>
 
@@ -116,31 +119,31 @@ interface APIService {
         fun listTransactions(): Call<List<Transaction>>
 
         /**
-         * Recebe o valor do "cofre" do NEEI
+         * Recebe o valor da conta do NEEI
          */
         @GET("getBudget")
         fun getBudget(): Call<TransactionBudget>
 
         /**
-         * Permite a adição de um movimento (transação)
+         * Permite a adição de uma transação (movimento)
          */
         @POST("transactions/")
         fun addTransaction(@Body request: TransactionRequest): Call<ResponseAPI>
 
         /**
-         * Permite remover um documento
+         * Permite remover um documento, dado o seu id
          */
         @POST("removeDocument/{id}")
         fun removeDocument(@Path("id") id: Int): Call<Void>
 
         /**
-         * Permite remover um documento
+         * Permite remover um apontamento (note), dado o seu id
          */
         @POST("removeNote/{id}")
         fun removeApontamento(@Path("id") id: Int): Call<Void>
 
         /**
-         * Permite a recuperação de password de um utilizador
+         * Permite a recuperação de password de um utilizador (envia email)
          */
         @POST("recoverPassword/")
         fun recoverPassword(@Body request: RecoverPasswordRequest): Call<Void>
@@ -150,5 +153,4 @@ interface APIService {
          */
         @POST("changePassword/")
         fun changePassword(@Body request: ChangePasswordRequest): Call<Void>
-
 }
