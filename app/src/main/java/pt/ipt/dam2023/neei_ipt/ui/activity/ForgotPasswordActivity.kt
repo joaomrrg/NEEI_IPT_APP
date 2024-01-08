@@ -28,20 +28,25 @@ class ForgotPasswordActivity : AppCompatActivity() {
             val req = RecoverPasswordRequest(
                 email= emailEdit.text.toString()
             )
-            // Chamada da função que comunica com a API, para registar uma transação
-            recoverPassword(req){statusCode ->
-                if (statusCode == 200) {
-                    // Registo bem sucedido
-                    Toast.makeText(this, "Password de recuperação enviada para o seu email.", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                }else if(statusCode==404){
-                    Toast.makeText(this, "O email não está associado a nenhuma conta.", Toast.LENGTH_LONG).show()
-                }else{
-                    // Erro não identificado / Falha no servidor
-                    Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
+            if (emailEdit.text.toString()!= "" && emailEdit.text.toString().contains('@') && emailEdit.text.toString().contains('.')){
+                // Chamada da função que comunica com a API, para registar uma transação
+                recoverPassword(req){statusCode ->
+                    if (statusCode == 200) {
+                        // Registo bem sucedido
+                        Toast.makeText(this, "Password de recuperação enviada para o seu email.", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                    }else if(statusCode==404){
+                        Toast.makeText(this, "O email não está associado a nenhuma conta.", Toast.LENGTH_LONG).show()
+                    }else{
+                        // Erro não identificado / Falha no servidor
+                        Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
+                    }
                 }
+            }else{
+                Toast.makeText(this, "Email inválido ou não fornecido.", Toast.LENGTH_LONG).show()
             }
+
         }
     }
 

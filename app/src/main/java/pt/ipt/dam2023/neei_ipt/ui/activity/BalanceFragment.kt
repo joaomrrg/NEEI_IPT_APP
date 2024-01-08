@@ -55,8 +55,14 @@ class BalanceFragment : Fragment() {
         getBudget { result ->
             if (result != null) {
                 // Define o saldo atual no TextView correspondente
-                currentBalanceText.text = result.budget.toString()
-                currentBalance = result.budget.toString()
+                if(result.budget.toString()!="null"){
+                    currentBalanceText.text = result.budget.toString()
+                    currentBalance = result.budget.toString()
+                }else{
+                    currentBalanceText.text = "0"
+                    currentBalance = "0"
+                }
+
             }
         }
 

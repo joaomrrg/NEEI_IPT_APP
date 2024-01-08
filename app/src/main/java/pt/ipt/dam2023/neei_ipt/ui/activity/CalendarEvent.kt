@@ -107,6 +107,9 @@ class CalendarEvent : AppCompatActivity() {
                         // Adicionando um extra chamado "fragment_to_show" com o valor "DocumentFragment" ao Intent
                         intent.putExtra("fragment_to_show", "CalendarViewFragment")
                         startActivity(intent)
+                    }else if (result.code == 200) {
+                        Toast.makeText(this, result.message, Toast.LENGTH_LONG)
+                            .show()
                     } else {
                         Toast.makeText(
                             this,
@@ -169,7 +172,7 @@ class CalendarEvent : AppCompatActivity() {
                     if (result == null) {
                         result = CalendarResponse("", response.code())
                     } else {
-                        result = CalendarResponse(response.message(), response.code())
+                        result = CalendarResponse(response.body()?.message, response.code())
                     }
                     onResult(result)
                 }

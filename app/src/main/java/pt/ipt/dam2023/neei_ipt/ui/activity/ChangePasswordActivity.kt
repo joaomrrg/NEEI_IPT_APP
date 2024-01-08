@@ -28,28 +28,33 @@ class ChangePasswordActivity : AppCompatActivity() {
         val alterarBtn = findViewById<Button>(R.id.alterarBtn)
 
         alterarBtn.setOnClickListener {
-            if (pwdEdit.text.toString() == pwdrEdit.text.toString()){
-                val req = ChangePasswordRequest(
-                    username= username,
-                    password = pwdrEdit.text.toString()
-                )
-                // Chamada da função que comunica com a API, para registar uma transação
-                changePassword(req){statusCode ->
-                    if (statusCode == 200) {
-                        // Registo bem sucedido
-                        Toast.makeText(this, "Password alterada com sucesso", Toast.LENGTH_LONG).show()
-                        val intent = Intent(this, LoginActivity::class.java)
-                        startActivity(intent)
-                    }else if(statusCode==404){
-                        Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
-                    }else{
-                        // Erro não identificado / Falha no servidor
-                        Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
+            if (pwdEdit.text.toString()!= "" && pwdrEdit.text.toString()!= ""){
+                if (pwdEdit.text.toString() == pwdrEdit.text.toString()){
+                    val req = ChangePasswordRequest(
+                        username= username,
+                        password = pwdrEdit.text.toString()
+                    )
+                    // Chamada da função que comunica com a API, para registar uma transação
+                    changePassword(req){statusCode ->
+                        if (statusCode == 200) {
+                            // Registo bem sucedido
+                            Toast.makeText(this, "Password alterada com sucesso", Toast.LENGTH_LONG).show()
+                            val intent = Intent(this, LoginActivity::class.java)
+                            startActivity(intent)
+                        }else if(statusCode==404){
+                            Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
+                        }else{
+                            // Erro não identificado / Falha no servidor
+                            Toast.makeText(this, "Erro. Contacte o Administrador", Toast.LENGTH_SHORT).show()
+                        }
                     }
+                }else{
+                    Toast.makeText(this, "As password's não coicidem", Toast.LENGTH_SHORT).show()
                 }
             }else{
-                Toast.makeText(this, "As password's não coicidem", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Insira as password's", Toast.LENGTH_SHORT).show()
             }
+
 
         }
     }
