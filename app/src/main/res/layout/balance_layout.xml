@@ -10,7 +10,7 @@
         android:layout_marginTop="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Saldo NEEI"
+        android:text="@string/saldo_neei"
         style="@style/TEXT"
         android:textSize="20dp"/>
 
@@ -32,7 +32,7 @@
             android:id="@+id/euro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="€"
+            android:text="@string/euro"
             style="@style/TEXT"
             android:textSize="60dp"/>
 
@@ -85,7 +85,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Adicionar Movimentos"
+                android:text="@string/adicionar_movimentos"
                 style="@style/TEXT"
                 android:textAlignment="center"
                 android:textSize="14dp"/>

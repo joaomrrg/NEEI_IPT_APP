@@ -45,7 +45,7 @@
         android:id="@+id/recuperar_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Recuperar Password"
+        android:text="@string/recuperar_password"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="-20dp"
@@ -58,13 +58,13 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:backgroundTint="#19568C"
-        android:text="Login"></Button>
+        android:text="@string/login"></Button>
 
     <TextView
         android:id="@+id/registar_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registar"
+        android:text="@string/registar"
         android:layout_gravity="center"
         android:textStyle="bold"
         ></TextView>

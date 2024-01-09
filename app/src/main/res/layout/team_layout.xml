@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Direção"
+        android:text="@string/direcao"
         android:textSize="20dp"
         style="@style/TEXT"
         android:layout_gravity="center"
@@ -48,14 +48,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="João Gonçalves"
+        android:text="@string/joao_goncalves"
         style="@style/TEXT"
         android:textAlignment="center"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Presidente"
+            android:text="@string/presidente"
             android:textColor="#636262"
             android:textAlignment="center"/>
         <LinearLayout
@@ -97,14 +97,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Miguel Pereira"
+                android:text="@string/miguel_pereira"
                 style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Vice-Presidente"
+                android:text="@string/vice_presidente"
                 android:textColor="#636262"
                 android:textAlignment="center"/>
 
@@ -152,14 +152,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gonçalo Costa"
+                android:text="@string/goncalo_costa"
                 style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tesoureiro"
+                android:text="@string/tesoureiro"
                 android:textColor="#636262"
                 android:textAlignment="center"/>
 
@@ -202,14 +202,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tiago Cardoso"
+                android:text="@string/tiago_cardoso"
                 style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Secretário"
+                android:text="@string/secretario"
                 android:textColor="#636262"
                 android:textAlignment="center"/>
 
@@ -257,14 +257,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gonçalo Barbosa"
+                android:text="@string/goncalo_barbosa"
                 style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Vogal"
+                android:text="@string/vogal"
                 android:textColor="#636262"
                 android:textAlignment="center"/>
 
@@ -307,14 +307,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Filipe Simões"
+                android:text="@string/filipe_simoes"
                 style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Suplente"
+                android:text="@string/suplente"
                 android:textColor="#636262"
                 android:textAlignment="center"/>
 
@@ -356,14 +356,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Guilherme Aires"
+            android:text="@string/guilherme_aires"
             style="@style/TEXT"
             android:textAlignment="center"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Suplente"
+            android:text="@string/suplente"
             android:textColor="#636262"
             android:textAlignment="center"/>
         <LinearLayout
@@ -390,7 +390,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Assembleia Geral"
+        android:text="@string/assembleia_geral"
         android:textSize="20dp"
         style="@style/TEXT"
         android:layout_gravity="center"
@@ -425,14 +425,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gonçalo Costa"
+                android:text="@string/goncalo_costa"
                 style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Presidente"
+                android:text="@string/presidente"
                 android:textColor="#636262"
                 android:textAlignment="center"/>
 
@@ -456,14 +456,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gonçalo Barbosa"
+                android:text="@string/goncalo_barbosa"
                 style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Vice-Presidente"
+                android:text="@string/vice_presidente"
                 android:textColor="#636262"
                 android:textAlignment="center"/>
         </LinearLayout>
@@ -493,14 +493,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Filipe Simões"
+                android:text="@string/filipe_simoes"
                 style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Secretário"
+                android:text="@string/secretario"
                 android:textColor="#636262"
                 android:textAlignment="center"/>
         </LinearLayout>
@@ -515,7 +515,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Conselho Fiscal"
+        android:text="@string/conselho_fiscal"
         android:textSize="20dp"
         style="@style/TEXT"
         android:layout_gravity="center"
@@ -550,14 +550,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tiago Cardoso"
+                android:text="@string/tiago_cardoso"
                 style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Presidente"
+                android:text="@string/presidente"
                 android:textColor="#636262"
                 android:textAlignment="center"/>
 
@@ -580,14 +580,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Guilherme Aires"
+                android:text="@string/guilherme_aires"
                 style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Vice-Presidente"
+                android:text="@string/vice_presidente"
                 android:textColor="#636262"
                 android:textAlignment="center"/>
         </LinearLayout>
@@ -617,14 +617,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Filipe Simões"
+                android:text="@string/filipe_simoes"
                 style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Secretário"
+                android:text="@string/secretario"
                 android:textColor="#636262"
                 android:textAlignment="center"/>
         </LinearLayout>
@@ -647,14 +647,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Miguel Pereira"
+                android:text="@string/miguel_pereira"
                 style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Suplente"
+                android:text="@string/suplente"
                 android:textColor="#636262"
                 android:textAlignment="center"/>
         </LinearLayout>

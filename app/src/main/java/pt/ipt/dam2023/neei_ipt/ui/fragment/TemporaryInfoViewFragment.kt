@@ -29,7 +29,11 @@ class TemporaryInfoViewFragment : Fragment() {
         val imageGoncalo = view.findViewById<ImageView>(R.id.imageGoncalo)
         val imageJoao = view.findViewById<ImageView>(R.id.imageJoao)
         val libraryImageView = view.findViewById<ImageView>(R.id.image)
+        val libraryImageView2 = view.findViewById<ImageView>(R.id.image2)
+        val libraryImageView3 = view.findViewById<ImageView>(R.id.image3)
         val llLibrary = view.findViewById<ImageView>(R.id.gitBttn)
+        val llLibrary2 = view.findViewById<ImageView>(R.id.gitBttn2)
+        val llLibrary3 = view.findViewById<ImageView>(R.id.gitBttn3)
 
         // Carrega as imagens nos ImageViews usando Glide
         Glide.with(this)
@@ -44,6 +48,14 @@ class TemporaryInfoViewFragment : Fragment() {
             .load("https://raw.githubusercontent.com/SundeepK/CompactCalendarView/master/images/compact-calendar-view-example-multi-events.png")
             .apply(RequestOptions.bitmapTransform(CircleCrop()))
             .into(libraryImageView)
+        Glide.with(this)
+            .load("https://raw.githubusercontent.com/bumptech/glide/master/static/glide_logo.png")
+            .apply(RequestOptions.bitmapTransform(CircleCrop()))
+            .into(libraryImageView2)
+        Glide.with(this)
+            .load("https://img.stackshare.io/service/2856/retrofit-logo.png")
+            .apply(RequestOptions.bitmapTransform(CircleCrop()))
+            .into(libraryImageView3)
 
         // Define os listeners de clique para os LinearLayouts
         llJoao.setOnClickListener {
@@ -56,6 +68,14 @@ class TemporaryInfoViewFragment : Fragment() {
         }
         llLibrary.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubLibrary)))
+            startActivity(intent)
+        }
+        llLibrary2.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.llLibrary2)))
+            startActivity(intent)
+        }
+        llLibrary3.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.llLibrary3)))
             startActivity(intent)
         }
 

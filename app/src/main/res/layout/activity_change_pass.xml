@@ -18,7 +18,7 @@
         android:layout_marginTop="100dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Password"
+        android:text="@string/password"
         android:textSize="20dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
@@ -40,7 +40,7 @@
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Repetir Password"
+        android:text="@string/repetir_password"
         android:textSize="20dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
@@ -65,7 +65,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="125dp"
         android:backgroundTint="#11568C"
-        android:text="Alterar Password"></Button>
+        android:text="@string/alterar_password"></Button>
 
 
 

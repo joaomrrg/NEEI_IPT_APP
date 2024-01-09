@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Adicionar Evento"
+                android:text="@string/adicionar_evento"
                 style="@style/TEXT"
                 android:textSize="25dp"
                 android:gravity="center"
@@ -89,7 +89,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:text="Grupo"
+            android:text="@string/grupo"
             android:textSize="20dp"
             style="@style/TEXT"/>
 
@@ -113,7 +113,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:backgroundTint="@color/blue"
-            android:text="Adicionar"></Button>
+            android:text="@string/adicionar"></Button>
 
 
     </LinearLayout>

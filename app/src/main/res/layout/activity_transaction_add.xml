@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nova Transação"
+        android:text="@string/nova_transaco"
         android:textSize="35dp"
         android:textColor="@color/white"
         android:gravity="center"
@@ -33,7 +33,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/input"
-        android:hint="Descrição"
+        android:hint="@string/descricao"
         android:paddingLeft="20dp"
         style="@style/INPUT" />
 
@@ -44,7 +44,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/input"
-        android:hint="Valor"
+        android:hint="@string/valor"
         android:inputType="numberDecimal"
         android:paddingLeft="20dp"
 
@@ -58,7 +58,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/input"
 
-            android:hint="Data (formato dd/MM/yyyy)"
+            android:hint="@string/data_formato_dd_mm_yyyy"
             android:paddingLeft="20dp"
             style="@style/INPUT" />
 
@@ -74,7 +74,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tipo de Movimento:"
+                android:text="@string/tipo_de_movimento"
                 style="@style/TEXT"
                 android:gravity="center"
                 android:padding="10dp"
@@ -84,14 +84,14 @@
                 android:id="@+id/radioExpense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gasto"
+                android:text="@string/gasto"
                 style="@style/TEXT" />
 
             <RadioButton
                 android:id="@+id/radioIncome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ganho"
+                android:text="@string/ganho"
                 style="@style/TEXT" />
         </RadioGroup>
 
@@ -110,7 +110,7 @@
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:backgroundTint="#19568C"
-        android:text="Adicionar"
+        android:text="@string/adicionar"
         android:textSize="15dp"
         android:layout_marginBottom="15dp"/>
 

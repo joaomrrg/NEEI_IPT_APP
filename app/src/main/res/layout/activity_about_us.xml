@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="Sobre Nós"
+            android:text="@string/sobre_nos"
             android:textStyle="bold"
             android:layout_below="@id/imgNucleo"
             android:layout_marginTop="16dp"
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="Onde Estamos?"
+            android:text="@string/onde_estamos"
             android:textStyle="bold"
             android:layout_below="@id/tvNucleoDescription"
             android:layout_marginTop="16dp"
@@ -65,7 +65,7 @@
             android:id="@+id/tvMorada"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Instituto Politécnico de Tomar\nBloco I - Sala ?"
+            android:text="@string/localizacao"
             android:layout_below="@id/tvOndeEstamosTitle"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="Desenvolvedores"
+            android:text="@string/desenvolvedores"
             android:layout_below="@id/tvMorada"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
@@ -103,7 +103,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gonçalo Costa"
+                android:text="@string/goncalo_costa"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
                 style="@style/TEXT"/>
@@ -130,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
-                android:text="João Gonçalves"
+                android:text="@string/joao_goncalves"
                 style="@style/TEXT"/>
         </LinearLayout>
 

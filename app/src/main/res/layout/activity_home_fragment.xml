@@ -12,7 +12,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
-        android:text="Núcleo de Estudantes de Engenharia"
+        android:text="@string/nucleo_de_estudantes_de_engenharia"
         android:textColor="@color/white"
         android:textSize="35sp"
         android:layout_marginTop="30dp"
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
-        android:text="Informática"
+        android:text="@string/informatica"
         android:textColor="@color/white"
         android:textSize="45sp"
         android:layout_marginLeft="20dp"
@@ -52,7 +52,7 @@
                 android:id="@+id/spantext"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:text="guest@neei:/home/guest$"
+                android:text="@string/guest_neei_home_guest"
                 style="@style/TEXT"/>
 
             <!-- Adicione um EditText para mostrar a saída -->
@@ -63,7 +63,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:background="@color/transparent"
-                android:hint="try me"
+                android:hint="@string/try_me"
                 android:inputType="text"
                 style="@style/TEXT"
                 android:textColorHint="@android:color/darker_gray"

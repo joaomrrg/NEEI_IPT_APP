@@ -29,7 +29,7 @@
         android:id="@+id/userName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nome do Utilizador"
+        android:text="@string/nome_do_utilizador"
         android:textStyle="bold"
         android:textSize="18sp"
         style="@style/TEXT"/>
@@ -39,7 +39,7 @@
         android:id="@+id/userGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Grupo"
+        android:text="@string/grupo"
         android:textSize="14sp"
         android:layout_marginTop="4dp"
         style="@style/TEXT"/>
@@ -58,7 +58,7 @@
         android:id="@+id/userRole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Role"
+        android:text="@string/role"
         android:textSize="17sp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"

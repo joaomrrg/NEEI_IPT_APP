@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Novo Documento"
+        android:text="@string/novo_documento"
         android:textSize="35dp"
         android:textColor="@color/white"
         android:gravity="center"
@@ -66,7 +66,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:backgroundTint="#19568C"
-        android:text="Documento"
+        android:text="@string/documento"
         android:textSize="15dp"/>
 
         <TextView
@@ -95,7 +95,7 @@
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:backgroundTint="#19568C"
-        android:text="Adicionar"
+        android:text="@string/adicionar"
         android:textSize="15dp"
         android:layout_marginBottom="15dp"/>
 

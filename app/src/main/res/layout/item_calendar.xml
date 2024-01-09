@@ -13,7 +13,7 @@
         android:id="@+id/documentTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Título do Evento"
+        android:text="@string/titulo_do_evento"
         android:textStyle="bold"
         android:textSize="18sp"
         style="@style/TEXT"/>
@@ -23,7 +23,7 @@
         android:id="@+id/documentDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Descrição do Evento"
+        android:text="@string/descricao_do_evento"
         android:textSize="14sp"
         android:layout_marginTop="4dp"
         style="@style/TEXT"/>
@@ -42,7 +42,7 @@
         android:id="@+id/documentDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="01/01/2023"
+        android:text="@string/_01_01_2023"
         android:textSize="16sp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:text="12:00H"
+                android:text="@string/horas"
 
                 style="@style/TEXT"
                 android:textSize="14sp"></TextView>

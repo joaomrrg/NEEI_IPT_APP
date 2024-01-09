@@ -21,7 +21,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/input"
-        android:hint="Nome"
+        android:hint="@string/nome"
         android:paddingLeft="20dp"></EditText>
 
     <EditText
@@ -31,7 +31,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/input"
-        android:hint="Apelido"
+        android:hint="@string/apelido"
         android:paddingLeft="20dp"></EditText>
 
     <EditText
@@ -41,7 +41,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/input"
-        android:hint="Email"
+        android:hint="@string/email"
         android:paddingLeft="20dp"></EditText>
 
     <EditText
@@ -51,7 +51,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/input"
-        android:hint="Username"
+        android:hint="@string/username"
         android:paddingLeft="20dp"></EditText>
 
     <EditText
@@ -61,7 +61,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/input"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:paddingLeft="20dp"></EditText>
 
@@ -72,7 +72,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/input"
-        android:hint="Repetir Password"
+        android:hint="@string/repetir_password"
         android:inputType="textPassword"
         android:paddingLeft="20dp"></EditText>
 
@@ -84,7 +84,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="125dp"
         android:backgroundTint="#11568C"
-        android:text="Registar"></Button>
+        android:text="@string/registar"></Button>
 
 
 

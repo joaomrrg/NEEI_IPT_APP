@@ -93,7 +93,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
         android:backgroundTint="#11568C"
-        android:text="Registar"></Button>
+        android:text="@string/registar"></Button>
 
 
 </LinearLayout>

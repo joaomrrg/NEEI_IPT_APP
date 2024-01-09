@@ -18,7 +18,7 @@
         android:layout_marginTop="100dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Introduz o email associado à conta que queres recuperar"
+        android:text="@string/recup_pass"
         android:layout_gravity="center"
         android:textSize="20dp"
         android:layout_marginLeft="30dp"
@@ -33,7 +33,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/input"
-        android:hint="Email"
+        android:hint="@string/email"
         android:paddingLeft="20dp"></EditText>
 
     <Button
@@ -43,7 +43,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="125dp"
         android:backgroundTint="#11568C"
-        android:text="Recuperar"></Button>
+        android:text="@string/recuperar"></Button>
 
 
 

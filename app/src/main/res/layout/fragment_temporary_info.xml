@@ -44,20 +44,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="Licenciatura Engenharia Informática"
+            android:text="@string/licenciatura_engenharia_informatica"
             android:textStyle="bold"
             style="@style/TEXT"
             android:layout_marginTop="30dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Desenvolvimento de Aplicações Móveis"
+            android:text="@string/desenvolvimento_de_aplicacoes_moveis"
             style="@style/TEXT"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2023/2024"
+            android:text="@string/_2023_2024"
             style="@style/TEXT"
             />
     </LinearLayout>
@@ -88,12 +88,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gonçalo Costa"
+                android:text="@string/goncalo_costa"
                 style="@style/TEXT"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="23692"
+                android:text="@string/_23692"
                 style="@style/TEXT"
                 />
 
@@ -118,13 +118,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="João Gonçalves"
+                android:text="@string/joao_goncalves"
                 style="@style/TEXT"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="23882"
+                android:text="@string/_23882"
                 style="@style/TEXT"
                 />
         </LinearLayout>
@@ -139,7 +139,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="Bibliotecas Adicionais Usadas"
+            android:text="@string/bibliotecas_adicionais_usadas"
             android:textStyle="bold"
             style="@style/TEXT"
             android:layout_marginTop="50dp"/>
@@ -174,7 +174,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="CompactCalendarView"
+                            android:text="@string/compactcalendarview"
                             android:textStyle="bold"
                             android:textSize="18sp"
                             style="@style/TEXT"/>
@@ -183,7 +183,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="SundeepK"
+                            android:text="@string/sundeepk"
                             android:textSize="14sp"
                             android:layout_marginTop="4dp"
                             style="@style/TEXT"/>
@@ -197,7 +197,7 @@
                                 <TextView
                                     android:layout_width="220dp"
                                     android:layout_height="wrap_content"
-                                    android:text="Biblioteca usada para permitir a vista de eventos (pontos) dentro do calendário"
+                                    android:text="@string/compact_justificacao"
                                     android:textSize="17sp"
                                     android:layout_marginTop="4dp"
                                     android:layout_marginEnd="16dp"
@@ -233,6 +233,182 @@
 
             </LinearLayout>
 
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                style="@style/ITEM"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/image2"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginRight="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Título do Documento -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/glide"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            style="@style/TEXT"/>
+
+                        <!-- Descrição do Documento -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bumptech"
+                            android:textSize="14sp"
+                            android:layout_marginTop="4dp"
+                            style="@style/TEXT"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <!-- Data do Documento -->
+                            <TextView
+                                android:layout_width="220dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/glide_justificacao"
+                                android:textSize="17sp"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginEnd="16dp"
+                                style="@style/TEXT"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="end"
+                                android:layout_marginTop="5dp">
+
+                                <ImageView
+                                    android:id="@+id/gitBttn2"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    style="@style/ICON_GIT"
+                                    android:contentDescription="Download"
+                                    android:layout_gravity="bottom"
+                                    android:layout_marginTop="4dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            style="@style/UNDERLINE"
+                            android:layout_marginTop="10dp">
+                        </ImageView>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                style="@style/ITEM"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/image3"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginRight="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Título do Documento -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/retrofit"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            style="@style/TEXT"/>
+
+                        <!-- Descrição do Documento -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/quare"
+                            android:textSize="14sp"
+                            android:layout_marginTop="4dp"
+                            style="@style/TEXT"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <!-- Data do Documento -->
+                            <TextView
+                                android:layout_width="220dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/retrofit_justificacao"
+                                android:textSize="17sp"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginEnd="16dp"
+                                style="@style/TEXT"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="end"
+                                android:layout_marginTop="5dp">
+
+                                <ImageView
+                                    android:id="@+id/gitBttn3"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    style="@style/ICON_GIT"
+                                    android:contentDescription="Download"
+                                    android:layout_gravity="bottom"
+                                    android:layout_marginTop="4dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            style="@style/UNDERLINE"
+                            android:layout_marginTop="10dp">
+                        </ImageView>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -244,7 +420,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="Utilizadores"
+                android:text="@string/utilizadores"
                 android:textStyle="bold"
                 style="@style/TEXT"
                 android:layout_marginTop="30dp"/>
@@ -281,7 +457,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Username: jmrrg"
+                            android:text="@string/username_jmrrg"
                             android:textStyle="bold"
                             android:textSize="18sp"
                             style="@style/TEXT"/>
@@ -290,7 +466,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Password: 123"
+                            android:text="@string/password_123"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:layout_marginTop="4dp"
@@ -300,7 +476,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Administrador"
+                                    android:text="@string/administrador"
                                     android:textSize="17sp"
                                     android:layout_marginTop="4dp"
                                     android:layout_marginEnd="16dp"
@@ -342,7 +518,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Username: costa"
+                            android:text="@string/username_costa"
                             android:textStyle="bold"
                             android:textSize="18sp"
                             style="@style/TEXT"/>
@@ -351,7 +527,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Password: 123"
+                            android:text="@string/password_123"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:layout_marginTop="4dp"
@@ -361,7 +537,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Aluno"
+                            android:text="@string/aluno"
                             android:textSize="17sp"
                             android:layout_marginTop="4dp"
                             android:layout_marginEnd="16dp"
