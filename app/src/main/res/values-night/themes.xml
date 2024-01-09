@@ -8,4 +8,12 @@
     <style name="BACKGROUND">
         <item name="backgroundColor">@color/backgroundnightlite</item>
     </style>
+
+    <style name="TEXT">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="BACKGROUNDNAV">
+        <item name="background">@color/background</item>
+    </style>
 </resources>

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:background="@color/backgroundnight">
+        style="@style/BACKGROUND">
 
         <!-- Núcleo de Engenharia Informática do Instituto Politécnico de Tomar -->
 
@@ -33,7 +33,7 @@
             android:layout_below="@id/imgNucleo"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:textColor="@color/white"/>
+            style="@style/TEXT"/>
 
         <!-- Descrição do Núcleo -->
         <TextView
@@ -44,7 +44,7 @@
             android:layout_below="@id/tvSobreNosTitle"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:textColor="@color/white"
+            style="@style/TEXT"
             android:justificationMode="inter_word"/>
 
         <!-- Título "Onde Estamos?" -->
@@ -58,7 +58,7 @@
             android:layout_below="@id/tvNucleoDescription"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:textColor="@color/white"/>
+            style="@style/TEXT"/>
 
         <!-- Texto com a morada -->
         <TextView
@@ -69,7 +69,7 @@
             android:layout_below="@id/tvOndeEstamosTitle"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:textColor="@color/white"/>
+            style="@style/TEXT"/>
 
         <!-- Título "Desenvolvedores" -->
         <TextView
@@ -82,7 +82,7 @@
             android:layout_below="@id/tvMorada"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:textColor="@color/white"/>
+            style="@style/TEXT"/>
 
         <!-- Imagem e Nome do Desenvolvedor 1 - Gonçalo Costa -->
         <LinearLayout
@@ -106,7 +106,7 @@
                 android:text="Gonçalo Costa"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
-                android:textColor="@color/white"/>
+                style="@style/TEXT"/>
         </LinearLayout>
 
         <!-- Imagem e Nome do Desenvolvedor 2 - João Gonçalves -->
@@ -131,7 +131,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
                 android:text="João Gonçalves"
-                android:textColor="@color/white"/>
+                style="@style/TEXT"/>
         </LinearLayout>
 
 

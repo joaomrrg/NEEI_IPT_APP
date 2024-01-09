@@ -10,4 +10,14 @@
     <style name="BACKGROUND">
         <item name="backgroundColor">#FFFFFF</item>
     </style>
+
+    <style name="TEXT">
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="BACKGROUNDNAV">
+        <item name="background">@color/blue</item>
+    </style>
+
+
 </resources>
