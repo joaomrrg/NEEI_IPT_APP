@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import pt.ipt.dam2023.neei_ipt.R
 
@@ -20,13 +21,11 @@ class SettingsViewFragment : Fragment() {
         val switchDarkMode = view.findViewById<Switch>(R.id.switchDarkMode)
 
         switchDarkMode.setOnCheckedChangeListener { buttonView, isChecked ->
-            // Aqui podes executar a lógica quando o estado do Switch muda
+            //lógica quando o estado do Switch muda
             if (isChecked) {
-                // Switch está ligado (modo escuro ativado)
-                // Executar a lógica para o modo escuro
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
-                // Switch está desligado (modo escuro desativado)
-                // Executar a lógica para o modo claro
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
 

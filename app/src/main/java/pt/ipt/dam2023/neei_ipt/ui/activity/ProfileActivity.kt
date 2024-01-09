@@ -12,14 +12,28 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.RequestOptions
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import pt.ipt.dam2023.neei_ipt.R
+import pt.ipt.dam2023.neei_ipt.model.ResponseAPI
+import pt.ipt.dam2023.neei_ipt.model.UpdatePersonRequest
 import pt.ipt.dam2023.neei_ipt.model.User
 import pt.ipt.dam2023.neei_ipt.retrofit.RetrofitInitializer
 import retrofit2.Call
@@ -28,21 +42,12 @@ import retrofit2.Response
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.PrintStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.Scanner
-import androidx.core.content.ContextCompat
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.request.RequestOptions
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import pt.ipt.dam2023.neei_ipt.model.ResponseAPI
-import pt.ipt.dam2023.neei_ipt.model.UpdatePersonRequest
-import java.io.FileOutputStream
-import java.io.PrintStream
 
 
 class ProfileActivity : AppCompatActivity(){
@@ -78,6 +83,8 @@ class ProfileActivity : AppCompatActivity(){
         val image = findViewById<ImageView>(R.id.imageViewProfile)
         // Lista de IDs de elementos a serem editados
         val elementos = listOf(
+            R.id.editTextUsername,
+            R.id.editTextEmail,
             R.id.editTextName,
             R.id.editTextSurname,
             R.id.editTextBirthDate,
@@ -138,8 +145,8 @@ class ProfileActivity : AppCompatActivity(){
                         Toast.makeText(applicationContext, "Perfil atualizado com sucesso.", Toast.LENGTH_LONG).show()
                         elementos.forEach { viewId ->
                             val textView = findViewById<EditText>(viewId)
-                            textView.setHintTextColor(Color.BLACK)
-                            textView.setTextColor(Color.BLACK)
+                            textView.setHintTextColor(Color.GRAY)
+                            textView.setTextColor(Color.GRAY)
                             textView.isEnabled = false
                             buttConfirmar.isEnabled = false
                             buttConfirmar.setBackgroundColor(night)
@@ -169,8 +176,8 @@ class ProfileActivity : AppCompatActivity(){
                                 ).show()
                                 elementos.forEach { viewId ->
                                     val textView = findViewById<EditText>(viewId)
-                                    textView.setHintTextColor(Color.BLACK)
-                                    textView.setTextColor(Color.BLACK)
+                                    textView.setHintTextColor(Color.GRAY)
+                                    textView.setTextColor(Color.GRAY)
                                     textView.isEnabled = false
                                     buttConfirmar.isEnabled = false
                                     buttConfirmar.setBackgroundColor(night)
@@ -241,10 +248,14 @@ class ProfileActivity : AppCompatActivity(){
             if (result != null) {
                 // Carregar todas as informações para os elementos da interface
                 usernameText.setText(result!!.username)
+                usernameText.setTextColor(Color.GRAY)
                 displayName = result.username.toString()
                 emailText.setText(result.email)
+                emailText.setTextColor(Color.GRAY)
                 nameText.setText(result.person!!.name)
+                nameText.setTextColor(Color.GRAY)
                 surnameText.setText(result.person.surname)
+                surnameText.setTextColor(Color.GRAY)
                 val birthDate = result.person.birthDate
                 if (birthDate != null) {
                     val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())

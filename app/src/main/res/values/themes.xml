@@ -6,4 +6,8 @@
     </style>
 
     <style name="Theme.NEEI_IPT" parent="Base.Theme.NEEI_IPT" />
+
+    <style name="BACKGROUND">
+        <item name="backgroundColor">#FFFFFF</item>
+    </style>
 </resources>
