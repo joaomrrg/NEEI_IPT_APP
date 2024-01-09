@@ -37,7 +37,7 @@
         android:layout_marginTop="21dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/cli_background"
+        style="@style/ITEM"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:text="guest@neei:/home/guest$"
-                android:textColor="@color/white" />
+                style="@style/TEXT"/>
 
             <!-- Adicione um EditText para mostrar a saída -->
             <EditText
@@ -65,7 +65,7 @@
                 android:background="@color/transparent"
                 android:hint="try me"
                 android:inputType="text"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textColorHint="@android:color/darker_gray"
                 android:textSize="15dp" />
         </LinearLayout>

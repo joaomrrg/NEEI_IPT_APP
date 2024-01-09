@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/backgroundnightlite">
+    style="@style/BACK">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,14 +18,14 @@
         android:textSize="20sp"
         android:layout_weight="1"
         android:layout_marginStart="16dp"
-        android:textColor="@color/white"/><!-- Lista de Documentos -->
+        style="@style/TEXT"/><!-- Lista de Documentos -->
 
         <ImageView
             android:id="@+id/addDocument"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_marginRight="20dp"
-            android:src="@drawable/ic_add">
+            style="@style/ICON_ADD">
 
         </ImageView>
 

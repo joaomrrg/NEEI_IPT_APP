@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/backgroundnight"
+    style="@style/BACK"
     android:gravity="center_horizontal">
 
     <TextView
@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Saldo NEEI"
-        android:textColor="@color/white"
+        style="@style/TEXT"
         android:textSize="20dp"/>
 
     <LinearLayout
@@ -26,14 +26,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textColor="@color/white"
+            style="@style/TEXT"
             android:textSize="60dp"/>
         <TextView
             android:id="@+id/euro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="€"
-            android:textColor="@color/white"
+            style="@style/TEXT"
             android:textSize="60dp"/>
 
     </LinearLayout>
@@ -43,7 +43,7 @@
         android:layout_marginTop="5dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/ic_show" />
+        style="@style/ICON_SHOW"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -79,15 +79,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clickable="true"
-                    android:src="@android:drawable/ic_input_add"
                     style="@style/mainfloating"
-                    android:backgroundTint="@color/white" />
+                    />
             </FrameLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Adicionar Movimentos"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textAlignment="center"
                 android:textSize="14dp"/>
         </LinearLayout>
@@ -112,7 +111,7 @@
         android:layout_height="wrap_content"
         android:dividerHeight="1dp"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@color/backgroundnight"
+        style="@style/BACK"
         android:layout_margin="10dp"/>
 
 </LinearLayout>

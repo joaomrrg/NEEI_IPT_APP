@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    style="@style/BACKGROUND">
+    style="@style/BACK">
 
     <TextView
         android:layout_width="wrap_content"
@@ -16,13 +16,13 @@
         android:layout_marginTop="10dp"
         android:text="Direção"
         android:textSize="20dp"
-        android:textColor="@color/white"
+        style="@style/TEXT"
         android:layout_gravity="center"
         />
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:src="@drawable/underline"
+        style="@style/UNDERLINE"
         android:layout_margin="10dp"/>
 
     <LinearLayout
@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="João Gonçalves"
-        android:textColor="@color/white"
+        style="@style/TEXT"
         android:textAlignment="center"/>
 
         <TextView
@@ -69,12 +69,12 @@
                 android:id="@+id/inJoao"
                 android:layout_width="30dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_linkedin"/>
+                style="@style/ICON_IN"/>
             <ImageView
                 android:id="@+id/gitJoao"
                 android:layout_width="30dp"
                 android:layout_height="22dp"
-                android:src="@drawable/ic_github"/>
+                style="@style/ICON_GIT"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Miguel Pereira"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
@@ -119,12 +119,12 @@
                     android:id="@+id/gitMiguel"
                     android:layout_width="30dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_github"/>
+                    style="@style/ICON_GIT"/>
                 <ImageView
                     android:id="@+id/instaMiguel"
                     android:layout_width="30dp"
                     android:layout_height="22dp"
-                    android:src="@drawable/ic_instagram"/>
+                    style="@style/ICON_INSTA"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -153,7 +153,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Gonçalo Costa"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
@@ -174,12 +174,12 @@
                     android:id="@+id/inGoncalo"
                     android:layout_width="30dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_linkedin"/>
+                    style="@style/ICON_IN"/>
                 <ImageView
                     android:id="@+id/gitGoncalo"
                     android:layout_width="30dp"
                     android:layout_height="22dp"
-                    android:src="@drawable/ic_github"/>
+                    style="@style/ICON_GIT"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -203,7 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tiago Cardoso"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
@@ -224,12 +224,12 @@
                     android:id="@+id/inTiago"
                     android:layout_width="30dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_linkedin"/>
+                    style="@style/ICON_IN"/>
                 <ImageView
                     android:id="@+id/gitTiago"
                     android:layout_width="30dp"
                     android:layout_height="22dp"
-                    android:src="@drawable/ic_github"/>
+                    style="@style/ICON_GIT"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -258,7 +258,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Gonçalo Barbosa"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
@@ -279,12 +279,12 @@
                     android:id="@+id/gitBarbosa"
                     android:layout_width="30dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_github"/>
+                    style="@style/ICON_GIT"/>
                 <ImageView
                     android:id="@+id/instaBarbosa"
                     android:layout_width="30dp"
                     android:layout_height="22dp"
-                    android:src="@drawable/ic_instagram"/>
+                    style="@style/ICON_INSTA"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -308,7 +308,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Filipe Simões"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
@@ -329,12 +329,12 @@
                     android:id="@+id/gitFilipe"
                     android:layout_width="30dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_github"/>
+                    style="@style/ICON_GIT"/>
                 <ImageView
                     android:id="@+id/instaFilipe"
                     android:layout_width="30dp"
                     android:layout_height="22dp"
-                    android:src="@drawable/ic_instagram"/>
+                    style="@style/ICON_INSTA"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -357,7 +357,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Guilherme Aires"
-            android:textColor="@color/white"
+            style="@style/TEXT"
             android:textAlignment="center"/>
 
         <TextView
@@ -377,12 +377,12 @@
                 android:id="@+id/gitGuilherme"
                 android:layout_width="30dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_github"/>
+                style="@style/ICON_GIT"/>
             <ImageView
                 android:id="@+id/instaGuilherme"
                 android:layout_width="30dp"
                 android:layout_height="22dp"
-                android:src="@drawable/ic_instagram"/>
+                style="@style/ICON_INSTA"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -392,13 +392,13 @@
         android:layout_marginTop="50dp"
         android:text="Assembleia Geral"
         android:textSize="20dp"
-        android:textColor="@color/white"
+        style="@style/TEXT"
         android:layout_gravity="center"
         />
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:src="@drawable/underline"
+        style="@style/UNDERLINE"
         android:layout_margin="10dp"/>
 
 
@@ -426,7 +426,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Gonçalo Costa"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
@@ -457,7 +457,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Gonçalo Barbosa"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
@@ -494,7 +494,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Filipe Simões"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
@@ -517,13 +517,13 @@
         android:layout_marginTop="50dp"
         android:text="Conselho Fiscal"
         android:textSize="20dp"
-        android:textColor="@color/white"
+        style="@style/TEXT"
         android:layout_gravity="center"
         />
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:src="@drawable/underline"
+        style="@style/UNDERLINE"
         android:layout_margin="10dp"/>
 
 
@@ -551,7 +551,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tiago Cardoso"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
@@ -581,7 +581,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Guilherme Aires"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
@@ -618,7 +618,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Filipe Simões"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView
@@ -648,7 +648,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Miguel Pereira"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textAlignment="center"/>
 
             <TextView

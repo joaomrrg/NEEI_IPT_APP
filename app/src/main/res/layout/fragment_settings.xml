@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/backgroundnight"
+    style="@style/BACK"
     android:padding="16dp">
 
     <TextView
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Definições"
         android:textSize="24sp"
-        android:textColor="@color/white"
+        style="@style/TEXT"
         android:paddingBottom="16dp"/>
 
     <LinearLayout
@@ -28,15 +28,14 @@
             android:layout_weight="1"
             android:text="Modo Escuro"
             android:textSize="16sp"
-            android:textColor="@color/white"/>
+            style="@style/TEXT"/>
 
         <Switch
             android:id="@+id/switchDarkMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:thumbTint="@color/white"
-            android:trackTint="@color/white"/>
+            style="@style/SWITCH"/>
     </LinearLayout>
 
 

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/backgroundnight">
+        style="@style/BACK">
 
         <!-- Núcleo de Engenharia Informática do Instituto Politécnico de Tomar -->
 
@@ -46,19 +46,19 @@
             android:textSize="20sp"
             android:text="Licenciatura Engenharia Informática"
             android:textStyle="bold"
-            android:textColor="@color/white"
+            style="@style/TEXT"
             android:layout_marginTop="30dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Desenvolvimento de Aplicações Móveis"
-            android:textColor="@color/white"
+            style="@style/TEXT"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2023/2024"
-            android:textColor="@color/white"
+            style="@style/TEXT"
             />
     </LinearLayout>
 
@@ -89,12 +89,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Gonçalo Costa"
-                android:textColor="@color/white"/>
+                style="@style/TEXT"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="23692"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 />
 
         </LinearLayout>
@@ -119,13 +119,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="João Gonçalves"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="23882"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 />
         </LinearLayout>
         </LinearLayout>
@@ -141,7 +141,7 @@
             android:textSize="18sp"
             android:text="Bibliotecas Adicionais Usadas"
             android:textStyle="bold"
-            android:textColor="@color/white"
+            style="@style/TEXT"
             android:layout_marginTop="50dp"/>
 
             <LinearLayout
@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp"
-                android:background="@drawable/cli_background"
+                style="@style/ITEM"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="30dp">
 
@@ -177,7 +177,7 @@
                             android:text="CompactCalendarView"
                             android:textStyle="bold"
                             android:textSize="18sp"
-                            android:textColor="@color/white"/>
+                            style="@style/TEXT"/>
 
                         <!-- Descrição do Documento -->
                         <TextView
@@ -186,7 +186,7 @@
                             android:text="SundeepK"
                             android:textSize="14sp"
                             android:layout_marginTop="4dp"
-                            android:textColor="@color/white"/>
+                            style="@style/TEXT"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -201,7 +201,7 @@
                                     android:textSize="17sp"
                                     android:layout_marginTop="4dp"
                                     android:layout_marginEnd="16dp"
-                                    android:textColor="@color/white"/>
+                                    style="@style/TEXT"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -213,7 +213,7 @@
                                     android:id="@+id/gitBttn"
                                     android:layout_width="25dp"
                                     android:layout_height="25dp"
-                                    android:src="@drawable/ic_github"
+                                    style="@style/ICON_GIT"
                                     android:contentDescription="Download"
                                     android:layout_gravity="bottom"
                                     android:layout_marginTop="4dp" />
@@ -225,7 +225,7 @@
                             android:id="@+id/underlineBackgroundImage"
                             android:layout_width="match_parent"
                             android:layout_height="10dp"
-                            android:src="@drawable/underline"
+                            style="@style/UNDERLINE"
                             android:layout_marginTop="10dp">
                         </ImageView>
                     </LinearLayout>
@@ -246,7 +246,7 @@
                 android:textSize="20sp"
                 android:text="Utilizadores"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:layout_marginTop="30dp"/>
 
             <LinearLayout
@@ -255,7 +255,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp"
-                android:background="@drawable/cli_background"
+                style="@style/ITEM"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp">
 
@@ -284,7 +284,7 @@
                             android:text="Username: jmrrg"
                             android:textStyle="bold"
                             android:textSize="18sp"
-                            android:textColor="@color/white"/>
+                            style="@style/TEXT"/>
 
                         <!-- Descrição do Documento -->
                         <TextView
@@ -294,7 +294,7 @@
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:layout_marginTop="4dp"
-                            android:textColor="@color/white"/>
+                            style="@style/TEXT"/>
 
                                 <!-- Data do Documento -->
                                 <TextView
@@ -304,7 +304,7 @@
                                     android:textSize="17sp"
                                     android:layout_marginTop="4dp"
                                     android:layout_marginEnd="16dp"
-                                    android:textColor="@color/white"/>
+                                    style="@style/TEXT"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -316,7 +316,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp"
-                android:background="@drawable/cli_background"
+                style="@style/ITEM"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp">
 
@@ -345,7 +345,7 @@
                             android:text="Username: costa"
                             android:textStyle="bold"
                             android:textSize="18sp"
-                            android:textColor="@color/white"/>
+                            style="@style/TEXT"/>
 
                         <!-- Descrição do Documento -->
                         <TextView
@@ -355,7 +355,7 @@
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:layout_marginTop="4dp"
-                            android:textColor="@color/white"/>
+                            style="@style/TEXT"/>
 
                         <!-- Data do Documento -->
                         <TextView
@@ -365,7 +365,7 @@
                             android:textSize="17sp"
                             android:layout_marginTop="4dp"
                             android:layout_marginEnd="16dp"
-                            android:textColor="@color/white"/>
+                            style="@style/TEXT"/>
                     </LinearLayout>
                 </LinearLayout>
 

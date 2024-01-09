@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@drawable/cli_background"
+    style="@style/ITEM"
     android:layout_marginBottom="20dp">
 
     <LinearLayout
@@ -32,7 +32,7 @@
         android:text="Nome do Utilizador"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:textColor="@color/white"/>
+        style="@style/TEXT"/>
 
     <!-- Descrição do Documento -->
     <TextView
@@ -42,7 +42,7 @@
         android:text="Grupo"
         android:textSize="14sp"
         android:layout_marginTop="4dp"
-        android:textColor="@color/white"/>
+        style="@style/TEXT"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,7 +62,7 @@
         android:textSize="17sp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
-        android:textColor="@color/white"/>
+        style="@style/TEXT"/>
     </LinearLayout>
 
         <LinearLayout
@@ -75,7 +75,7 @@
                 android:id="@+id/editButton"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_edit_file"
+                style="@style/ICON_DOWN"
                 android:contentDescription="Download"
                 android:layout_gravity="end"
                 android:layout_marginTop="4dp" />
@@ -87,7 +87,7 @@
         android:id="@+id/underlineBackgroundImage"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:src="@drawable/underline"
+        style="@style/UNDERLINE"
         android:layout_marginTop="10dp">
     </ImageView>
     </LinearLayout>

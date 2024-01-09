@@ -6,14 +6,96 @@
     </style>
 
     <style name="BACKGROUND">
-        <item name="backgroundColor">@color/backgroundnightlite</item>
+        <item name="android:background">@color/backgroundnight</item>
+    </style>
+
+    <style name="BACK">
+        <item name="android:background">@color/backgroundnightlite</item>
+    </style>
+
+    <style name="BACK2">
+        <item name="android:background">@color/backgroundnight</item>
+    </style>
+
+    <style name="BACK3">
+        <item name="android:background">@color/backgroundnight</item>
+    </style>
+
+    <style name="BACKGROUND2">
+        <item name="backgroundColor">@color/backgroundnight</item>
+    </style>
+
+    <style name="ITEM">
+        <item name="android:background">@drawable/cli_background</item>
     </style>
 
     <style name="TEXT">
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
-    <style name="BACKGROUNDNAV">
-        <item name="background">@color/background</item>
+    <style name="TEXT2">
+        <item name="android:textColor">#000000</item>
     </style>
+
+    <style name="BACKGROUNDNAV">
+        <item name="android:background">@color/blue</item>
+    </style>
+
+    <style name="BACKGROUNDTRANSBLUE">
+        <item name="android:background">@drawable/cli_background</item>
+    </style>
+
+    <style name="INPUT">
+        <item name="android:backgroundTint">@color/backgroundnight</item>
+        <item name="android:textColorHint">#fff</item>
+    </style>
+
+    <style name="CALENDAR">
+        <item name="compactCalendarBackgroundColor">@color/backgroundnightlite</item>
+        <item name="compactCalendarTextColor">@color/white</item>
+    </style>
+
+    <style name="ICON_ADD">
+        <item name="android:src">@drawable/ic_add</item>
+    </style>
+
+    <style name="ICON_SHOW">
+        <item name="android:src">@drawable/ic_show</item>
+    </style>
+
+    <style name="ICON_TRASH">
+        <item name="android:src">@drawable/ic_trash</item>
+    </style>
+
+    <style name="ICON_DOWN">
+        <item name="android:src">@drawable/ic_downloads</item>
+    </style>
+
+    <style name="ICON_GIT">
+        <item name="android:src">@drawable/ic_github</item>
+    </style>
+
+    <style name="ICON_IN">
+        <item name="android:src">@drawable/ic_linkedin</item>
+    </style>
+
+    <style name="ICON_INSTA">
+        <item name="android:src">@drawable/ic_instagram</item>
+    </style>
+
+    <style name="UNDERLINE">
+        <item name="android:src">@drawable/underline</item>
+    </style>
+
+    <style name="mainfloating" parent="Widget.Design.FloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/floatingbutton</item>
+        <item name="android:backgroundTint">#fff</item>
+        <item name="android:src">@drawable/ic_plus_black</item>
+    </style>
+
+    <style name="SWITCH">
+        <item name="android:thumbTint">#fff</item>
+        <item name="android:trackTint">#fff</item>
+    </style>
+
 </resources>

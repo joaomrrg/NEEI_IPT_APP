@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.DocumentAddActivity"
-    android:background="@color/backgroundnight"
+    style="@style/BACK2"
     android:orientation="vertical">
 
     <TextView
@@ -35,8 +35,7 @@
         android:background="@drawable/input"
         android:hint="Descrição"
         android:paddingLeft="20dp"
-        android:backgroundTint="@color/backgroundnightlite"
-        android:textColorHint="@color/white" />
+        style="@style/INPUT" />
 
     <EditText
         android:id="@+id/valueText"
@@ -49,21 +48,19 @@
         android:inputType="numberDecimal"
         android:paddingLeft="20dp"
 
-        android:backgroundTint="@color/backgroundnightlite"
-        android:textColorHint="@color/white" />
+        style="@style/INPUT" />
 
         <EditText
             android:id="@+id/dateText"
-            style="@style/Widget.AppCompat.AutoCompleteTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:background="@drawable/input"
-            android:backgroundTint="@color/backgroundnightlite"
+
             android:hint="Data (formato dd/MM/yyyy)"
             android:paddingLeft="20dp"
-            android:textColorHint="@color/white" />
+            style="@style/INPUT" />
 
         <!-- Adição do grupo de RadioButtons -->
         <RadioGroup
@@ -78,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tipo de Movimento:"
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:gravity="center"
                 android:padding="10dp"
                 />
@@ -88,14 +85,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Gasto"
-                android:textColor="@color/white" />
+                style="@style/TEXT" />
 
             <RadioButton
                 android:id="@+id/radioIncome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ganho"
-                android:textColor="@color/white" />
+                style="@style/TEXT" />
         </RadioGroup>
 
     </LinearLayout>

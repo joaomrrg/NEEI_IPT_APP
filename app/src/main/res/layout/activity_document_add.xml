@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.DocumentAddActivity"
-    android:background="@color/backgroundnight"
+    style="@style/BACK"
     android:orientation="vertical">
 
     <TextView
@@ -35,8 +35,7 @@
         android:background="@drawable/input"
         android:hint="Titulo"
         android:paddingLeft="20dp"
-        android:backgroundTint="@color/backgroundnightlite"
-        android:textColorHint="@color/white" />
+        style="@style/INPUT"/>
 
     <EditText
         android:id="@+id/descriptionText"
@@ -47,22 +46,18 @@
         android:background="@drawable/input"
         android:hint="Descrição"
         android:paddingLeft="20dp"
-
-        android:backgroundTint="@color/backgroundnightlite"
-        android:textColorHint="@color/white" />
+        style="@style/INPUT" />
 
         <EditText
             android:id="@+id/dateText"
-            style="@style/Widget.AppCompat.AutoCompleteTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:background="@drawable/input"
-            android:backgroundTint="@color/backgroundnightlite"
+            style="@style/INPUT"
             android:hint="Data (formato dd/MM/yyyy)"
-            android:paddingLeft="20dp"
-            android:textColorHint="@color/white" />
+            android:paddingLeft="20dp"/>
 
         <Button
         android:id="@+id/addDocumentButton"
@@ -79,7 +74,7 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            style="@style/TEXT"
             android:text=""
             android:layout_weight="2"
             />

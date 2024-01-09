@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/activity_add_event_neei"
-    android:background="@color/backgroundnight">
+    style="@style/BACK">
 
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/calendar_nav"
+        style="@style/BACKGROUND"
         android:layout_gravity="center"
         android:gravity="center">
 
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Eventos"
-            android:textColor="@color/white"
+            style="@style/TEXT"
             android:textSize="25dp"
             android:gravity="center"
             android:padding="10dp"
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="NEEI"
-            android:textColor="@color/white"
+            style="@style/TEXT"
             android:textSize="25dp"
             android:gravity="center"
             />
@@ -50,7 +50,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/calendar_nav"
+        style="@style/BACK"
         android:layout_gravity="center"
         android:gravity="center">
 
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text=""
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textSize="25dp"
                 android:gravity="center"
                 android:padding="10dp"
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text=""
-                android:textColor="@color/white"
+                style="@style/TEXT"
                 android:textSize="25dp"
                 android:gravity="center"
                 />
@@ -92,8 +92,7 @@
         android:layout_height="250dp"
         app:compactCalendarTargetHeight="250dp"
         app:compactCalendarTextSize="15sp"
-        app:compactCalendarBackgroundColor="@color/backgroundnight"
-        app:compactCalendarTextColor="#fff"
+        style="@style/CALENDAR"
         app:compactCalendarCurrentSelectedDayBackgroundColor="@color/blue"
         app:compactCalendarCurrentDayBackgroundColor="#B71C1C"
         app:compactCalendarMultiEventIndicatorColor="#fff"
