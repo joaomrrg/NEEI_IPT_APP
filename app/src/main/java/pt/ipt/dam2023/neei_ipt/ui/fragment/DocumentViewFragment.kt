@@ -23,7 +23,7 @@ import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.util.Scanner
 
-class DocumentFragment : Fragment() {
+class DocumentViewFragment : Fragment() {
     // Variável que guarda o ponteiro para a ListView de documentos
     private lateinit var listView: ListView
     override fun onCreateView(

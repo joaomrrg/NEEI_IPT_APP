@@ -21,6 +21,14 @@ class SettingsViewFragment : Fragment() {
 
         val switchDarkMode = view.findViewById<Switch>(R.id.switchDarkMode)
 
+        // Verifica se o Night Mode está ativado
+        val isNightModeOn = when (AppCompatDelegate.getDefaultNightMode()) {
+            AppCompatDelegate.MODE_NIGHT_YES -> true
+            else -> false
+        }
+        if (isNightModeOn){
+            switchDarkMode.isChecked = true
+        }
         switchDarkMode.setOnCheckedChangeListener { buttonView, isChecked ->
             //lógica quando o estado do Switch muda
             setNightMode(isChecked)

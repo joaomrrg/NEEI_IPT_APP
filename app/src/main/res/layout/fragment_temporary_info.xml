@@ -214,7 +214,7 @@
                                     android:layout_width="25dp"
                                     android:layout_height="25dp"
                                     style="@style/ICON_GIT"
-                                    android:contentDescription="Download"
+                                    android:contentDescription="@string/download"
                                     android:layout_gravity="bottom"
                                     android:layout_marginTop="4dp" />
                             </LinearLayout>
@@ -303,7 +303,7 @@
                                     android:layout_width="25dp"
                                     android:layout_height="25dp"
                                     style="@style/ICON_GIT"
-                                    android:contentDescription="Download"
+                                    android:contentDescription="@string/download"
                                     android:layout_gravity="bottom"
                                     android:layout_marginTop="4dp" />
                             </LinearLayout>
@@ -391,7 +391,7 @@
                                     android:layout_width="25dp"
                                     android:layout_height="25dp"
                                     style="@style/ICON_GIT"
-                                    android:contentDescription="Download"
+                                    android:contentDescription="@string/download"
                                     android:layout_gravity="bottom"
                                     android:layout_marginTop="4dp" />
                             </LinearLayout>

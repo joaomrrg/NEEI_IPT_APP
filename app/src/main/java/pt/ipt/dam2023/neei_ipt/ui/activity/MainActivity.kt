@@ -1,9 +1,9 @@
 package pt.ipt.dam2023.neei_ipt.ui.activity
 
+import DocumentViewFragment
 import pt.ipt.dam2023.neei_ipt.ui.fragment.AboutUsViewFragment
 import pt.ipt.dam2023.neei_ipt.ui.fragment.BalanceViewFragment
 import pt.ipt.dam2023.neei_ipt.ui.fragment.CalendarViewFragment
-import DocumentFragment
 import pt.ipt.dam2023.neei_ipt.ui.fragment.HomeViewFragment
 import pt.ipt.dam2023.neei_ipt.ui.fragment.NoteViewFragment
 import pt.ipt.dam2023.neei_ipt.ui.fragment.SettingsViewFragment
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         // Lógica para substituir o fragmento conforme necessário
         if (fragmentToShow == "DocumentFragment") {
-            val documentFragment = DocumentFragment()
+            val documentFragment = DocumentViewFragment()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, documentFragment)
                 .commit()
@@ -204,7 +204,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .commit()
             }
             R.id.nav_documentacao -> {
-                val documentsFragment = DocumentFragment() // Create an instance of your pt.ipt.dam2023.neei_ipt.ui.fragment.AboutUsViewFragment
+                val documentsFragment = DocumentViewFragment() // Create an instance of your pt.ipt.dam2023.neei_ipt.ui.fragment.AboutUsViewFragment
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, documentsFragment)
                     .commit()

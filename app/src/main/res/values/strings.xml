@@ -120,4 +120,5 @@
     <string name="retrofit">Retrofit</string>
     <string name="quare">quare</string>
     <string name="retrofit_justificacao">Biblioteca usada para funcionalidades da API</string>
+    <string name="download">Download</string>
 </resources>
