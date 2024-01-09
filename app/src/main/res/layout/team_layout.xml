@@ -71,6 +71,7 @@
                 android:layout_height="20dp"
                 android:src="@drawable/ic_linkedin"/>
             <ImageView
+                android:id="@+id/gitJoao"
                 android:layout_width="30dp"
                 android:layout_height="22dp"
                 android:src="@drawable/ic_github"/>
@@ -115,11 +116,12 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/inMiguel"
+                    android:id="@+id/gitMiguel"
                     android:layout_width="30dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_linkedin"/>
+                    android:src="@drawable/ic_github"/>
                 <ImageView
+                    android:id="@+id/instaMiguel"
                     android:layout_width="30dp"
                     android:layout_height="22dp"
                     android:src="@drawable/ic_instagram"/>
@@ -174,6 +176,7 @@
                     android:layout_height="20dp"
                     android:src="@drawable/ic_linkedin"/>
                 <ImageView
+                    android:id="@+id/gitGoncalo"
                     android:layout_width="30dp"
                     android:layout_height="22dp"
                     android:src="@drawable/ic_github"/>
@@ -223,6 +226,7 @@
                     android:layout_height="20dp"
                     android:src="@drawable/ic_linkedin"/>
                 <ImageView
+                    android:id="@+id/gitTiago"
                     android:layout_width="30dp"
                     android:layout_height="22dp"
                     android:src="@drawable/ic_github"/>
@@ -272,11 +276,12 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/inBarbosa"
+                    android:id="@+id/gitBarbosa"
                     android:layout_width="30dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_linkedin"/>
+                    android:src="@drawable/ic_github"/>
                 <ImageView
+                    android:id="@+id/instaBarbosa"
                     android:layout_width="30dp"
                     android:layout_height="22dp"
                     android:src="@drawable/ic_instagram"/>
@@ -321,11 +326,12 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/inFilipe"
+                    android:id="@+id/gitFilipe"
                     android:layout_width="30dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_linkedin"/>
+                    android:src="@drawable/ic_github"/>
                 <ImageView
+                    android:id="@+id/instaFilipe"
                     android:layout_width="30dp"
                     android:layout_height="22dp"
                     android:src="@drawable/ic_instagram"/>
@@ -368,11 +374,12 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/inGuilherme"
+                android:id="@+id/gitGuilherme"
                 android:layout_width="30dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_linkedin"/>
+                android:src="@drawable/ic_github"/>
             <ImageView
+                android:id="@+id/instaGuilherme"
                 android:layout_width="30dp"
                 android:layout_height="22dp"
                 android:src="@drawable/ic_instagram"/>

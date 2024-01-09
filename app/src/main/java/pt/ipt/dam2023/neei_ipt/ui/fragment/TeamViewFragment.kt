@@ -45,11 +45,18 @@ class TeamViewFragment : Fragment() {
         val anotherMiguel1 =view.findViewById<ImageView>(R.id.anotherMiguel1)
         val inJoao = view.findViewById<ImageView>(R.id.inJoao)
         val inGoncalo = view.findViewById<ImageView>(R.id.inGoncalo)
-        val inBarbosa = view.findViewById<ImageView>(R.id.inBarbosa)
-        val inMiguel = view.findViewById<ImageView>(R.id.inMiguel)
+        val gitBarbosa = view.findViewById<ImageView>(R.id.gitBarbosa)
+        val gitMiguel = view.findViewById<ImageView>(R.id.gitMiguel)
         val inTiago = view.findViewById<ImageView>(R.id.inTiago)
-        val inFilipe = view.findViewById<ImageView>(R.id.inFilipe)
-        val inGuilherme = view.findViewById<ImageView>(R.id.inGuilherme)
+        val gitFilipe = view.findViewById<ImageView>(R.id.gitFilipe)
+        val gitGuilherme = view.findViewById<ImageView>(R.id.gitGuilherme)
+        val gitJoao = view.findViewById<ImageView>(R.id.gitJoao)
+        val gitGoncalo = view.findViewById<ImageView>(R.id.gitGoncalo)
+        val gitTiago = view.findViewById<ImageView>(R.id.gitTiago)
+        val instaGuilherme = view.findViewById<ImageView>(R.id.instaGuilherme)
+        val instaFilipe = view.findViewById<ImageView>(R.id.instaFilipe)
+        val instaMiguel = view.findViewById<ImageView>(R.id.instaMiguel)
+        val instaBarbosa = view.findViewById<ImageView>(R.id.instaBarbosa)
 
         // Carregas as imagens para os respetivos ImageView
         loadImageView(joao, imageJoao)
@@ -65,33 +72,73 @@ class TeamViewFragment : Fragment() {
         loadImageView(miguel, imageMiguel)
         loadImageView(miguel, anotherMiguel1)
 
-        // Evento de Mouse Click nos icones de github de cada membro
+        // Evento de Mouse Click nos icones de cada membro
         inJoao.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.linkedInJoao)))
+            startActivity(intent)
+        }
+        gitJoao.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubJoao)))
             startActivity(intent)
         }
-        inMiguel.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubMiguel)))
-            startActivity(intent)
-        }
-        inTiago.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubTiago)))
-            startActivity(intent)
-        }
-        inBarbosa.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubBarbosa)))
-            startActivity(intent)
-        }
-        inFilipe.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubFilipe)))
-            startActivity(intent)
-        }
+
+
         inGoncalo.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.linkedInGoncalo)))
+            startActivity(intent)
+        }
+        gitGoncalo.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubGoncalo)))
             startActivity(intent)
         }
-        inGuilherme.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubJoao)))
+
+
+        inTiago.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.linkedInTiago)))
+            startActivity(intent)
+        }
+        gitTiago.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubTiago)))
+            startActivity(intent)
+        }
+
+
+        gitBarbosa.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubBarbosa)))
+            startActivity(intent)
+        }
+        instaBarbosa.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.instagramBarbosa)))
+            startActivity(intent)
+        }
+
+
+        gitGuilherme.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubGuilherme)))
+            startActivity(intent)
+        }
+        instaGuilherme.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.instagramGuilherme)))
+            startActivity(intent)
+        }
+
+
+        gitFilipe.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubFilipe)))
+            startActivity(intent)
+        }
+        instaFilipe.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.instagramFilipe)))
+            startActivity(intent)
+        }
+
+
+        gitMiguel.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubMiguel)))
+            startActivity(intent)
+        }
+        instaMiguel.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.instagramMiguel)))
             startActivity(intent)
         }
 

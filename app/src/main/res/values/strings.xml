@@ -2,7 +2,6 @@
     <string name="app_name">NEEI_IPT</string>
     <string name="open_menu">Abrir Menu de Navegação</string>
     <string name="close_menu">Fechar Menu de Navegação</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="textoNEII">Bem-vindos ao Núcleo de Engenharia Informática do Instituto Politécnico de Tomar! Somos uma comunidade dedicada à paixão pela tecnologia, inovação e colaboração.\n\nApós um período de breve inatividade, estamos empolgados em anunciar a nossa reabertura. Este núcleo tem como missão proporcionar um ambiente onde estudantes, ex-alunos e entusiastas de Engenharia Informática possam reunir-se, partilhar conhecimentos e participar em projetos e iniciativas do núcleo.\n\nEstamos comprometidos em oferecer oportunidades de aprendizagem prática, incentivar a criatividade e promover a excelência académica. Junta-te a nós enquanto exploramos as vastas possibilidades da Engenharia Informática e construímos uma comunidade forte e inclusiva. Estamos ansiosos para embarcar nesta jornada de descoberta e crescimento juntos!</string>
     <string name="githubJoao">https://github.com/joaomrrg</string>
@@ -13,5 +12,11 @@
     <string name="githubBarbosa">https://github.com/PabloHatesTacos</string>
     <string name="githubGuilherme">https://github.com/gfmcosta</string>
     <string name="githubLibrary">https://github.com/SundeepK/CompactCalendarView</string>
-
+    <string name="linkedInJoao">https://www.linkedin.com/in/joão-gonçalves-3653b7257</string>
+    <string name="linkedInGoncalo">https://www.linkedin.com/in/-goncalocosta-/</string>
+    <string name="linkedInTiago">https://www.linkedin.com/in/tiago-cardoso-a079aa264/</string>
+    <string name="instagramMiguel">https://www.instagram.com/sebastiao_09?igsh=MWFpbHE0MGZsbHVrYg==</string>
+    <string name="instagramFilipe">https://www.instagram.com/_felps02?igsh=Y291aXRoNDdxeWZu</string>
+    <string name="instagramBarbosa">https://www.instagram.com/gonzalo_barbozza?igsh=MXBtNDlqbG4zc3Bwag==</string>
+    <string name="instagramGuilherme">https://www.instagram.com/guilherme_aires10?igsh=MXR2azF1NG1tdDRjbg==</string>
 </resources>
