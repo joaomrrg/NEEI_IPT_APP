@@ -22,6 +22,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -103,15 +104,28 @@ class ProfileActivity : AppCompatActivity(){
 
         // Ação ao clicar no botão Editar
         buttEditar.setOnClickListener {
-            elementos.forEach { viewId ->
-                val textView = findViewById<EditText>(viewId)
-                textView.setHintTextColor(Color.WHITE)
-                textView.setTextColor(Color.WHITE)
-                textView.isEnabled = true
-                buttConfirmar.isEnabled = true
-                buttConfirmar.setBackgroundColor(azul)
-                buttEditar.isEnabled = false
-                buttEditar.setBackgroundColor(night)
+            if (AppCompatDelegate.getDefaultNightMode().equals(AppCompatDelegate.MODE_NIGHT_YES)) {
+                elementos.forEach { viewId ->
+                    val textView = findViewById<EditText>(viewId)
+                    textView.setHintTextColor(Color.WHITE)
+                    textView.setTextColor(Color.WHITE)
+                    textView.isEnabled = true
+                    buttConfirmar.isEnabled = true
+                    buttConfirmar.setBackgroundColor(azul)
+                    buttEditar.isEnabled = false
+                    buttEditar.setBackgroundColor(night)
+                }
+            } else {
+                elementos.forEach { viewId ->
+                    val textView = findViewById<EditText>(viewId)
+                    textView.setHintTextColor(Color.BLACK)
+                    textView.setTextColor(Color.BLACK)
+                    textView.isEnabled = true
+                    buttConfirmar.isEnabled = true
+                    buttConfirmar.setBackgroundColor(azul)
+                    buttEditar.isEnabled = false
+                    buttEditar.setBackgroundColor(night)
+                }
             }
         }
 
